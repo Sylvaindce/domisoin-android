@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Domisoin</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="api_url">https://domisoin-beta.herokuapp.com/api/</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="save_account">email</string>
+    <string name="save_password">password</string>
+</resources>

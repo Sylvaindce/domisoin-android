@@ -1,0 +1,302 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.sylvain.domisoin.DataBind.userInfo" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ourWhite"
+        tools:context=".Fragments.AccountFragment">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:id="@+id/show_contact_bottomArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_weight="1.5"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:fillViewport="true"
+                    android:layout_weight="8.5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="0dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="80dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:textColor="#000000"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:textSize="24sp"
+                                android:text="@{user.first_name + ` ` + user.last_name}"
+                                android:layout_marginBottom="0dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/account_jobtitle"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:gravity="center"
+                                android:textColor="@color/grey42"
+                                android:drawableStart="@drawable/ic_card_travel_black_24dp"
+                                android:drawableLeft="@drawable/ic_card_travel_black_24dp"
+                                android:text="@{user.job_title}"
+                                android:layout_marginBottom="20dp"
+                                android:paddingStart="40dp"
+                                android:paddingLeft="40dp"
+                                android:enabled="false"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/account_workphone"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:gravity="center"
+                                android:drawableStart="@drawable/ic_call_black_24dp"
+                                android:drawableLeft="@drawable/ic_call_black_24dp"
+                                android:textColor="@color/grey42"
+                                android:text="@{user.workphone}"
+                                android:layout_marginBottom="20dp"
+                                android:digits="0123456789"
+                                android:maxLength="10"
+                                android:paddingStart="40dp"
+                                android:paddingLeft="40dp"
+                                android:enabled="false"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/account_email"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:gravity="center"
+                                android:textColor="@color/grey42"
+                                android:drawableStart="@drawable/ic_email_black_24dp"
+                                android:drawableLeft="@drawable/ic_email_black_24dp"
+                                android:text="@{user.email}"
+                                android:layout_marginBottom="20dp"
+                                android:paddingStart="40dp"
+                                android:paddingLeft="40dp"
+                                android:enabled="false"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/account_address"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:gravity="center"
+                                android:textColor="@color/grey42"
+                                android:drawableStart="@drawable/ic_public_black_24dp"
+                                android:drawableLeft="@drawable/ic_public_black_24dp"
+                                android:text="@{user.address}"
+                                android:layout_marginBottom="20dp"
+                                android:paddingStart="40dp"
+                                android:paddingLeft="40dp"
+                                android:enabled="false"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+
+                <!--LinearLayout
+                    android:id="@+id/show_contact_headerArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="2"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                </LinearLayout-->
+
+
+            </LinearLayout>
+
+            <!--ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                app:layout_anchor="@+id/show_contact_headerArea"
+                app:layout_anchorGravity="center_horizontal|top"
+                app:srcCompat="@drawable/background_login"
+                android:visibility="gone"/-->
+
+            <com.sylvain.domisoin.Utilities.RoundedImageView
+                android:layout_height="120dp"
+                android:layout_width="120dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                app:layout_anchor="@+id/show_contact_bottomArea"
+                app:layout_anchorGravity="center_horizontal|bottom"
+                app:srcCompat="@drawable/background_login"
+                android:src="@drawable/background_login"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_create_black_24dp"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="end|top"
+                android:layout_margin="18dp"
+                android:id="@+id/account_modify_button"/>
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </FrameLayout>
+</layout>
+
+
+    <!--LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.6">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:weightSum="1"
+            android:id="@+id/viewA"
+            android:orientation="vertical">
+
+        </RelativeLayout>
+
+            <com.sylvain.domisoin.Utilities.RoundedImageView
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="false"
+                app:layout_anchor="@id/viewA"
+                app:layout_anchorGravity="bottom|right|end"
+                android:src="@drawable/background_login" />
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_weight="0.4">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.account}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.json}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.email}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.address}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.workphone}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.id}" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.token}" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:addTextChangedListener="@{user.watcher}"
+                    android:text="@{user.job_title}" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout-->

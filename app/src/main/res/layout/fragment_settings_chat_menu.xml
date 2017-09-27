@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:padding="2dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/chat_button"
+                android:background="#FFFFFF"
+                android:drawableTop="@drawable/ic_chat_colorprimary_24dp"
+                android:textColor="@color/colorPrimary"
+                android:text="Chat"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/ourWhite">
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_margin="0dp"
+            android:gravity="center"
+            android:padding="2dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/settings_button"
+                android:text="Settings"
+                android:background="#FFFFFF"
+                android:textColor="@color/colorPrimary"
+                android:drawableTop="@drawable/ic_settings_colorprimary_24dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
