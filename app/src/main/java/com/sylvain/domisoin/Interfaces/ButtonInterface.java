@@ -8,4 +8,5 @@ import android.view.View;
 
 public interface ButtonInterface {
     public void buttonClicked(View v);
+    public void onBookClick();
 }

@@ -29,6 +29,7 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetails2Fragment;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
+import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -46,13 +47,13 @@ import java.util.Map;
  * Created by Sylvain on 05/07/2017.
  */
 
-public class ProMore extends DialogFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class ProMore extends DialogFragment implements View.OnClickListener, ViewPager.OnPageChangeListener, ButtonInterface {
     private static final String TAG = ProMore.class.getName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PROMORE";
     private View dialogFragment = null;
     private UserModel _user = null;
 
-    private ViewPager viewpager = null;
+    public ViewPager viewpager = null;
     private ViewPagerAdapter vAdapter = null;
 
     private Button nextPage = null;
@@ -195,7 +196,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         switch (position) {
             case 0:
                 previousPage.setVisibility(View.INVISIBLE);
-                nextPage.setVisibility(View.VISIBLE);
+                nextPage.setVisibility(View.INVISIBLE);
                 break;
             default:
                 previousPage.setVisibility(View.VISIBLE);
@@ -245,6 +246,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         viewPager.setOffscreenPageLimit(2);
 
         MoreProDetailsFragment details1 = new MoreProDetailsFragment();
+        details1.setInterface(this);
         MoreProDetails2Fragment details2 = new MoreProDetails2Fragment();
 
         vAdapter.addFrag(details1, "details1");
@@ -260,6 +262,14 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
     public UserModel get_user() {
         return _user;
+    }
+
+    @Override
+    public void buttonClicked(View v) {}
+
+    @Override
+    public void onBookClick() {
+        viewpager.setCurrentItem(viewpager.getCurrentItem() + 1, true);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

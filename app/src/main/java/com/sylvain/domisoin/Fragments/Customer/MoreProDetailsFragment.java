@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sylvain.domisoin.Dialogs.ProMore;
+import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.TitleCalendarValueModel;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
@@ -48,6 +49,7 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     private SimpleDateFormat sdf_disp = null;
     private SimpleDateFormat sdf_api = null;
 
+    private ButtonInterface buttonInterface = null;
 
     public MoreProDetailsFragment() {
     }
@@ -211,6 +213,15 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         Toast.makeText(getContext(), listDataHeader.get(i).get_title() + listDataChild.get(listDataHeader.get(i).get_title()).get(i1), Toast.LENGTH_LONG).show();
         parent.ourDate = sdf_api.format(listDataHeader.get(i).get_time());
+
+        //interface
+        buttonInterface.onBookClick();
+
         return false;
     }
+
+    public void setInterface(ButtonInterface ourInterface) {
+        this.buttonInterface = ourInterface;
+    }
+
 }

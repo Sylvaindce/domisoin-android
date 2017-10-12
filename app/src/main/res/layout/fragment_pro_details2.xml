@@ -29,7 +29,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"/>
 
-        <TextView
+        <!--TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
@@ -38,15 +38,6 @@
             android:textSize="16sp"
             android:layout_marginBottom="20dp"
             android:textColor="@color/colorPrimary" />
-
-        <ExpandableListView
-            android:id="@+id/expandableListViewHours"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="0.5dp" />
 
         <SeekBar
             android:layout_width="match_parent"
@@ -64,7 +55,7 @@
             android:textSize="20sp"
             android:text="08h00 - 09h00"
             android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:textAlignment="center"/-->
 
         <TextView
             android:layout_width="match_parent"

@@ -19,10 +19,10 @@ import java.util.List;
 
 public class MoreProDetails2Fragment extends Fragment {
     private static final String TAG = MoreProDetails2Fragment.class.getName();
-    private SeekBar time_bar= null;
+    //private SeekBar time_bar= null;
     private TextView time_value = null;
-    public String begin_hours = "T08:00:00Z";
-    public String end_hours = "T09:00:00Z";
+    //public String begin_hours = "T08:00:00Z";
+    //public String end_hours = "T09:00:00Z";
     private ProMore parent = null;
     private TextView resume = null;
 
@@ -56,21 +56,21 @@ public class MoreProDetails2Fragment extends Fragment {
         //expandableListView.setAdapter(expandableListAdapter);
 
 
-        time_value = (TextView)view.findViewById(R.id.seekBar_Value);
+        /*time_value = (TextView)view.findViewById(R.id.seekBar_Value);
 
         time_bar = (SeekBar)view.findViewById(R.id.seekBar_Time);
         time_bar.setMax(9);
-        time_bar.setProgress(0);
+        time_bar.setProgress(0);*/
 
         resume = (TextView)view.findViewById(R.id.pro_more_resume);
-        resume.setText(parent.ourDate + " de " + begin_hours + " a " + end_hours);
+        /*resume.setText(parent.ourDate + " de " + begin_hours + " a " + end_hours);
 
         parent.ourBeginHours = begin_hours;
-        parent.ourEndHours = end_hours;
+        parent.ourEndHours = end_hours;*/
 
-        Log.d("TESTMORE2", parent.get_user().getEvents());
+        //Log.d("TESTMORE2", parent.get_user().getEvents());
 
-        time_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        /*time_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
 
@@ -128,7 +128,7 @@ public class MoreProDetails2Fragment extends Fragment {
                 }
                 parent.ourBeginHours = begin_hours;
                 parent.ourEndHours = end_hours;
-                resume.setText(parent.ourDate + " de " + begin_hours + " a " + end_hours);
+                resume.setText(parent.ourDate);// + " de " + begin_hours + " a " + end_hours);
             }
 
             @Override
@@ -140,8 +140,8 @@ public class MoreProDetails2Fragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        });
-
+        });*/
+        resume.setText(parent.ourDate);
         return view;
     }
 
