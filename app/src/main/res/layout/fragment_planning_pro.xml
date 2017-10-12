@@ -1,0 +1,39 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.sylvain.domisoin.DataBind.userInfo" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitegray"
+        tools:context="com.sylvain.domisoin.Fragments.Pro.PlanningProFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/nordv_pro"
+            android:addTextChangedListener="@{user.watcher}"
+            android:text="@{user.planning}"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="italic"
+            android:textSize="18sp"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/planning_pro"
+            android:dividerHeight="0dp"
+            android:divider="@null">
+
+        </ListView>
+
+    </FrameLayout>
+</layout>

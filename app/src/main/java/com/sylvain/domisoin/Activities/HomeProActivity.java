@@ -38,6 +38,8 @@ import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
 import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
 import com.sylvain.domisoin.Fragments.Pro.AccountProFragment;
+import com.sylvain.domisoin.Fragments.Pro.CustomerListFragment;
+import com.sylvain.domisoin.Fragments.Pro.PlanningProFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -157,21 +159,21 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         //tabThree.setImageResource(R.drawable.ic_account_circle_black_24dp);
         //tabLayout.getTabAt(2).setCustomView(tabThree);
 
-        /*TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabOne.setText("Agenda");
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_event_black_24dp, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
-        tabTwo.setText("Rechercher");
+        tabTwo.setText("Clients");
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_search_blue_24dp, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);*/
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
 
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabThree.setText("Compte");
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_account_circle_black_24dp, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabThree);
+        tabLayout.getTabAt(2).setCustomView(tabThree);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -182,12 +184,18 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         info.putString("infofrag", homeIntent.getExtras().getString("info"));
         accountFragment.setArguments(info);
 
+        CustomerListFragment customerListFragment = new CustomerListFragment();
+
+        PlanningProFragment planningProFragment = new PlanningProFragment();
+
         //SearchFragment searchFragment = new SearchFragment();
 
         //PlanningFragment planningFragment = new PlanningFragment();
 
         //adapter.addFrag(planningFragment, "Agenda");
         //adapter.addFrag(searchFragment, "Rechercher");
+        adapter.addFrag(planningProFragment, "Agenda");
+        adapter.addFrag(customerListFragment, "Clients");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
         //viewPager.addOnPageChangeListener(this);
@@ -297,7 +305,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         String value = homeIntent.getExtras().getString("json");
-        Log.d("HOME", value);
+        Log.d("HOME Pro", value);
 
         UserInfo = new userInfo();
         UserInfo.json.set(homeIntent.getExtras().getString("json"));
