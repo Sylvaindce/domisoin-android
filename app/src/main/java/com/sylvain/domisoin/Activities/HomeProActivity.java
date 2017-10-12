@@ -37,6 +37,7 @@ import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
 import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
+import com.sylvain.domisoin.Fragments.Pro.AccountProFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -99,13 +100,13 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button_pro);
         deconnexionButton.setOnClickListener(this);
 
-        /*viewPager = (ViewPager) findViewById(R.id.viewpager_home_pro);
+        viewPager = (ViewPager) findViewById(R.id.viewpager_home_pro);
         viewPager.setOffscreenPageLimit(1);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_home_pro);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();*/
+        setupTabIcons();
 
 
         //HTTPGetRequest task = new HTTPGetRequest(this, ACTION_FOR_INTENT_CALLBACK, ACCOUNT_URL + UserInfo.id.get());
@@ -156,7 +157,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         //tabThree.setImageResource(R.drawable.ic_account_circle_black_24dp);
         //tabLayout.getTabAt(2).setCustomView(tabThree);
 
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
+        /*TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabOne.setText("Agenda");
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_event_black_24dp, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
@@ -164,29 +165,29 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabTwo.setText("Rechercher");
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_search_blue_24dp, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
+        tabLayout.getTabAt(1).setCustomView(tabTwo);*/
 
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabThree.setText("Compte");
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_account_circle_black_24dp, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
+        tabLayout.getTabAt(0).setCustomView(tabThree);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new HomeProActivity.ViewPagerAdapter(getSupportFragmentManager());
 
-        AccountFragment accountFragment = new AccountFragment();
+        AccountProFragment accountFragment = new AccountProFragment();
         Bundle info = new Bundle();
         info.putString("infofrag", homeIntent.getExtras().getString("info"));
         accountFragment.setArguments(info);
 
-        SearchFragment searchFragment = new SearchFragment();
+        //SearchFragment searchFragment = new SearchFragment();
 
-        PlanningFragment planningFragment = new PlanningFragment();
+        //PlanningFragment planningFragment = new PlanningFragment();
 
-        adapter.addFrag(planningFragment, "Agenda");
-        adapter.addFrag(searchFragment, "Rechercher");
+        //adapter.addFrag(planningFragment, "Agenda");
+        //adapter.addFrag(searchFragment, "Rechercher");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
         //viewPager.addOnPageChangeListener(this);
