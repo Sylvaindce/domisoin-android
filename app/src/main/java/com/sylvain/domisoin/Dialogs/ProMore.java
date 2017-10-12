@@ -71,6 +71,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
     private SearchFragment mainFrag = null;
 
+    private ButtonInterface buttonInterface = null;
 
     public ProMore(){}
 
@@ -280,6 +281,10 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         return _user;
     }
 
+    public void setButtonInterface(ButtonInterface ourInterface) {
+        this.buttonInterface = ourInterface;
+    }
+
     @Override
     public void buttonClicked(View v) {}
 
@@ -339,6 +344,8 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                         JSONObject tmp2 = new JSONObject(response);
                         tmp.put(tmp2);
                         ((HomeCustomerActivity)getActivity()).getUserInfo().events.set(tmp.toString());
+                        //to update pro json
+                        buttonInterface.buttonClicked(null);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

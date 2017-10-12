@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.ProMore;
+import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.CustomProListView;
@@ -47,7 +48,7 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener {
+public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener, ButtonInterface {
     private static final String TAG = SearchFragment.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_SEARCH_FRAG";
 
@@ -131,6 +132,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         ProMore dialog = new ProMore();
         dialog.setUserid_1(UserInfo.id.get());
         dialog.set_user(mAdapter.getItem(position));
+        dialog.setButtonInterface(this);
         dialog.show(getFragmentManager(), "more");
     }
 
@@ -281,4 +283,14 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             }
         }
     };
+
+    @Override
+    public void buttonClicked(View v) {
+        getSearch();
+    }
+
+    @Override
+    public void onBookClick(String _ourBeginDate, String _ourEndDate) {
+
+    }
 }
