@@ -59,9 +59,9 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
     private Button nextPage = null;
     private Button previousPage = null;
 
-    public String ourDate = "";
-    public String ourBeginHours = "";
-    public String ourEndHours = "";
+    //private String ourDate = "";
+    public String ourBeginDate = "";
+    public String ourEndDate = "";
 
     public String userid_1 = "";
 
@@ -146,6 +146,21 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         setupViewPager(viewpager);
     }
 
+    public void setOurDate(String _ourBeginDate, String _ourEndDate) {
+        Log.d(TAG, _ourBeginDate + " " + _ourEndDate);
+        ourBeginDate = _ourBeginDate;
+        ourEndDate = _ourEndDate;
+    }
+
+    public String getOurBeginDate() {
+        return ourBeginDate;
+    }
+
+    public String getOurEndDate() {
+        return ourEndDate;
+    }
+
+
     @Override
     public void onClick(View v) {
         int pos = viewpager.getCurrentItem();
@@ -163,15 +178,16 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
                     EditText desc = (EditText)dialogFragment.findViewById(R.id.pro_more_desc);
                     Log.d("RESUME", desc.getText().toString());
-                    Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
+                    //Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
+                    Log.d("RESUME", ourBeginDate + " " + ourEndDate);
                     Log.d("RESUME", _user.getId() + " " + userid_1);
 
                     datas.put("description", desc.getText().toString());
                     datas.put("client", _user.getId());
                     datas.put("author", userid_1);
                     datas.put("type", "RDV");
-                    datas.put("start_date", ourDate+ourBeginHours); //modify
-                    datas.put("end_date", ourDate+ourEndHours); //modify
+                    datas.put("start_date", ourBeginDate); //modify
+                    datas.put("end_date", ourEndDate); //modify
                     datas.put("location", "Paris, France"); //modify
 
                     String uri = getString(R.string.api_url)+"events/";
@@ -243,7 +259,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
         vAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(1);
 
         MoreProDetailsFragment details1 = new MoreProDetailsFragment();
         details1.setInterface(this);
@@ -268,7 +284,8 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
     public void buttonClicked(View v) {}
 
     @Override
-    public void onBookClick() {
+    public void onBookClick(String _ourBeginDate, String _ourEndDate) {
+        setOurDate(_ourBeginDate, _ourEndDate);
         viewpager.setCurrentItem(viewpager.getCurrentItem() + 1, true);
     }
 

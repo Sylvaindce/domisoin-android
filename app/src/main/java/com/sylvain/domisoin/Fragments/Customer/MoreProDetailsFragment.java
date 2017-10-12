@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 //implements CalendarView.OnDateChangeListener
 
@@ -35,8 +36,8 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     private static final String TAG = MoreProDetailsFragment.class.getName();
     private CalendarView calendarView = null;
     private UserModel user = null;
-    public String ourdate = "";
-    private ProMore parent = null;
+    //public String ourdate = "";
+    //private ProMore parent = null;
 
 
     private CustomExpandableListAdapter listAdapterExp;
@@ -66,7 +67,7 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         View view = inflater.inflate(R.layout.fragment_pro_details, container, false);
         user = ((ProMore)getParentFragment()).get_user();
 
-        parent = (ProMore)getParentFragment();
+        //parent = (ProMore)getParentFragment();
 
         //calendarView = (CalendarView)view.findViewById(R.id.pro_more_calendar);
         currentCalendarView = Calendar.getInstance();
@@ -92,9 +93,9 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
 
 
         Log.d(TAG, ourdate);*/
-        ourdate = sdf_disp.format(currentCalendarView.getTimeInMillis());
-        parent.ourDate = ourdate;
-        Log.d(TAG, ourdate);
+        //ourdate = sdf_disp.format(currentCalendarView.getTimeInMillis());
+        //parent.setOurDate(ourdate);
+        //Log.d(TAG, ourdate);
         /*calendr.set(Calendar.DAY_OF_MONTH, currentCalendarView.getActualMaximum(Calendar.DAY_OF_MONTH));
         calendarView.setMaxDate(calendr.getTimeInMillis());
         calendarView.setOnDateChangeListener(this);*/
@@ -212,10 +213,24 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         Toast.makeText(getContext(), listDataHeader.get(i).get_title() + listDataChild.get(listDataHeader.get(i).get_title()).get(i1), Toast.LENGTH_LONG).show();
-        parent.ourDate = sdf_api.format(listDataHeader.get(i).get_time());
+        //parent.ourDate = sdf_api.format(listDataHeader.get(i).get_time());
+        //parent.setOurDate(sdf_api.format(listDataHeader.get(i).get_time()));
+        //Log.d(TAG, parent.getOurDate());
 
-        //interface
-        buttonInterface.onBookClick();
+        String Bhour = listDataChild.get(listDataHeader.get(i).get_title()).get(i1).split("-")[0].replaceAll(" ", "");
+        Bhour = Bhour.replaceAll("h", ":");
+        Bhour = Bhour + ":00Z";
+
+        String Ehour = listDataChild.get(listDataHeader.get(i).get_title()).get(i1).split("-")[1].replaceAll(" ", "");
+        Ehour = Ehour.replaceAll("h", ":");
+        Ehour = Ehour + ":00Z";
+
+        //Log.d("OURHOUR", Bhour);
+
+        String Bdate = sdf_api.format(listDataHeader.get(i).get_time()) + "T" + Bhour;
+        String Edate = sdf_api.format(listDataHeader.get(i).get_time()) + "T" + Ehour;
+        //buttonInterface.onBookClick(sdf_api.format(listDataHeader.get(i).get_time()));
+        buttonInterface.onBookClick(Bdate, Edate);
 
         return false;
     }

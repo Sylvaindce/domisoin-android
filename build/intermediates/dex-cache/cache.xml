@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="f63993ba3349639aa98afaea4b8e7e8861cc9d14">
+        sha1="da963f7de65dee6f8e74594706b15968801831c3">
         <dex dex="/Users/Sylvain/Documents/rendu/domisoin-android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_93e28de32b1297b4dc447f9fcd1281fa148fc877/classes.dex" />
     </item>
 

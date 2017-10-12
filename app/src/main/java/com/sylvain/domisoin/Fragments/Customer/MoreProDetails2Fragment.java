@@ -14,8 +14,12 @@ import android.widget.TextView;
 import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MoreProDetails2Fragment extends Fragment {
     private static final String TAG = MoreProDetails2Fragment.class.getName();
@@ -141,8 +145,30 @@ public class MoreProDetails2Fragment extends Fragment {
 
             }
         });*/
-        resume.setText(parent.ourDate);
         return view;
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            SimpleDateFormat sdf_api_date_hour = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            //sdf_api_date_hour.setTimeZone(TimeZone.getTimeZone("GMT"));
+            SimpleDateFormat sdf_disp = new SimpleDateFormat("EEE dd MMM yyyy hh:mm aa");
+
+            try {
+                Date beginDate = sdf_api_date_hour.parse(parent.getOurBeginDate());
+                Date endDate = sdf_api_date_hour.parse(parent.getOurEndDate());
+                String bDateS = sdf_disp.format(beginDate);
+                String eDateS = sdf_disp.format(endDate);
+
+                resume.setText(bDateS + " - " + eDateS);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //Log.d(TAG, "THIS IS OUR DATE " + parent.getOurBeginDate());
+        }
     }
 
 }
