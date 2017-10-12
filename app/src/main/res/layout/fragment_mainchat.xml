@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ourWhite"
-    tools:context="com.sylvain.domisoin.Fragments.MainChatFragment">
+    tools:context="com.sylvain.domisoin.Fragments.Customer.MainChatFragment">
 
     <TextView
         android:layout_width="match_parent"

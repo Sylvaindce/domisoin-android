@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/whitegray"
-        tools:context="com.sylvain.domisoin.Fragments.PlanningFragment">
+        tools:context="com.sylvain.domisoin.Fragments.Customer.PlanningFragment">
 
         <TextView
             android:layout_width="match_parent"

@@ -12,7 +12,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,19 +23,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.sylvain.domisoin.Activities.HomeActivity;
-import com.sylvain.domisoin.Fragments.Info1SigninFragment;
-import com.sylvain.domisoin.Fragments.Info2SigninFragment;
-import com.sylvain.domisoin.Fragments.LoginFragment;
-import com.sylvain.domisoin.Fragments.MoreProDetails2Fragment;
-import com.sylvain.domisoin.Fragments.MoreProDetailsFragment;
-import com.sylvain.domisoin.Fragments.SearchFragment;
+import com.sylvain.domisoin.Activities.HomeCustomerActivity;
+import com.sylvain.domisoin.Fragments.Customer.MoreProDetails2Fragment;
+import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsFragment;
+import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
-import com.sylvain.domisoin.Utilities.CustomExpandableListAdapter;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
 import org.json.JSONArray;
@@ -44,7 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -315,10 +308,10 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                     dismiss();
                     Log.d("Our Response", response);
                     try {
-                        JSONArray tmp = new JSONArray(((HomeActivity)getActivity()).getUserInfo().events.get());
+                        JSONArray tmp = new JSONArray(((HomeCustomerActivity)getActivity()).getUserInfo().events.get());
                         JSONObject tmp2 = new JSONObject(response);
                         tmp.put(tmp2);
-                        ((HomeActivity)getActivity()).getUserInfo().events.set(tmp.toString());
+                        ((HomeCustomerActivity)getActivity()).getUserInfo().events.set(tmp.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

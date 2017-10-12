@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.sylvain.domisoin.Fragments.Info2SigninFragment">
+    tools:context="com.sylvain.domisoin.Fragments.Connexion.Info2SigninFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

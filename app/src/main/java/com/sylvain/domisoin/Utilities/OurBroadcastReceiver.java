@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.sylvain.domisoin.Activities.HomeActivity;
+import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,12 +19,12 @@ public class OurBroadcastReceiver extends BroadcastReceiver{
 
     private ProgressDialog progress;
 
-    private HomeActivity homeActivity = null;
+    private HomeCustomerActivity homeActivity = null;
 
     public OurBroadcastReceiver() {
     }
 
-    public void setHomeActivity(HomeActivity ha) {
+    public void setHomeActivity(HomeCustomerActivity ha) {
         homeActivity = ha;
         progress = ProgressDialog.show(homeActivity, "Information", "Téléchargement en cours, merci de patienter...", true);
     }

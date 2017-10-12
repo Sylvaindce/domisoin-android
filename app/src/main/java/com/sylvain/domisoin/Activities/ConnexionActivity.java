@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.sylvain.domisoin.Fragments.ConnexionFragment;
+import com.sylvain.domisoin.Fragments.Connexion.ConnexionFragment;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
@@ -144,9 +144,16 @@ public class ConnexionActivity extends AppCompatActivity {
 
                         if (jsonObj.getBoolean("is_pro")) {
                             //is pro
+                            Intent homeprointent = new Intent(getApplicationContext(), HomeProActivity.class);
+                            homeprointent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Bundle userinfo = new Bundle();
+                            userinfo.putString("json", response);
+                            userinfo.putString("userid", jsonObj.getString("id"));
+                            homeprointent.putExtras(userinfo);
+                            startActivity(homeprointent);
                         } else {
                             //isnt pro
-                            Intent homeintent = new Intent(getApplicationContext(), HomeActivity.class);
+                            Intent homeintent = new Intent(getApplicationContext(), HomeCustomerActivity.class);
                             homeintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);

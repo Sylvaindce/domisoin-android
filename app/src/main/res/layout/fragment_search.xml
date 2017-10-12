@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/ourWhite"
-        tools:context="com.sylvain.domisoin.Fragments.SearchFragment">
+        tools:context="com.sylvain.domisoin.Fragments.Customer.SearchFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

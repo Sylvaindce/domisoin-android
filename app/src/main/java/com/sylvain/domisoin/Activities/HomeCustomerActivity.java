@@ -32,11 +32,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.DataBind.userInfo;
-import com.sylvain.domisoin.Fragments.AccountFragment;
-import com.sylvain.domisoin.Fragments.MainChatFragment;
-import com.sylvain.domisoin.Fragments.PlanningFragment;
-import com.sylvain.domisoin.Fragments.SearchFragment;
-import com.sylvain.domisoin.Fragments.SettingsChatMenuFragment;
+import com.sylvain.domisoin.Fragments.Customer.AccountFragment;
+import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
+import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
+import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
+import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -49,38 +49,38 @@ import java.util.List;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
-public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener, ButtonInterface {
-    private static final String TAG = HomeActivity.class.getSimpleName();
+public class HomeCustomerActivity extends AppCompatActivity implements View.OnClickListener { //ViewPager.OnPageChangeListener,  ButtonInterface
+    private static final String TAG = HomeCustomerActivity.class.getSimpleName();
 
     private TabLayout tabLayout;
     public ViewPager viewPager;
     public ViewPagerAdapter adapter;
 
-    private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_ACCOUNT_ACTIVITY";
+    private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_HOME_CUSTOMER_ACTIVITY";
 
     private Intent homeIntent = null;
 
     public userInfo UserInfo = null;
 
-    public String name = "lol";
+    //public String name = "lol";
 
-    public FloatingActionButton fab = null;
+    //public FloatingActionButton fab = null;
 
     public ProgressDialog progress = null;
 
-    private BottomSheetBehavior mBottomSheetBehavior = null;
-    private View bottomSheet = null;
-    private int height = 0;
-    private int width = 0;
-    private Double mheight = 0.0;
-    private Drawable oldDrawable = null;
+    //private BottomSheetBehavior mBottomSheetBehavior = null;
+    //private View bottomSheet = null;
+    //private int height = 0;
+    //private int width = 0;
+    //private Double mheight = 0.0;
+    //private Drawable oldDrawable = null;
     private AppCompatImageButton deconnexionButton = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        setContentView(R.layout.activity_customer_home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_home_customer);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().show();
@@ -89,17 +89,17 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         setUserData();
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        /*fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);*/
 
-        deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button);
+        deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button_customer);
         deconnexionButton.setOnClickListener(this);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager_home);
+        viewPager = (ViewPager) findViewById(R.id.viewpager_home_customer);
         viewPager.setOffscreenPageLimit(1);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs_home);
+        tabLayout = (TabLayout) findViewById(R.id.tabs_home_customer);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
@@ -108,7 +108,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         //task.execute();
         //progress = ProgressDialog.show(this, "Information", "Téléchargement en cours, merci de patienter...", true);
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
+        /*DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
@@ -136,7 +136,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         FragmentTransaction ft = fm.beginTransaction();
         MainChatFragment frag1 = new MainChatFragment();
         ft.replace(R.id.bottom_sheet_chat_settings, frag1, "MainChatFragment");
-        ft.commit();
+        ft.commit();*/
     }
 
     private void setupTabIcons() {
@@ -185,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
         adapter.addFrag(searchFragment, "Rechercher");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(this);
+        //viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab:
+            /*case R.id.fab:
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN || mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     oldDrawable = fab.getDrawable();
@@ -212,8 +212,8 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     fab.setImageDrawable(oldDrawable);
                 }
-                break;
-            case R.id.deconnexion_button:
+                break;*/
+            case R.id.deconnexion_button_customer:
                 SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.remove(getString(R.string.save_account));
@@ -228,7 +228,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
 
-    @Override
+    /*@Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
 
@@ -271,9 +271,9 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
                 }
             });
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onPageSelected(int position) {
 
     }
@@ -281,7 +281,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
+    }*/
 
     public userInfo getUserInfo() {
         return UserInfo;
@@ -329,7 +329,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     }
 
-    @Override
+    /*@Override
     public void buttonClicked(View v) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
@@ -348,7 +348,7 @@ public class HomeActivity extends AppCompatActivity implements ViewPager.OnPageC
                 break;
         }
 
-    }
+    }*/
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
