@@ -84,6 +84,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_pro_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_home_pro);
         setSupportActionBar(toolbar);
