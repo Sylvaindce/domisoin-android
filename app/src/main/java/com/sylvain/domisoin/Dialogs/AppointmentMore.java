@@ -19,6 +19,10 @@ import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Sylvain on 30/06/2017.
  */
@@ -42,6 +46,11 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
 
             TextView author = (TextView) dialogFragment.findViewById(R.id.txt_author);
             author.setText(pro_name.getString("last_name") + " " + pro_name.getString("first_name"));
+
+            pro_name = new JSONObject(_apt.getAuthor_id());
+            TextView client = (TextView) dialogFragment.findViewById(R.id.txt_client);
+            client.setText(pro_name.getString("last_name") + " " + pro_name.getString("first_name"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -55,7 +64,11 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
 
 
         TextView txt_date = (TextView) dialogFragment.findViewById(R.id.txt_date);
-        txt_date.setText(_apt.getStart_date_str());
+
+        //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat sdf_disp = new SimpleDateFormat("EEE dd MMM yyyy hh:mm aa");
+        String date = sdf_disp.format(_apt.getStart_date());
+        txt_date.setText(date);
         TextView location = (TextView) dialogFragment.findViewById(R.id.txt_location);
         location.setText(_apt.getLocation());
 

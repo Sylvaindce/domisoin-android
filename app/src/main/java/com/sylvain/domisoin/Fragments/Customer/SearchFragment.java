@@ -37,7 +37,7 @@ import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
-import com.sylvain.domisoin.Utilities.CustomProListView;
+import com.sylvain.domisoin.Utilities.CustomProListAdapter;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.databinding.FragmentSearchBinding;
 
@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     private GoogleMap mMap = null;
     private List<UserModel> list_pro = null;
     private ListView listView_pro = null;
-    private CustomProListView mAdapter = null;
+    private CustomProListAdapter mAdapter = null;
     private ImageButton search_button = null;
     private EditText search_edittext = null;
 
@@ -234,7 +234,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
 
     public void setItemListView(String response) {
-        mAdapter = new CustomProListView(getContext());
+        mAdapter = new CustomProListAdapter(getContext());
 
         JSONArray resp = null;
         try {

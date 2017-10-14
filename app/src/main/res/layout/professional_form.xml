@@ -28,7 +28,8 @@
                 android:layout_weight="0.1"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_mood_black_24dp" />
+                android:padding="5dp"
+                android:src="@drawable/ic_assignment_ind_white_24dp" />
 
             <TextView
                 android:id="@+id/pro_more_job"

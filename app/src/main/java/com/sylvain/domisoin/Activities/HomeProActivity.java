@@ -166,7 +166,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabTwo.setText("Clients");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_search_blue_24dp, 0, 0);
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_group_black_24dp, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
 

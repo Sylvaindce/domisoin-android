@@ -98,6 +98,7 @@ public class PlanningFragment extends Fragment {
                 apm.setLocation(obj_tmp.getString("location"));
                 apm.setDuration(obj_tmp.getString("duration"));
                 apm.setLink(obj_tmp.getString("link"));
+                apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
                 appointments.add(apm);
             }
             Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
@@ -146,6 +147,7 @@ public class PlanningFragment extends Fragment {
                         apm.setLocation(obj_tmp.getString("location"));
                         apm.setDuration(obj_tmp.getString("duration"));
                         apm.setLink(obj_tmp.getString("link"));
+                        apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
                         appointments.add(apm);
                     }
                     Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
@@ -177,9 +179,11 @@ public class PlanningFragment extends Fragment {
 
             if (i == 0 || oldtime != date.getDate()) {
                 mAdapter.addSectionHeaderItem(dayOfTheWeek + " " + day + " " + monthString);
-                mAdapter.addItem(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId());
+                mAdapter.addIs_Validate(appointments.get(i).getIs_validate());
+                mAdapter.addItemStat(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId(), appointments.get(i).getIs_validate());
             } else {
-                mAdapter.addItem(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId());
+                mAdapter.addItemStat(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId(), appointments.get(i).getIs_validate());
+                //mAdapter.addIs_Validate(appointments.get(i).getIs_validate());
             }
             oldtime = date.getDate();
             nordv.setVisibility(View.INVISIBLE);
@@ -259,6 +263,7 @@ public class PlanningFragment extends Fragment {
                             apm.setLocation(obj_tmp.getString("location"));
                             apm.setDuration(obj_tmp.getString("duration"));
                             apm.setLink(obj_tmp.getString("link"));
+                            apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
                             appointments.add(apm);
                         }
                         Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());

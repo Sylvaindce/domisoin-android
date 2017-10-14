@@ -114,7 +114,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
 
             HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url+newjson.get("id")+"/", newjson);
             task.execute();
-            ((HomeCustomerActivity)getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
+            ((HomeProActivity)getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
 
         } catch (JSONException e) {
             e.printStackTrace();
