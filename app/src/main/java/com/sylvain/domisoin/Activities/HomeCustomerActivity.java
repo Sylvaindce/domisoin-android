@@ -175,10 +175,9 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         AccountFragment accountFragment = new AccountFragment();
         Bundle info = new Bundle();
         info.putString("infofrag", homeIntent.getExtras().getString("info"));
+
         accountFragment.setArguments(info);
-
         SearchFragment searchFragment = new SearchFragment();
-
         PlanningFragment planningFragment = new PlanningFragment();
 
         adapter.addFrag(planningFragment, "Agenda");

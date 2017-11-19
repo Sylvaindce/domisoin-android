@@ -84,7 +84,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.activity_pro_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_home_pro);
         setSupportActionBar(toolbar);
@@ -157,22 +157,25 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         //ImageView tabThree = (ImageView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon, null);
         //tabThree.setImageResource(R.drawable.ic_account_circle_black_24dp);
         //tabLayout.getTabAt(2).setCustomView(tabThree);
-
-        /*TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
+// 14.10.2017
+        /*
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabOne.setText("Agenda");
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_event_black_24dp, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
-        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
+            TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabTwo.setText("Rechercher");
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_search_blue_24dp, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);*/
-
+        tabLayout.getTabAt(1).setCustomView(tabTwo); */
+// 14.10.2017
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabThree.setText("Compte");
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_account_circle_black_24dp, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabThree);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -421,3 +424,4 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 }
+

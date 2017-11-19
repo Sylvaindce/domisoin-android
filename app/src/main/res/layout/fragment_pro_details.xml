@@ -5,9 +5,13 @@
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.Info1SigninFragment">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -16,41 +20,117 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:text="Adresse: "
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimary" />
+            android:textStyle="bold" />
+
 
         <TextView
+            android:id="@+id/pro_more_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pro_more_address"
-            android:padding="15dp"
             android:layout_marginBottom="20dp"
+            android:padding="15dp"
             android:text="Address"
             android:textColor="@color/grey42" />
 
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+
+
+
+            <EditText
+                android:id="@+id/presentation"
+                android:layout_width="304dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="20dp"
+                android:drawableLeft="@drawable/ic_language_black_24dp"
+                android:drawableStart="@drawable/ic_language_black_24dp"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:paddingStart="40dp"
+                android:text="Langues Parlées"
+                android:textColor="@color/grey42" />
+
+            <Button
+                android:id="@+id/buttonlangues"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+
+            <EditText
+                android:id="@+id/presentation1"
+                android:layout_width="304dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="20dp"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:enabled="false"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:paddingStart="40dp"
+                android:text="Présentation"
+                android:textColor="@color/grey42" />
+
+            <Button
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:id="@+id/Dialogplus"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_add_black_24dp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView"
+            android:layout_width="324dp"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:text="Pour prendre un rendez-vous choisissez une date"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimary" />
+            android:textStyle="bold" />
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pro_more_calendar"
-            android:visibility="gone">
-        </CalendarView>
 
         <ExpandableListView
+            android:id="@+id/expList2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/expList2"
-            android:visibility="visible">
-        </ExpandableListView>
+            android:visibility="visible"></ExpandableListView>
 
     </LinearLayout>
 
