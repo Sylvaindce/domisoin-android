@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -19,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -82,6 +87,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginEdit = (EditText)loginfragment.findViewById(R.id.loginEdit);
         loginEdit.requestFocus();
 
+        TextView forgotPassword = (TextView)loginfragment.findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(this);
+
+
         //loginEdit.clearFocus();
 
         passwordEdit = (EditText)loginfragment.findViewById(R.id.passwordEdit);
@@ -112,8 +121,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         switch (v.getId()) {
-
+            case R.id.forgotPassword:
+                //RESET PASSWORD MALIK
+                ft.replace(R.id.fragment_container, new ForgetFragment(), "LoginFragment()");
+                ft.addToBackStack("login");
+                ft.commit();
+                break;
             case R.id.validate_login_button:
 
                 login = String.valueOf(loginEdit.getText());
