@@ -1,5 +1,7 @@
 package com.sylvain.domisoin.Utilities;
 
+import com.sylvain.domisoin.Models.AppointmentModel;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,4 +118,25 @@ public class JsonUtils
         }
         return null;
     }
+
+    public static JSONObject AppointmentToJSON(AppointmentModel apt) {
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("description", apt.getDescription());
+            json.put("author", new JSONObject(apt.getAuthor_id()).get("id"));
+            json.put("client", new JSONObject(apt.getClient_id()).get("id"));
+            json.put("type", apt.getType());
+            json.put("start_date", apt.getStart_date_str());
+            json.put("end_date", apt.getEnd_date_str());
+            json.put("location", apt.getLocation());
+            //json.put("duration", apt.getDuration());
+            //json.put("link", apt.getLink());
+            json.put("validate", apt.getIs_validate());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
 }

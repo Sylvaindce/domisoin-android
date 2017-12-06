@@ -1,8 +1,10 @@
 package com.sylvain.domisoin.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
+import com.sylvain.domisoin.Fragments.Pro.PlanningProFragment;
 import com.sylvain.domisoin.Models.AppointmentModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,12 +34,17 @@ import java.util.Date;
  */
 
 public class AppointmentMore extends DialogFragment implements View.OnClickListener {
-    private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING";
+    private String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING";
     private static final String TAG = AppointmentMore.class.getName();
     private View dialogFragment = null;
     private AppointmentModel _apt = null;
 
     public AppointmentMore(){}
+
+    @SuppressLint("ValidFragment")
+    public AppointmentMore(String intent){
+        ACTION_FOR_INTENT_CALLBACK = intent;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +89,12 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
         Button close_button = (Button) dialogFragment.findViewById(R.id.close_appointment_more_button);
         close_button.setOnClickListener(this);
 
+        Button validate_button = (Button) dialogFragment.findViewById(R.id.validate_appointment_more_button);
+        validate_button.setOnClickListener(this);
+        if (ACTION_FOR_INTENT_CALLBACK.equals("THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING_PRO") && !_apt.getIs_validate()) {
+            validate_button.setVisibility(View.VISIBLE);
+        }
+
         return dialogFragment;
     }
 
@@ -94,15 +111,31 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String url = getString(R.string.api_url)+"events/"+_apt.getId()+"/";
         switch (v.getId()) {
             case R.id.close_appointment_more_button:
                 getDialog().dismiss();
                 break;
             case R.id.delete_appointment_button:
-                String url = getString(R.string.api_url)+"events/"+_apt.getId()+"/";
                 HTTPDeleteRequest task = new HTTPDeleteRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url);
                 task.execute();
-                PlanningFragment.progress = ProgressDialog.show(getActivity(), "Annulation", "Annulation de votre rendez-vous en cours, merci de patienter...", true);
+
+                switch (ACTION_FOR_INTENT_CALLBACK) {
+                    case "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING":
+                        PlanningFragment.progress = ProgressDialog.show(getActivity(), "Annulation", "Annulation de votre rendez-vous en cours, merci de patienter...", true);
+                        break;
+                    case "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING_PRO":
+                        PlanningProFragment.progress = ProgressDialog.show(getActivity(), "Annulation", "Annulation de votre rendez-vous en cours, merci de patienter...", true);
+                        break;
+                }
+                getDialog().dismiss();
+                break;
+            case R.id.validate_appointment_more_button:
+                Log.d("AppointmentMore", "Validate");
+                _apt.setIs_validate(Boolean.TRUE);
+                HTTPPutRequest put_task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url, JsonUtils.AppointmentToJSON(_apt));
+                put_task.execute();
+                PlanningProFragment.progress = ProgressDialog.show(getActivity(), "Mise à jour", "Mise à jour du votre rendez-vous en cours, merci de patienter...", true);
                 getDialog().dismiss();
                 break;
         }

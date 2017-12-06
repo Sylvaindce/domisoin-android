@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.sylvain.domisoin.Models.AppointmentModel;
 import com.sylvain.domisoin.R;
 
 import java.util.ArrayList;

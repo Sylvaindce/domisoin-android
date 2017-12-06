@@ -32,6 +32,9 @@ public class HTTPPutHandler {
     public String makeServiceCall(String reqUrl, JSONObject data) {
         HttpURLConnection conn = null;
         String return_value = "0";
+
+        Log.d("HTTPPutHandler", data.toString());
+
         try {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
@@ -58,12 +61,11 @@ public class HTTPPutHandler {
             writer.close();
             os.close();
 
-            Log.d("post response code", String.valueOf(conn.getResponseCode()));
-            return_value = String.valueOf(conn.getResponseCode());
-
             //Read
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            return_value = convertStreamToString(in);
+            //InputStream in = new BufferedInputStream(conn.getInputStream());
+            //return_value = convertStreamToString(in);
+            //Log.d("Put response code", String.valueOf(conn.getResponseCode()));
+            return_value = String.valueOf(conn.getResponseCode());
 
             /*BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = null;

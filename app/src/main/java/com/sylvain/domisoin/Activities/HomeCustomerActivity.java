@@ -96,7 +96,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         deconnexionButton.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_home_customer);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_home_customer);

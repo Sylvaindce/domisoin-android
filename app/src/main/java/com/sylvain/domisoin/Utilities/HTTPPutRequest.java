@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class HTTPPutRequest extends AsyncTask<String, Void, String> {
     private static final String TAG = HTTPPutRequest.class.getSimpleName();
-    public static final String HTTP_RESPONSE = "HTTP_Post_Response";
+    public static final String HTTP_RESPONSE = "HTTP_Put_Response";
 
     private Context mContext = null;
     private String mAction = null;

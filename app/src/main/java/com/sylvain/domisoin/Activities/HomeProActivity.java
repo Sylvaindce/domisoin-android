@@ -103,7 +103,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         deconnexionButton.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_home_pro);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_home_pro);

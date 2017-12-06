@@ -103,10 +103,30 @@
             android:layout_below="@id/label_location"
             android:layout_marginBottom="15dp" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_location"
+            android:gravity="center"
+            android:id="@+id/validate_container">
+
+            <Button
+                android:id="@+id/validate_appointment_more_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:gravity="center"
+                android:background="@drawable/signin_rounded_button_green"
+                android:text="Valider"
+                android:textColor="@color/ourWhite"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/validate_container"
             android:gravity="center">
             <Button
                 android:id="@+id/delete_appointment_button"
@@ -117,6 +137,7 @@
                 android:text="Annuler"
                 android:textStyle="bold"
                 android:textColor="@color/ourWhite" />
+
 
             <Button
                 android:id="@+id/close_appointment_more_button"

@@ -10,18 +10,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.Dialogs.AppointmentMore;
 import com.sylvain.domisoin.Models.AppointmentModel;
-import com.sylvain.domisoin.Utilities.CustomPlanningListView;
+import com.sylvain.domisoin.Utilities.CustomPlanningExpandableListAdapter;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
@@ -32,11 +30,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.TreeMap;
 
-public class PlanningFragment extends Fragment {
+public class PlanningFragment extends Fragment implements ExpandableListView.OnChildClickListener {
     private static final String TAG = PlanningFragment.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING";
 
@@ -46,16 +46,12 @@ public class PlanningFragment extends Fragment {
 
     public  static ProgressDialog progress;
 
-    private CustomPlanningListView mAdapter = null;
-    private ListView planning = null;
-
-    private List<AppointmentModel> appointments = null;
-
-    private int oldclickposition = -1;
-
     private JSONArray jsonevents = null;
 
     private TextView nordv = null;
+    private ExpandableListView exp_planning = null;
+    private CustomPlanningExpandableListAdapter listAdapterExp = null;
+    private String oldClickItem = "";
 
 
     public PlanningFragment() {
@@ -78,34 +74,12 @@ public class PlanningFragment extends Fragment {
 
         fragmentPlanningBinding.setUser(UserInfo);
 
-        planning = (ListView)fragmentPlanningBinding.getRoot().findViewById(R.id.planning);
         nordv = (TextView)fragmentPlanningBinding.getRoot().findViewById(R.id.nordv);
-        appointments = new ArrayList<AppointmentModel>();
-        mAdapter = new CustomPlanningListView(getContext());
 
-        try {
-            jsonevents = new JSONArray(UserInfo.events.get());
-            for(int i = 0; i < jsonevents.length(); ++i) {
-                AppointmentModel apm = new AppointmentModel();
-                JSONObject obj_tmp = jsonevents.getJSONObject(i);
-                apm.setId(obj_tmp.getString("id"));
-                apm.setDescription(obj_tmp.getString("description"));
-                apm.setAuthor_id(obj_tmp.getString("author"));
-                apm.setClient_id(obj_tmp.getString("client"));
-                apm.setType(obj_tmp.getString("type"));
-                apm.setStart_date(obj_tmp.getString("start_date"));
-                apm.setEnd_date(obj_tmp.getString("end_date"));
-                apm.setLocation(obj_tmp.getString("location"));
-                apm.setDuration(obj_tmp.getString("duration"));
-                apm.setLink(obj_tmp.getString("link"));
-                apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
-                appointments.add(apm);
-            }
-            Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
-            setAppointment();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        exp_planning = (ExpandableListView)fragmentPlanningBinding.getRoot().findViewById(R.id.exp_planning);
+        exp_planning.setOnChildClickListener(this);
+
+        setPlanningMap();
 
         return fragmentPlanningBinding.getRoot();
     }
@@ -130,92 +104,97 @@ public class PlanningFragment extends Fragment {
             Log.e("setUserVisibleHint", "is visible Planning");
 
             if (UserInfo != null) {
-                mAdapter.clear();
-                appointments.clear();
-                try {
-                    jsonevents = new JSONArray(UserInfo.events.get());
-                    for(int i = 0; i < jsonevents.length(); ++i) {
-                        AppointmentModel apm = new AppointmentModel();
-                        JSONObject obj_tmp = jsonevents.getJSONObject(i);
-                        apm.setId(obj_tmp.getString("id"));
-                        apm.setDescription(obj_tmp.getString("description"));
-                        apm.setAuthor_id(obj_tmp.getString("author"));
-                        apm.setClient_id(obj_tmp.getString("client"));
-                        apm.setType(obj_tmp.getString("type"));
-                        apm.setStart_date(obj_tmp.getString("start_date"));
-                        apm.setEnd_date(obj_tmp.getString("end_date"));
-                        apm.setLocation(obj_tmp.getString("location"));
-                        apm.setDuration(obj_tmp.getString("duration"));
-                        apm.setLink(obj_tmp.getString("link"));
-                        apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
-                        appointments.add(apm);
-                    }
-                    Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
-                    setAppointment();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //mAdapter.clear();
+                setPlanningMap();
             }
         }
         else {
         }
     }
 
-    private void setAppointment() {
-        mAdapter = new CustomPlanningListView(getContext());
-        int oldtime = 0;
-
-        nordv.setVisibility(View.VISIBLE);
-
-        for (int i = 0; i < appointments.size(); ++i) {
-            Date date = appointments.get(i).getStart_date();
-            String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-            String day          = (String) DateFormat.format("dd",   date); // 20
-            String monthString  = (String) DateFormat.format("MMM",  date); // Jun
-            String monthNumber  = (String) DateFormat.format("MM",   date); // 06
-            String year         = (String) DateFormat.format("yyyy", date);
-            Log.d(TAG, appointments.get(i).getStart_date_str());
-            String hour = appointments.get(i).getStart_date_str().split("T")[1].substring(0, 5);
-
-            if (i == 0 || oldtime != date.getDate()) {
-                mAdapter.addSectionHeaderItem(dayOfTheWeek + " " + day + " " + monthString);
-                mAdapter.addIs_Validate(appointments.get(i).getIs_validate());
-                mAdapter.addItemStat(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId(), appointments.get(i).getIs_validate());
-            } else {
-                mAdapter.addItemStat(hour +" - "+ appointments.get(i).getDescription() + " " + appointments.get(i).getType(), appointments.get(i).getId(), appointments.get(i).getIs_validate());
-                //mAdapter.addIs_Validate(appointments.get(i).getIs_validate());
-            }
-            oldtime = date.getDate();
-            nordv.setVisibility(View.INVISIBLE);
-        }
-        planning.setAdapter(mAdapter);
-        planning.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                Log.i("PlanningLV Onclick!", String.valueOf(position) + "  " + mAdapter.getItemIdStr(position));
-
-                AppointmentModel ourapt = getAptFromPosition(position);
-                oldclickposition = position;
-                AppointmentMore dialog = new AppointmentMore();
-                dialog.set_apt(ourapt);
-                dialog.show(getFragmentManager(), "more");
-
-            }
-
-        });
+    @Override
+    public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+        AppointmentModel sapt = (AppointmentModel) listAdapterExp.getChild(groupPosition, childPosition);
+        AppointmentMore dialog = new AppointmentMore(ACTION_FOR_INTENT_CALLBACK);
+        oldClickItem = sapt.getId();
+        dialog.set_apt(sapt);
+        dialog.show(getFragmentManager(), "more");
+        return false;
     }
 
-    public AppointmentModel getAptFromPosition(int position) {
-        AppointmentModel ourapt = null;
-        for(int i = 0; i < appointments.size(); ++i) {
-            if (appointments.get(i).getId().equals(mAdapter.getItemIdStr(position))) {
-                ourapt = appointments.get(i);
-            }
+    private void setAppointment(TreeMap<Date, LinkedList<AppointmentModel>> odatas) {
+
+        nordv.setVisibility(View.VISIBLE);
+        if (odatas.size()>0) {
+            nordv.setVisibility(View.INVISIBLE);
         }
-        return ourapt;
+        //if (listAdapterExp == null) {
+        listAdapterExp = new CustomPlanningExpandableListAdapter(getContext(), odatas);
+        exp_planning.setAdapter(listAdapterExp);
+        //} else {
+        //    listAdapterExp.updateList(odatas);
+        //}
+        listAdapterExp.notifyDataSetChanged();
+        /*for (Object o : odatas.entrySet()) {
+            Map.Entry entry_tmp = (Map.Entry) o;
+
+            Log.d("DATE Planning MAP", String.valueOf(entry_tmp.getKey()));
+
+            LinkedList<AppointmentModel> tmp_list = (LinkedList<AppointmentModel>) entry_tmp.getValue();
+            for (int i = 0; i < tmp_list.size(); ++i) {
+                AppointmentModel tmp_apt = tmp_list.get(i);
+                Log.d("DETAILS Planning MAP", tmp_apt.getDescription());
+            }
+        }*/
+    }
+
+    private void setPlanningMap() {
+        SimpleDateFormat justDate = new SimpleDateFormat("yyyyMMdd");
+        Date olddate = new Date();
+        LinkedList<AppointmentModel> apt_tmp = new LinkedList<>();
+        TreeMap<Date, LinkedList<AppointmentModel>> organized_data = new TreeMap<>();
+
+        try {
+
+            jsonevents = new JSONArray(UserInfo.events.get());
+
+            for (int i = 0; i < jsonevents.length(); ++i) {
+
+                AppointmentModel apm = new AppointmentModel();
+                JSONObject obj_tmp = jsonevents.getJSONObject(i);
+                apm.setId(obj_tmp.getString("id"));
+                apm.setDescription(obj_tmp.getString("description"));
+                apm.setAuthor_id(obj_tmp.getString("author"));
+                apm.setClient_id(obj_tmp.getString("client"));
+                apm.setType(obj_tmp.getString("type"));
+                apm.setStart_date(obj_tmp.getString("start_date"));
+                apm.setEnd_date(obj_tmp.getString("end_date"));
+                apm.setLocation(obj_tmp.getString("location"));
+                apm.setDuration(obj_tmp.getString("duration"));
+                apm.setLink(obj_tmp.getString("link"));
+                apm.setIs_validate(obj_tmp.getBoolean("validate"));
+
+                if (i == 0) {
+                    olddate = apm.getStart_date();
+                }
+                if (justDate.format(olddate).equals(justDate.format(apm.getStart_date()))) {
+                    apt_tmp.add(apm);
+                } else {
+                    organized_data.put(olddate, (LinkedList<AppointmentModel>) apt_tmp.clone());
+                    apt_tmp.clear();
+                    olddate = apm.getStart_date();
+                    apt_tmp.add(apm);
+                }
+            }
+            if (apt_tmp.size() > 0) {
+                organized_data.put(olddate, apt_tmp);
+            }
+            Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
+
+            setAppointment(organized_data);
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -225,17 +204,17 @@ public class PlanningFragment extends Fragment {
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
-            Log.i(TAG, "RESPONSE = " + response);
+            Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {
                 if (response.equals("204")) {
                     JSONArray tmparray = new JSONArray();
                     for (int i = 0; i < jsonevents.length(); ++i) {
                         try {
                             JSONObject tmp = jsonevents.getJSONObject(i);
-                            if (!tmp.getString("id").equals(mAdapter.getItemIdStr(oldclickposition))) {
+                            if (!tmp.getString("id").equals(oldClickItem)) {
                                 tmparray.put(tmp);
                             } else {
-                                Log.i(TAG, tmp.getString("id") + " " + mAdapter.getItemIdStr(oldclickposition));
+                                Log.i(TAG, tmp.getString("id") + " " + oldClickItem);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -246,31 +225,10 @@ public class PlanningFragment extends Fragment {
                     UserInfo.events.set(tmparray.toString());
                     //mAdapter.remove(oldclickposition);
 
-                    mAdapter.clear();
-                    appointments.clear();
-                    try {
-                        jsonevents = new JSONArray(UserInfo.events.get());
-                        for(int i = 0; i < jsonevents.length(); ++i) {
-                            AppointmentModel apm = new AppointmentModel();
-                            JSONObject obj_tmp = jsonevents.getJSONObject(i);
-                            apm.setId(obj_tmp.getString("id"));
-                            apm.setDescription(obj_tmp.getString("description"));
-                            apm.setAuthor_id(obj_tmp.getString("author"));
-                            apm.setClient_id(obj_tmp.getString("client"));
-                            apm.setType(obj_tmp.getString("type"));
-                            apm.setStart_date(obj_tmp.getString("start_date"));
-                            apm.setEnd_date(obj_tmp.getString("end_date"));
-                            apm.setLocation(obj_tmp.getString("location"));
-                            apm.setDuration(obj_tmp.getString("duration"));
-                            apm.setLink(obj_tmp.getString("link"));
-                            apm.setIs_validate(obj_tmp.getBoolean("is_validate"));
-                            appointments.add(apm);
-                        }
-                        Log.d(TAG, jsonevents.length() + " " + jsonevents.toString());
-                        setAppointment();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    //mAdapter.clear();
+                    //appointments.clear();
+
+                    setPlanningMap();
 
                     Log.d(TAG, UserInfo.events.get());
                     //TODO remove date if only one event
@@ -283,5 +241,4 @@ public class PlanningFragment extends Fragment {
             }
         }
     };
-
 }

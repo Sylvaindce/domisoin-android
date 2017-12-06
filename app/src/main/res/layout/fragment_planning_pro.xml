@@ -26,14 +26,14 @@
             android:textStyle="italic"
             android:textSize="18sp"/>
 
-        <ListView
+        <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/planning_pro"
+            android:groupIndicator="@null"
             android:dividerHeight="0dp"
             android:divider="@null">
-
-        </ListView>
+        </ExpandableListView>
 
     </FrameLayout>
 </layout>
