@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.Models.UserModel;
@@ -17,11 +19,12 @@ import java.util.List;
  * Created by Sylvain on 04/07/2017.
  */
 
-public class CustomProListAdapter extends BaseAdapter {
+public class CustomProListAdapter extends BaseAdapter  implements Filterable {
 
     private ArrayList<UserModel> mData = new ArrayList<UserModel>();
 
     private LayoutInflater mInflater;
+    private ClientFilter clientFilter;
 
     public CustomProListAdapter(Context context) {
         mInflater = (LayoutInflater) context
@@ -34,8 +37,10 @@ public class CustomProListAdapter extends BaseAdapter {
     }
 
     public void setList(List<UserModel> _list) {
+        mData.clear();
         mData.addAll(_list);
         notifyDataSetChanged();
+        getFilter();
     }
 
     @Override
@@ -85,9 +90,60 @@ public class CustomProListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    @Override
+    public Filter getFilter() {
+        if (clientFilter == null) {
+            clientFilter = new ClientFilter();
+        }
+        return clientFilter;
+    }
+
     public static class ViewHolder {
         public TextView textView_name;
         public TextView textView_job;
     }
+
+    /**
+     * Custom filter for friend list
+     * Filter content in friend list according to the search text
+     */
+    private class ClientFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (constraint!=null && constraint.length()>0) {
+                ArrayList<UserModel> tempList = new ArrayList<UserModel>();
+
+                // search content in friend list
+                for (UserModel user : mData) {
+                    if (user.getFirst_name().toLowerCase().contains(constraint.toString().toLowerCase()) || user.getLast_name().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(user);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = mData.size();
+                filterResults.values = mData;
+            }
+
+            return filterResults;
+        }
+
+        /**
+         * Notify about filtered list to ui
+         * @param constraint text
+         * @param results filtered result
+         */
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mData = (ArrayList<UserModel>) results.values;
+            notifyDataSetChanged();
+        }
+    }
+
 
 }

@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -37,7 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
-public class CustomerListFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class CustomerListFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
     private static final String TAG = CustomerListFragment.class.getSimpleName();
     private View ourView = null;
     private HomeProActivity ourActivity = null;
@@ -46,6 +49,9 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     private ListView listView_customers = null;
     private List<String> myClientsListId = null;
     private List<UserModel> myClientsList = null;
+    private CustomProListAdapter adapter = null;
+    private ImageButton search_button = null;
+    private EditText search_text = null;
 
     public CustomerListFragment() {
         // Required empty public constructor
@@ -66,6 +72,10 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
         ourActivity = (HomeProActivity)getActivity();
 
         listView_customers = (ListView)ourView.findViewById(R.id.listView_Customer);
+        search_button = (ImageButton)ourView.findViewById(R.id.validate_search_button_pro);
+        search_text = (EditText)ourView.findViewById(R.id.search_edittext_pro);
+
+        search_button.setOnClickListener(this);
 
         //List<String> clients_id = new LinkedList<String>();
 
@@ -159,7 +169,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void setListClients() {
-        CustomProListAdapter adapter = new CustomProListAdapter(getContext());
+        adapter = new CustomProListAdapter(getContext());
         adapter.setList(myClientsList);
         listView_customers.setAdapter(adapter);
         listView_customers.setOnItemClickListener(this);
@@ -171,6 +181,20 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
         CustomerMore dialog = new CustomerMore();
         dialog.set_user(myClientsList.get(position));
         dialog.show(getFragmentManager(), "more");
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.validate_search_button_pro:
+                if (search_text.getText().length()<=0) {
+                    adapter.setList(myClientsList);
+                } else {
+                    adapter.setList(myClientsList);
+                    adapter.getFilter().filter(search_text.getText());
+                }
+                break;
+        }
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -192,5 +216,4 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
             }
         }
     };
-
 }
