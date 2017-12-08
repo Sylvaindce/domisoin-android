@@ -38,6 +38,22 @@
                 android:layout_margin="100dp"
                 android:src="@drawable/domisoin_neg" />
 
+            <Button
+                android:id="@+id/login_button_pro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/white_rounded_button"
+                android:padding="20dp"
+                android:text="Espace pro"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignRight="@+id/domisoin_title_con"
+                android:layout_alignEnd="@+id/domisoin_title_con"
+                android:layout_alignLeft="@+id/domisoin_title_con"
+                android:layout_alignStart="@+id/domisoin_title_con" />
+
         </RelativeLayout>
 
         <RelativeLayout

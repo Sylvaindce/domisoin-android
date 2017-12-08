@@ -40,7 +40,9 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
+
     private static final String TAG = LoginFragment.class.getSimpleName();
+
     private View loginfragment = null;
 
     private EditText loginEdit = null;
@@ -75,6 +77,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
         LOGIN_URL = getString(R.string.api_url)+"auth/login/";
+
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_colorp_24dp);
         //upArrow.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(upArrow);
@@ -130,7 +133,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 ft.commit();
                 break;
             case R.id.validate_login_button:
-
                 login = String.valueOf(loginEdit.getText());
                 password = String.valueOf(passwordEdit.getText());
 
@@ -140,11 +142,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     datas.clear();
                     datas.put("email", String.valueOf(login));
                     datas.put("password", String.valueOf(password));
-
-                    /*for(int i = 0; i < datas.size(); ++i) {
-                        Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
-                       }*/
-
                     HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, LOGIN_URL, datas);
                     task.execute();
                     progress = ProgressDialog.show(getActivity(), "Authentification", "Vérification en cours, merci de patienter...", true);

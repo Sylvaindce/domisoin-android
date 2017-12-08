@@ -1,7 +1,9 @@
 package com.sylvain.domisoin.Fragments.Pro;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -38,6 +42,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
     private ImageButton editInfo = null;
 
     private EditText account_jobtitle = null;
+    private Button more = null;
     private EditText account_workphone = null;
     private EditText account_email = null;
     private EditText account_address = null;
@@ -64,6 +69,161 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
 
         editInfo = (ImageButton) fragmentProAccountBinding.getRoot().findViewById(R.id.account_modify_button_pro);
         editInfo.setOnClickListener(this);
+
+
+        more =(Button)fragmentProAccountBinding.getRoot().findViewById(R.id.ShowDialog);
+        Button Formation =(Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogFormation);
+        Button Langues = (Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogLangues);
+        Button Prix = (Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogPrix);
+        ImageButton Supprimer = (ImageButton)fragmentProAccountBinding.getRoot().findViewById(R.id.supprimer);
+
+        Supprimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
+                builder.setTitle("Suppresion de compte");
+                builder.setMessage("Voulez vous vraiment supprimer votre compte?");
+                builder.setCancelable(false);
+
+                builder.setNegativeButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+                builder.setPositiveButton("Supprimer mon compte", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+            }
+        });
+
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
+                builder.setTitle("Presentation du practicien ");
+                builder.setMessage("Le docteur blablabla");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
+            }
+        });
+
+        Formation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
+                builder.setTitle("Formation Du Practicien ");
+                builder.setMessage("Université Paris Dauphine");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
+            }
+        });
+
+        Langues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
+                builder.setTitle("Langues Parlées");
+                builder.setMessage("Anglais,Français,Arabe,Tamoul");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
+            }
+        });
+        Prix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
+                builder.setTitle("Prix de la consulation");
+                builder.setMessage("50 Euros");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
+            }
+        });
 
         account_jobtitle = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_jobtitle_pro);
         account_workphone = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_workphone_pro);

@@ -32,37 +32,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginTop="20dp"
-                android:gravity="top">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#b0bec5"
-                    android:text="Nom d'utilisateur, email ou téléphone"/>
+                android:gravity="top"
+                android:orientation="vertical"
+                android:weightSum="1">
 
                 <EditText
+                    android:id="@+id/loginEdit"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/loginEdit"
+                    android:layout_marginBottom="40dp"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:hint="Nom d'utilisateur, email ou téléphone"
                     android:inputType="text"
                     android:textColor="#212121"
-                    android:layout_marginBottom="40dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#b0bec5"
-                    android:text="Mot de passe"/>
+                    android:layout_weight="0.04" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
                     android:id="@+id/passwordEdit"
-                    android:textColor="#212121"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:inputType="textPassword" />
+                    android:drawableLeft="@drawable/icondemd24px"
+                    android:hint="Mot de passe"
+                    android:inputType="textPassword"
+                    android:textColor="#212121" />
+
+
 
                 <TextView
                     android:id="@+id/forgotPassword"

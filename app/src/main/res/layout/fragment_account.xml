@@ -357,6 +357,14 @@
                 app:layout_anchorGravity="center_horizontal|bottom"
                 app:srcCompat="@drawable/background_login"
                 android:src="@drawable/background_login"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:background="@color/colorPrimary"
+                android:layout_gravity="left|top"
+                android:layout_margin="18dp"
+                android:id="@+id/supprimer"/>
 
             <ImageButton
                 android:layout_width="wrap_content"

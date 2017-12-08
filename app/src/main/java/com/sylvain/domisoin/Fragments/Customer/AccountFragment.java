@@ -78,6 +78,34 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         Button Formation =(Button)fragmentAccountBinding.getRoot().findViewById(R.id.DialogFormation);
         Button Langues = (Button)fragmentAccountBinding.getRoot().findViewById(R.id.DialogLangues);
         Button Prix = (Button)fragmentAccountBinding.getRoot().findViewById(R.id.DialogPrix);
+        ImageButton Supprimer = (ImageButton)fragmentAccountBinding.getRoot().findViewById(R.id.supprimer);
+
+        Supprimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountFragment.this.getActivity());
+                builder.setTitle("Suppresion de compte");
+                builder.setMessage("Voulez vous vraiment supprimer votre compte?");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        //code here
+
+                    }
+                });
+
+
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
+            }
+        });
 
         more.setOnClickListener(new View.OnClickListener() {
             @Override
