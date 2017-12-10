@@ -89,8 +89,8 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         sdf_api = new SimpleDateFormat("yyyy-MM-dd");
 
         TextView address = (TextView)view.findViewById(R.id.pro_more_address);
-        Button More = (Button)view.findViewById(R.id.Dialogplus);
-         Button Langues = (Button)view.findViewById(R.id.buttonlangues);
+       /* Button More = (Button)view.findViewById(R.id.Dialogplus);
+        Button Langues = (Button)view.findViewById(R.id.buttonlangues);
 
         More.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +132,7 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
                             }
                         }); */
                 //langues
-
+/*
 
                 AlertDialog alert=builder.create();
                 alert.show();
@@ -145,7 +145,7 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
 
 
 
-
+*/
 
         address.setText(user.getAddress());
 

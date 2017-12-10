@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:visibility="visible"></ExpandableListView>
 
-        <LinearLayout
+      <!--  <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -101,11 +101,11 @@
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:weightSum="1">
+-->
 
 
 
-
-            <EditText
+            <!--<EditText
                 android:id="@+id/Languesparle"
                 android:layout_width="304dp"
                 android:layout_height="48dp"
@@ -131,9 +131,9 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/ic_add_black_24dp"
                 android:visibility="visible" />
-        </LinearLayout>
+        </LinearLayout>-->
 
-        <LinearLayout
+   <!--     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -207,11 +207,11 @@
                 android:background="@drawable/ic_add_black_24dp"
                 android:visibility="visible" />
         </LinearLayout>
-
+-->
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -248,6 +248,6 @@
             android:visibility="visible" />
 
     </LinearLayout>
-
+-->
 
 </FrameLayout>

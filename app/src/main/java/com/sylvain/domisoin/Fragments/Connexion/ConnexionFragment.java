@@ -33,8 +33,12 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
         //RoundedPic rounder = new RoundedPic(getResources());
         //rounded_pic.setImageDrawable(rounder.createRoundedBitmapDrawableWithBorder(BitmapFactory.decodeResource(getResources(),R.drawable.background_login)));
 
+        Button login_button_pro = (Button)connexionFragment.findViewById(R.id.login_button_pro);
+        login_button_pro.setOnClickListener(this);
+
         Button login_button = (Button)connexionFragment.findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
+
         Button signup_button = (Button)connexionFragment.findViewById(R.id.signup_button);
         signup_button.setOnClickListener(this);
 
@@ -51,6 +55,11 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
                 ft.commit();
                 //Login test = new Login(this.getContext());
                 //test.execute();
+                break;
+            case R.id.login_button_pro:
+                ft.replace(R.id.fragment_container, new LoginFragment(), "LoginFragment()");
+                ft.addToBackStack("login");
+                ft.commit();
                 break;
             case R.id.signup_button:
                 Log.v("OnClick", "Signin button");
