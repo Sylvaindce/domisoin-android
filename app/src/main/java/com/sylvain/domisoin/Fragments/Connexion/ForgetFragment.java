@@ -128,7 +128,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
                 if (login != null && !login.equals("")) {
                     Log.v("LoginValidate", login);
                     datas.clear();
-                    datas.put("email", String.valueOf(login));
+                    datas.put("email:", String.valueOf(login));
                     HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, FORGET_URL, datas);
                     task.execute();
                     //blabla

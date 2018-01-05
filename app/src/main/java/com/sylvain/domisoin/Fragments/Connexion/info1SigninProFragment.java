@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.sylvain.domisoin.R;
 
@@ -19,12 +20,19 @@ public class info1SigninProFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info1_signin2, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_info1_signin_pro, container, false);
+        EditText email = (EditText)view.findViewById(R.id.emailpro);
+        email.requestFocus();
+        return view;
     }
 
 }

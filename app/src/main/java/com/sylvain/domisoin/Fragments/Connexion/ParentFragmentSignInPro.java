@@ -123,7 +123,7 @@ public class ParentFragmentSignInPro extends Fragment implements View.OnClickLis
 
         NameSignInProFragment name = new NameSignInProFragment();
         info1SigninProFragment info1 = new info1SigninProFragment();
-        Info2SigninFragment info2 = new Info2SigninFragment();
+        info2SigninProFragment info2 = new info2SigninProFragment();
 
         vAdapter.addFrag(name, "Name");
         vAdapter.addFrag(info2, "info2");
@@ -202,7 +202,7 @@ public class ParentFragmentSignInPro extends Fragment implements View.OnClickLis
         datas.put("job_title", String.valueOf(job.getText()));
         datas.put("adresse", String.valueOf(address.getText())); //modify
         datas.put("workphone", String.valueOf(phone.getText())); //modify
-        datas.put("is_pro", "0"); //modify
+        datas.put("is_pro", "1"); //modify
         datas.put("password", String.valueOf(password.getText()));
 
         /*for(int i = 0; i < datas.size(); ++i) {
