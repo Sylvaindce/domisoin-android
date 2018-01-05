@@ -48,13 +48,13 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener, ButtonInterface {
+public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener,AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener,AdapterView.OnLongClickListener ,ButtonInterface {
     private static final String TAG = SearchFragment.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_SEARCH_FRAG";
 
     public ProgressDialog progress = null;
     private FragmentSearchBinding fragmentSearchBinding = null;
-    private HomeCustomerActivity homeActivity = null;
+    private HomeCustomerActivity homeActivity = null;  //onLongListItemClick
     private userInfo UserInfo = null;
     private GoogleMap mMap = null;
     private List<UserModel> list_pro = null;
@@ -129,12 +129,28 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProMore dialog = new ProMore();
+     /*   ProMore dialog = new ProMore();
         dialog.setUserid_1(UserInfo.id.get());
         dialog.set_user(mAdapter.getItem(position));
         dialog.setButtonInterface(this);
-        dialog.show(getFragmentManager(), "more");
+        dialog.show(getFragmentManager(), "more");*/
     }
+    //public void OnLongClickListener(AdapterView<?> parent, View view, int position, long id)
+   // {
+      /*  ProMore dialog = new ProMore();
+        dialog.setUserid_1(UserInfo.id.get());
+        dialog.set_user(mAdapter.getItem(position));
+        dialog.setButtonInterface(this);
+        dialog.show(getFragmentManager(), "more"); */
+   // }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+
+        return false;
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -293,4 +309,27 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onBookClick(String _ourBeginDate, String _ourEndDate) {
 
     }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        ProMore dialog = new ProMore();
+        dialog.setUserid_1(UserInfo.id.get());
+        dialog.set_user(mAdapter.getItem(position));
+        dialog.setButtonInterface(this);
+        dialog.show(getFragmentManager(), "more");
+        return false;
+    }
+/*
+     listView_pro.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+        int pos, long id) {
+            // TODO Auto-generated method stub
+
+            Log.v("long clicked","pos: " + pos);
+
+            return true;
+        }
+    });*/
+
 }

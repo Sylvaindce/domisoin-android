@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private View loginfragment = null;
 
     private EditText loginEdit = null;
+    private CheckBox check_box = null;
+
     private EditText passwordEdit = null;
     private Button validate = null;
     private ProgressDialog progress;
@@ -89,6 +92,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         loginEdit = (EditText)loginfragment.findViewById(R.id.loginEdit);
         loginEdit.requestFocus();
+
+        check_box = (CheckBox)loginfragment.findViewById(R.id.checkBox);
+
+
 
         TextView forgotPassword = (TextView)loginfragment.findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
@@ -173,13 +180,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     try {
                         JSONObject jsonObj = new JSONObject(response);
                         Log.d(TAG, jsonObj.getString("is_pro"));
-
-                        SharedPreferences sharedPref = getDefaultSharedPreferences(getActivity().getApplicationContext());
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString(getString(R.string.save_account), datas.get("email"));
-                        editor.putString(getString(R.string.save_password), datas.get("password"));
-                        editor.apply();
-
+                        if (check_box.isChecked()) {
+                            SharedPreferences sharedPref = getDefaultSharedPreferences(getActivity().getApplicationContext());
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString(getString(R.string.save_account), datas.get("email"));
+                            editor.putString(getString(R.string.save_password), datas.get("password"));
+                            editor.apply();
+                        }
                         if (jsonObj.getBoolean("is_pro")) {
                             //is pro
                             Intent homeprointent = new Intent(getActivity(), HomeProActivity.class);

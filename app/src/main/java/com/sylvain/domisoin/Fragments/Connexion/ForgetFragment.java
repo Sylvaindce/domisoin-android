@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
 import org.json.JSONException;
@@ -47,6 +48,7 @@ import java.util.Map;
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.R;
 
@@ -84,6 +86,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
         loginEdit1 = (EditText) ForgetFragment.findViewById(R.id.loginEdit1);
 
         FORGET_URL = getString(R.string.api_url)+"reset-password/";
+
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_colorp_24dp);
        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(upArrow);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,12 +126,14 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
                 login = String.valueOf(loginEdit1.getText());
 
                 if (login != null && !login.equals("")) {
-                    Log.v("EmailValidate", login);
+                    Log.v("LoginValidate", login);
                     datas.clear();
-                    datas.put("Forget_Email", String.valueOf(login));
+                    datas.put("email", String.valueOf(login));
                     HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, FORGET_URL, datas);
                     task.execute();
+                    //blabla
                     progress = ProgressDialog.show(getActivity(), "Verification", "Vérification du mail en cour..", true);
+
 
                 } else {
                     Snackbar.make(ForgetFragment.findViewById(R.id.loginfragment_container), "Veuillez renseigner une adresse email et un mot de passe valide.", Snackbar.LENGTH_LONG)
@@ -143,7 +148,9 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (progress != null) {
+            if (progress != null)
+            {
+                Toast.makeText(getActivity(),"khraaa" ,Toast.LENGTH_LONG).show();
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);

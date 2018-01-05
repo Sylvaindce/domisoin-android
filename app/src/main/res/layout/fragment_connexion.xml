@@ -28,8 +28,8 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="0.4"
-            android:weightSum="1"
-            android:padding="0dp">
+            android:padding="0dp"
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/domisoin_title_con"
@@ -38,24 +38,31 @@
                 android:layout_margin="100dp"
                 android:src="@drawable/domisoin_neg" />
 
+        <RelativeLayout
+            android:id="@+id/login_button_container123"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginStart="60dp">
+
             <Button
                 android:id="@+id/login_button_pro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_alignParentBottom="true"
+
                 android:background="@drawable/white_rounded_button"
                 android:padding="20dp"
-                android:text="Espace pro"
+                android:text="Inscription pro"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_alignRight="@+id/domisoin_title_con"
-                android:layout_alignEnd="@+id/domisoin_title_con"
-                android:layout_alignLeft="@+id/domisoin_title_con"
-                android:layout_alignStart="@+id/domisoin_title_con" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
-
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
