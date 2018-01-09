@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginfragment = inflater.inflate(R.layout.fragment_login, container, false);
 
 
-        LOGIN_URL = getString(R.string.api_url)+"auth/login/";
+        LOGIN_URL = getString(R.string.api_login_url);
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_colorp_24dp);
         //upArrow.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(upArrow);
@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
                        }*/
 
-                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, LOGIN_URL, datas);
+                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, LOGIN_URL, datas, "");
                     task.execute();
                     progress = ProgressDialog.show(getActivity(), "Authentification", "Vérification en cours, merci de patienter...", true);
                 }
@@ -151,7 +151,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

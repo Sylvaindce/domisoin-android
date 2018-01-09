@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -72,8 +73,15 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
     private SearchFragment mainFrag = null;
 
     private ButtonInterface buttonInterface = null;
+    private String mToken = null;
 
     public ProMore(){}
+
+    @SuppressLint("ValidFragment")
+    public ProMore(String token){
+        mToken = token;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -191,9 +199,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                     datas.put("end_date", ourEndDate); //modify
                     datas.put("location", "Paris, France"); //modify
 
-                    String uri = getString(R.string.api_url)+"events/";
-
-                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, uri, datas);
+                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
                     task.execute();
                     progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
                     //}
@@ -332,7 +338,16 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(getActivity().findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

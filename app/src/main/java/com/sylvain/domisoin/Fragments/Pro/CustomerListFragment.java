@@ -124,7 +124,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void getClientsListFromAPI() {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_url) + "users/?is_pro=false");
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=false", ourActivity.UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Actualisation", "Mise à jour de la liste des clients en cours, merci de patienter...", true);
@@ -206,7 +206,16 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

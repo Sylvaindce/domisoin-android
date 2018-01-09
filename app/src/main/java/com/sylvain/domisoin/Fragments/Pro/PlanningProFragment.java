@@ -200,7 +200,22 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
             }
             Log.i(TAG, "Planning Pro RESPONSE = " + response);
             if (response != null) {
-                if (response.equals("204")) {
+
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226) {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                }
+                else if (Integer.decode(response_code) == 204) {
                     JSONArray tmparray = new JSONArray();
                     for (int i = 0; i < jsonevents.length(); ++i) {
                         try {
@@ -222,7 +237,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
                     Log.d(TAG, UserInfo.events.get());
                 }
-                else if (response.equals("200")) {
+                else if (Integer.decode(response_code) == 200) {
                     JSONArray tmparray = new JSONArray();
                     for (int i = 0; i < jsonevents.length(); ++i) {
                         try {
@@ -235,7 +250,6 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                     jsonevents = tmparray;
                     UserInfo.events.set(tmparray.toString());
@@ -244,11 +258,6 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
                     Log.d(TAG, UserInfo.events.get());
                 }
-                else if (response.equals("-1")) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
-                }
             }
         }
     };
@@ -256,7 +265,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
         AppointmentModel sapt = (AppointmentModel) listAdapterExp.getChild(groupPosition, childPosition);
-        AppointmentMore dialog = new AppointmentMore(ACTION_FOR_INTENT_CALLBACK);
+        AppointmentMore dialog = new AppointmentMore(ACTION_FOR_INTENT_CALLBACK, UserInfo.token.get());
         oldClickItem = sapt.getId();
         dialog.set_apt(sapt);
         dialog.show(getFragmentManager(), "more");

@@ -30,8 +30,6 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
 
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_HOME_PRO_ACTIVITY";
 
-    private String url = "";
-
     private FragmentProAccountBinding fragmentProAccountBinding = null;
     private HomeProActivity homeActivity = null;
     private userInfo UserInfo = null;
@@ -72,8 +70,6 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
 
         //UserInfo.jsonAnswer.set(getArguments().getString("infofrag"));
 
-        url = getString(R.string.api_url)+"users/";
-
         return fragmentProAccountBinding.getRoot();
     }
 
@@ -112,7 +108,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
             newjson.put("email", account_email.getText());
             newjson.put("adresse", account_address.getText());
 
-            HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url+newjson.get("id")+"/", newjson);
+            HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+newjson.get("id")+"/", newjson, UserInfo.token.get());
             task.execute();
             ((HomeProActivity)getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
 

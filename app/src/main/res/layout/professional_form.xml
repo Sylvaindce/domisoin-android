@@ -69,6 +69,7 @@
                 android:layout_weight="0.5"
                 android:orientation="horizontal"
                 android:padding="15dp"
+                android:visibility="invisible"
                 android:weightSum="0.5">
 
                 <ImageView

@@ -33,7 +33,6 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class ConnexionActivity extends AppCompatActivity {
     private static final String TAG = ConnexionActivity.class.getName();
     private Map<String, String> datas                 = null;
-    private static String LOGIN_URL                   = null;
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_AUTOLOGIN";
     private ProgressDialog progress;
 
@@ -47,7 +46,6 @@ public class ConnexionActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        LOGIN_URL = getString(R.string.api_url)+"auth/login/";
         datas = new LinkedHashMap<String, String>();
 
         SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
@@ -59,7 +57,7 @@ public class ConnexionActivity extends AppCompatActivity {
             datas.put("email", email);
             datas.put("password", password);
 
-            HTTPPostRequest task = new HTTPPostRequest(this, ACTION_FOR_INTENT_CALLBACK, LOGIN_URL, datas);
+            HTTPPostRequest task = new HTTPPostRequest(this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_login_url), datas, "");
             task.execute();
             progress = ProgressDialog.show(this, "Authentification", "Vérification en cours, merci de patienter...", true);
         } else {
@@ -120,7 +118,16 @@ public class ConnexionActivity extends AppCompatActivity {
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.remove(getString(R.string.save_account));

@@ -38,12 +38,14 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
     private static final String TAG = AppointmentMore.class.getName();
     private View dialogFragment = null;
     private AppointmentModel _apt = null;
+    private String mToken = null;
 
     public AppointmentMore(){}
 
     @SuppressLint("ValidFragment")
-    public AppointmentMore(String intent){
+    public AppointmentMore(String intent, String token){
         ACTION_FOR_INTENT_CALLBACK = intent;
+        mToken = token;
     }
 
     @Override
@@ -111,13 +113,12 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        String url = getString(R.string.api_url)+"events/"+_apt.getId()+"/";
         switch (v.getId()) {
             case R.id.close_appointment_more_button:
                 getDialog().dismiss();
                 break;
             case R.id.delete_appointment_button:
-                HTTPDeleteRequest task = new HTTPDeleteRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url);
+                HTTPDeleteRequest task = new HTTPDeleteRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url)+_apt.getId()+"/", mToken);
                 task.execute();
 
                 switch (ACTION_FOR_INTENT_CALLBACK) {
@@ -133,7 +134,7 @@ public class AppointmentMore extends DialogFragment implements View.OnClickListe
             case R.id.validate_appointment_more_button:
                 Log.d("AppointmentMore", "Validate");
                 _apt.setIs_validate(Boolean.TRUE);
-                HTTPPutRequest put_task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url, JsonUtils.AppointmentToJSON(_apt));
+                HTTPPutRequest put_task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url)+_apt.getId()+"/", JsonUtils.AppointmentToJSON(_apt), mToken);
                 put_task.execute();
                 PlanningProFragment.progress = ProgressDialog.show(getActivity(), "Mise à jour", "Mise à jour du votre rendez-vous en cours, merci de patienter...", true);
                 getDialog().dismiss();

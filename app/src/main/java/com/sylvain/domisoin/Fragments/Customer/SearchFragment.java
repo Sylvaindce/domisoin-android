@@ -214,7 +214,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getPro() {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_url) + "users/?is_pro=true");
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true", UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
     }
@@ -226,7 +226,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getProFromJobTitle(String job_title) {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_url) + "users/?is_pro=true&job_title="+job_title);
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&job_title="+job_title, UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
@@ -272,7 +272,16 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

@@ -372,7 +372,16 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     try {
                         JSONObject jsonObject = new JSONObject(UserInfo.json.get());
                         updateUserInfo(jsonObject);

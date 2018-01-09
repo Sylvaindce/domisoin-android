@@ -29,7 +29,7 @@ public class HTTPPostHandler {
     public HTTPPostHandler() {
     }
 
-    public String makeServiceCall(String reqUrl, Map data) {
+    public String makeServiceCall(String reqUrl, Map data, String token) {
         HttpURLConnection conn = null;
         String return_value = "0";
         try {
@@ -43,6 +43,8 @@ public class HTTPPostHandler {
             conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
+            conn.setRequestProperty("Autorization", "JWT "+token);
+            conn.addRequestProperty("Autorization", "JWT "+token);
             conn.setDoOutput(true);
             //conn.setReadTimeout(10000);
             //conn.setConnectTimeout(15000);
@@ -58,12 +60,14 @@ public class HTTPPostHandler {
             writer.close();
             os.close();
 
-            Log.d("post response code", String.valueOf(conn.getResponseCode()));
             return_value = String.valueOf(conn.getResponseCode());
-
-            //Read
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            return_value = convertStreamToString(in);
+            if (Integer.decode(return_value) > 226) {
+                InputStream err = new BufferedInputStream(conn.getErrorStream());
+                return_value += " - " + convertStreamToString(err);
+            } else {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                return_value += " - " + convertStreamToString(in);
+            }
 
             /*BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line = null;
@@ -86,6 +90,7 @@ public class HTTPPostHandler {
             if(conn != null)
                 conn.disconnect();
         }
+        Log.d(TAG, return_value);
         return return_value;
     }
 
