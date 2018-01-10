@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.databinding.FragmentPlanningBinding;
 
 import org.json.JSONArray;
@@ -52,6 +54,8 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
     private ExpandableListView exp_planning = null;
     private CustomPlanningExpandableListAdapter listAdapterExp = null;
     private String oldClickItem = "";
+    private SwipeRefreshLayout swipeContainer;
+
 
 
     public PlanningFragment() {
@@ -75,6 +79,22 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
         fragmentPlanningBinding.setUser(UserInfo);
 
         nordv = (TextView)fragmentPlanningBinding.getRoot().findViewById(R.id.nordv);
+
+        swipeContainer = (SwipeRefreshLayout) fragmentPlanningBinding.getRoot().findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                //fetchTimelineAsync(0);
+                Log.d(TAG, "Refresh moi");
+                HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url)+UserInfo.id.get()+"/", UserInfo.token.get());
+                task.execute();
+            }
+        });
+
 
         exp_planning = (ExpandableListView)fragmentPlanningBinding.getRoot().findViewById(R.id.exp_planning);
         exp_planning.setOnChildClickListener(this);
@@ -203,7 +223,11 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             if (progress != null) {
                 progress.dismiss();
             }
+            swipeContainer.setRefreshing(false);
             String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {
 
@@ -252,4 +276,5 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             }
         }
     };
+
 }

@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Utilities;
 
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -46,8 +47,12 @@ public class HTTPPutHandler {
             conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            conn.setRequestProperty("Autorization", "JWT "+token);
-            conn.addRequestProperty("Autorization", "JWT "+token);
+            String headtok = "JWT" + '\u0020' + token;
+            //String headtok = String.format("%-3s"," ", headt);
+            conn.setRequestProperty("Authorization", headtok);
+            //conn.addRequestProperty("Authorization", headtok);
+
+            Log.d(TAG, headtok);
             conn.setDoOutput(true);
             //conn.setReadTimeout(10000);
             //conn.setConnectTimeout(15000);

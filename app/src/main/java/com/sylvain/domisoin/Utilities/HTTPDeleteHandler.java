@@ -34,8 +34,8 @@ public class HTTPDeleteHandler {
             conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
-            conn.setRequestProperty("Autorization", "JWT "+token);
-            conn.addRequestProperty("Autorization", "JWT "+token);
+            conn.setRequestProperty("Authorization", "JWT " + token);
+            //conn.addRequestProperty("Authorization", "JWT " + token);
 
             // read the response
             response = String.valueOf(conn.getResponseCode());

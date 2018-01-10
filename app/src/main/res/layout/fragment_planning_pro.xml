@@ -26,14 +26,21 @@
             android:textStyle="italic"
             android:textSize="18sp"/>
 
-        <ExpandableListView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainerPro"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/planning_pro"
-            android:groupIndicator="@null"
-            android:dividerHeight="0dp"
-            android:divider="@null">
-        </ExpandableListView>
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/planning_pro"
+                android:groupIndicator="@null"
+                android:dividerHeight="0dp"
+                android:divider="@null">
+            </ExpandableListView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 </layout>

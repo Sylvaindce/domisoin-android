@@ -40,6 +40,7 @@ import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -357,6 +358,9 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null){
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "";

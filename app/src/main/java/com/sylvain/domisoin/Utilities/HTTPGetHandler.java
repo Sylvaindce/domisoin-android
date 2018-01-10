@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Utilities;
 
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -34,8 +35,12 @@ public class HTTPGetHandler {
             conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
-            conn.setRequestProperty("Autorization", "JWT "+token);
-            conn.addRequestProperty("Autorization", "JWT "+token);
+            String headtok = "JWT" + '\u0020' + token;
+            //String headtok = String.format("%-2s", headt);
+            conn.setRequestProperty("Authorization", headtok);
+            //conn.addRequestProperty("Authorization", headtok);
+
+            Log.d(TAG, headtok);
 
             response = String.valueOf(conn.getResponseCode());
             if (Integer.decode(response) > 226) {

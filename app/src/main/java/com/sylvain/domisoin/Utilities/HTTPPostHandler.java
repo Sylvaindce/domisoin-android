@@ -43,8 +43,9 @@ public class HTTPPostHandler {
             conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            conn.setRequestProperty("Autorization", "JWT "+token);
-            conn.addRequestProperty("Autorization", "JWT "+token);
+            conn.setRequestProperty("Authorization", "JWT " + token);
+            //conn.addRequestProperty("Authorization", "JWT " + token);
+
             conn.setDoOutput(true);
             //conn.setReadTimeout(10000);
             //conn.setConnectTimeout(15000);
