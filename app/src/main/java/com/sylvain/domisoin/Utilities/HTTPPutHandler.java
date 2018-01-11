@@ -44,15 +44,16 @@ public class HTTPPutHandler {
 
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty( "Content-Type", "application/json");
-            conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
-            conn.addRequestProperty( "Content-Type", "application/json");
+            //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            String headtok = "JWT" + '\u0020' + token;
             //String headtok = String.format("%-3s"," ", headt);
-            conn.setRequestProperty("Authorization", headtok);
+            if (!token.isEmpty() || !token.equals("")) {
+                String headtok = "JWT" + '\u0020' + token;
+                conn.setRequestProperty("Authorization", headtok);
+                Log.d(TAG, headtok);
+            }
             //conn.addRequestProperty("Authorization", headtok);
-
-            Log.d(TAG, headtok);
             conn.setDoOutput(true);
             //conn.setReadTimeout(10000);
             //conn.setConnectTimeout(15000);

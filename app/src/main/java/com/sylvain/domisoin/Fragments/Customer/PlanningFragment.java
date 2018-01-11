@@ -231,7 +231,7 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {
 
-                String response_code = "";
+                String response_code = "-1";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -239,6 +239,11 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     } catch(ArrayIndexOutOfBoundsException e) {
                         Log.d(TAG, response);
                     }
+                }
+                if (Integer.decode(response) == 0) {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
                 }
                 if (Integer.decode(response_code) > 226) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)

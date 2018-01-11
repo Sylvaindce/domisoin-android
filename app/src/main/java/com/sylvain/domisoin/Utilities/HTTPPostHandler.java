@@ -40,10 +40,13 @@ public class HTTPPostHandler {
 
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty( "Content-Type", "application/json");
-            conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
-            conn.addRequestProperty( "Content-Type", "application/json");
+            //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            conn.setRequestProperty("Authorization", "JWT " + token);
+            if (!token.isEmpty() || !token.equals("")) {
+                Log.d(TAG, "LOGIN: "+token);
+                conn.setRequestProperty("Authorization", "JWT " + token);
+            }
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);

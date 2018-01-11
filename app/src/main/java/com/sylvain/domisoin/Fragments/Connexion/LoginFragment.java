@@ -151,7 +151,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                String response_code = "";
+                String response_code = "-1";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -160,7 +160,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
+                if (Integer.decode(response) == 0) {
+                    Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

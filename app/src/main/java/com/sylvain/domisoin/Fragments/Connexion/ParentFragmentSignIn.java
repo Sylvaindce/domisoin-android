@@ -303,7 +303,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "-1";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -312,7 +312,12 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
+                if (Integer.decode(response) == 0) {
+                    Snackbar.make(view.findViewById(R.id.viewpager_signin), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(view.findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
