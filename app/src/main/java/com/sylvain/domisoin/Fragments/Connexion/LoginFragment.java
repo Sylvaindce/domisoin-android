@@ -160,7 +160,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response) == 0) {
+                if (response.equals("0")) {
                     Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

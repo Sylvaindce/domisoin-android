@@ -128,12 +128,18 @@ public class ConnexionActivity extends AppCompatActivity {
                     }
                 }
 
-                if (Integer.decode(response) == 0) {
+                if (response.equals("0")) {
                     Snackbar.make(findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
+                    SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.remove(getString(R.string.save_account));
+                    editor.remove(getString(R.string.save_password));
+                    editor.apply();
+                    launch_connfragm();
                 }
-                if (Integer.decode(response) == 0 || Integer.decode(response_code) > 226 ) {
+                else if (Integer.decode(response_code) > 226 ) {
                     SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.remove(getString(R.string.save_account));

@@ -90,7 +90,7 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                 // once the network request has completed successfully.
                 //fetchTimelineAsync(0);
                 Log.d(TAG, "Refresh moi");
-                HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url)+UserInfo.id.get()+"/", UserInfo.token.get());
+                HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+UserInfo.id.get()+"/", UserInfo.token.get());
                 task.execute();
             }
         });
@@ -240,12 +240,12 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response) == 0) {
+                if (response.equals("0")) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
                 }
-                if (Integer.decode(response_code) > 226) {
+                else if (Integer.decode(response_code) > 226) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
@@ -277,6 +277,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
 
                     Log.d(TAG, UserInfo.events.get());
                     //TODO remove date if only one event
+                }
+                else if (Integer.decode(response_code) == 200){
+                    Log.d(TAG, "Refresh Moi");
                 }
             }
         }
