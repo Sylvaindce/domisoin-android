@@ -58,12 +58,15 @@ public class CustomPlanningExpandableListAdapter extends BaseExpandableListAdapt
             cholder = new ChildViewHolder();
             convertView = mInflater.inflate(R.layout.itemlist_planning_description, null);
             cholder.textView = (TextView) convertView.findViewById(R.id.item_planning_description);
+            cholder.circle = (TextView) convertView.findViewById(R.id.is_validate_circle);
             convertView.setTag(R.string.childHolder, cholder);
         } else {
             cholder = (ChildViewHolder) convertView.getTag(R.string.childHolder);
         }
-        if (!tmp.getIs_validate())
+        if (!tmp.getIs_validate()) {
             cholder.textView.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryLight));
+            cholder.circle.setVisibility(View.VISIBLE);
+        }
         cholder.textView.setText(expandedListText);
         return convertView;
     }
@@ -140,6 +143,7 @@ public class CustomPlanningExpandableListAdapter extends BaseExpandableListAdapt
     }
 
     public static class ChildViewHolder {
+        public TextView circle;
         public TextView textView;
     }
 }

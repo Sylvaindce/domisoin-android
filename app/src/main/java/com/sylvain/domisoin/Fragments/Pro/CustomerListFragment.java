@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.firebase.auth.UserInfo;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.Dialogs.CustomerMore;
 import com.sylvain.domisoin.Dialogs.ProMore;

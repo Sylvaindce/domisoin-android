@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-feature android:name="android.hardware.location.gps" />
 
-
     <permission
         android:name="com.sylvain.domisoin.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -52,6 +51,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".Activities.MapsActivity"

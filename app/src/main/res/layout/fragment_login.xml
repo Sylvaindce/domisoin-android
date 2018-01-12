@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#b0bec5"
-                    android:text="Nom d'utilisateur, email ou téléphone"/>
+                    android:text="Email"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -64,11 +64,20 @@
                     android:layout_marginBottom="20dp"
                     android:inputType="textPassword" />
 
+                <Switch
+                    android:id="@+id/remindme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#b0bec5"
+                    android:paddingBottom="20dp"
+                    android:text="Se souvenir de moi" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:textAlignment="center"
+                    android:id="@+id/forgotpwd"
                     android:text="Mot de passe oublié ?"/>
 
             </LinearLayout>

@@ -14,6 +14,10 @@
         android:background="@color/whitegray"
         tools:context="com.sylvain.domisoin.Fragments.Pro.PlanningProFragment">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,10 +30,42 @@
             android:textStyle="italic"
             android:textSize="18sp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="visible"
+            android:id="@+id/not_validate_container_pro">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/red_circle"
+                android:text="2"
+                android:id="@+id/not_validate_number_pro"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/ourWhite"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textColor="@color/ourWhite"
+                android:text="rendez-vous en attente"/>
+
+        </LinearLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainerPro"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/not_validate_container_pro">
 
             <ExpandableListView
                 android:layout_width="match_parent"
@@ -41,6 +77,6 @@
             </ExpandableListView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
+    </RelativeLayout>
     </FrameLayout>
 </layout>

@@ -17,7 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -50,6 +52,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private static String LOGIN_URL                   = null;
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_LOGIN";
+    private Switch remindme = null;
+    private boolean remindme_value = false;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -88,6 +92,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         validate = (Button)loginfragment.findViewById(R.id.validate_login_button);
         validate.setOnClickListener(this);
+        remindme = (Switch)loginfragment.findViewById(R.id.remindme);
+        remindme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+               remindme_value = b;
+            }
+        });
 
         datas = new LinkedHashMap<String, String>();
 
@@ -174,11 +185,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         JSONObject jsonObj = new JSONObject(response);
                         Log.d(TAG, jsonObj.getString("is_pro"));
 
-                        SharedPreferences sharedPref = getDefaultSharedPreferences(getActivity().getApplicationContext());
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString(getString(R.string.save_account), datas.get("email"));
-                        editor.putString(getString(R.string.save_password), datas.get("password"));
-                        editor.apply();
+                        if (remindme_value) {
+                            SharedPreferences sharedPref = getDefaultSharedPreferences(getActivity().getApplicationContext());
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString(getString(R.string.save_account), datas.get("email"));
+                            editor.putString(getString(R.string.save_password), datas.get("password"));
+                            editor.apply();
+                        }
 
                         if (jsonObj.getBoolean("is_pro")) {
                             //is pro

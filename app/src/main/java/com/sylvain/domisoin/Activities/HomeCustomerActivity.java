@@ -37,6 +37,7 @@ import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
 import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
+import com.sylvain.domisoin.Fragments.Misc.OptionsFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -50,7 +51,7 @@ import java.util.List;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
-public class HomeCustomerActivity extends AppCompatActivity implements View.OnClickListener { //ViewPager.OnPageChangeListener,  ButtonInterface
+public class HomeCustomerActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener { //ViewPager.OnPageChangeListener,  ButtonInterface
     private static final String TAG = HomeCustomerActivity.class.getSimpleName();
 
     private TabLayout tabLayout;
@@ -65,17 +66,18 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
 
     //public String name = "lol";
 
-    //public FloatingActionButton fab = null;
+    public FloatingActionButton fab = null;
 
     public ProgressDialog progress = null;
 
-    //private BottomSheetBehavior mBottomSheetBehavior = null;
-    //private View bottomSheet = null;
-    //private int height = 0;
-    //private int width = 0;
-    //private Double mheight = 0.0;
-    //private Drawable oldDrawable = null;
+    private BottomSheetBehavior mBottomSheetBehavior = null;
+    private View bottomSheet = null;
+    private int height = 0;
+    private int width = 0;
+    private Double mheight = 0.0;
+    private Drawable oldDrawable = null;
     private AppCompatImageButton deconnexionButton = null;
+    private OptionsFragment frag1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +92,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
 
         setUserData();
 
-        /*fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);*/
+        fab = (FloatingActionButton) findViewById(R.id.fab_cust);
+        fab.setOnClickListener(this);
 
         deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button_customer);
         deconnexionButton.setOnClickListener(this);
@@ -114,12 +116,13 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
 
-        bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheet = findViewById(R.id.bottom_sheet_customer);
         mheight = Double.valueOf(height - getSupportActionBar().getHeight() - (height * 0.2));
         ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
         params.height = mheight.intValue();
         params.width = width;
-        bottomSheet.setLayoutParams(params);
+        bottomSheet.setLayoutParams(params);*/
+        bottomSheet = findViewById(R.id.bottom_sheet_customer);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(false);
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -135,9 +138,9 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         });
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        MainChatFragment frag1 = new MainChatFragment();
-        ft.replace(R.id.bottom_sheet_chat_settings, frag1, "MainChatFragment");
-        ft.commit();*/
+        frag1 = new OptionsFragment();
+        ft.replace(R.id.bottom_sheet_customer, frag1, "Options");
+        ft.commit();
     }
 
     private void setupTabIcons() {
@@ -186,7 +189,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         adapter.addFrag(searchFragment, "Rechercher");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
-        //viewPager.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -204,16 +207,17 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.fab:
+            case R.id.fab_cust:
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN || mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     oldDrawable = fab.getDrawable();
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_clear_white_24dp));
+                    frag1.setUserInfo(UserInfo);
                 } else {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     fab.setImageDrawable(oldDrawable);
                 }
-                break;*/
+                break;
             case R.id.deconnexion_button_customer:
                 SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -229,12 +233,14 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    /*@Override
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
+        //final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
 
         if (position == 2) {
-            final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
+
+            fab.setVisibility(View.VISIBLE);
+            /*final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
             frag1.setInterface(this);
             runOnUiThread(new Runnable() {
                 @Override
@@ -250,9 +256,14 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_more_white_24dp));
                     oldDrawable = fab.getDrawable();
                 }
-            });
+            });*/
         } else {
-            runOnUiThread(new Runnable() {
+            fab.setVisibility(View.INVISIBLE);
+            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                fab.setImageDrawable(oldDrawable);
+            }
+            /*runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     MainChatFragment myFragment = (MainChatFragment) getSupportFragmentManager().findFragmentByTag("MainChatFragment");
@@ -270,11 +281,11 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                         oldDrawable = fab.getDrawable();
                     }
                 }
-            });
+            });*/
         }
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void onPageSelected(int position) {
 
     }
@@ -282,7 +293,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }*/
+    }
 
     public userInfo getUserInfo() {
         return UserInfo;

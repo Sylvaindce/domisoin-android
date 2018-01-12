@@ -129,7 +129,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProMore dialog = new ProMore();
+        ProMore dialog = new ProMore(UserInfo.token.get());
         dialog.setUserid_1(UserInfo.id.get());
         dialog.set_user(mAdapter.getItem(position));
         dialog.setButtonInterface(this);

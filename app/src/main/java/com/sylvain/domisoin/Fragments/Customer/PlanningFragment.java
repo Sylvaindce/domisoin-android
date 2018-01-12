@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.Dialogs.AppointmentMore;
@@ -55,7 +56,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
     private CustomPlanningExpandableListAdapter listAdapterExp = null;
     private String oldClickItem = "";
     private SwipeRefreshLayout swipeContainer;
-
+    private TextView not_validate_number = null;
+    private LinearLayout not_validate_container = null;
+    private Integer number_validate_rdv = 0;
 
 
     public PlanningFragment() {
@@ -98,6 +101,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
 
         exp_planning = (ExpandableListView)fragmentPlanningBinding.getRoot().findViewById(R.id.exp_planning);
         exp_planning.setOnChildClickListener(this);
+
+        not_validate_container = (LinearLayout)fragmentPlanningBinding.getRoot().findViewById(R.id.not_validate_container_cust);
+        not_validate_number = (TextView)fragmentPlanningBinding.getRoot().findViewById(R.id.not_validate_number_cust);
 
         setPlanningMap();
 
@@ -174,6 +180,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
         LinkedList<AppointmentModel> apt_tmp = new LinkedList<>();
         TreeMap<Date, LinkedList<AppointmentModel>> organized_data = new TreeMap<>();
 
+        number_validate_rdv = 0;
+        not_validate_container.setVisibility(View.GONE);
+
         try {
 
             jsonevents = new JSONArray(UserInfo.events.get());
@@ -193,6 +202,10 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                 apm.setDuration(obj_tmp.getString("duration"));
                 apm.setLink(obj_tmp.getString("link"));
                 apm.setIs_validate(obj_tmp.getBoolean("validate"));
+
+                if (!apm.getIs_validate()) {
+                    ++number_validate_rdv;
+                }
 
                 if (i == 0) {
                     olddate = apm.getStart_date();
@@ -215,6 +228,12 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
         } catch(JSONException e) {
             e.printStackTrace();
         }
+
+        if (number_validate_rdv > 0) {
+            not_validate_number.setText(String.valueOf(number_validate_rdv));
+            not_validate_container.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -279,7 +298,15 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     //TODO remove date if only one event
                 }
                 else if (Integer.decode(response_code) == 200){
-                    Log.d(TAG, "Refresh Moi");
+                    try {
+                        JSONObject tmp = new JSONObject(response);
+                        UserInfo.events.set(tmp.getString("events"));
+
+                        setPlanningMap();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }
