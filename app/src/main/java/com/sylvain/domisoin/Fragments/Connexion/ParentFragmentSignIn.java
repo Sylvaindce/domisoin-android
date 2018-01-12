@@ -209,9 +209,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
         }*/
 
-        String uri = getString(R.string.api_url)+"users/";
-
-        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, uri, datas);
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), datas, "");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Création de l'utilisateur", "Création en cours, merci de patienter...", true);
     }
@@ -305,7 +303,21 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "-1";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response) == 0) {
+                    Snackbar.make(view.findViewById(R.id.viewpager_signin), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
                     Snackbar.make(view.findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();

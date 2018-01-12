@@ -40,6 +40,7 @@ import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,7 +97,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         deconnexionButton.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager_home_customer);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_home_customer);
@@ -175,9 +176,10 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         AccountFragment accountFragment = new AccountFragment();
         Bundle info = new Bundle();
         info.putString("infofrag", homeIntent.getExtras().getString("info"));
-
         accountFragment.setArguments(info);
+
         SearchFragment searchFragment = new SearchFragment();
+
         PlanningFragment planningFragment = new PlanningFragment();
 
         adapter.addFrag(planningFragment, "Agenda");
@@ -356,9 +358,21 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null){
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
                     try {
                         JSONObject jsonObject = new JSONObject(UserInfo.json.get());
                         updateUserInfo(jsonObject);

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/ourWhite"
-        tools:context=".Fragments.AccountFragment">
+        tools:context=".Fragments.Pro.AccountProFragment">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:weightSum="10">
 
                 <LinearLayout
-                    android:id="@+id/show_contact_bottomArea"
+                    android:id="@+id/show_contact_bottomArea_pro"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_alignParentBottom="true"
@@ -71,7 +71,6 @@
 
                         </LinearLayout>
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -81,177 +80,9 @@
                             android:layout_centerVertical="true"
                             android:orientation="vertical"
                             android:layout_weight="1">
-                            <!--  début malik-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal"
-                                android:layout_weight="1">
-
-                                <EditText
-                                    android:id="@+id/presentation"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:layout_marginBottom="20dp"
-                                    android:drawableStart="@drawable/ic_person_black_24dp"
-                                    android:drawableLeft="@drawable/ic_person_black_24dp"
-                                    android:enabled="false"
-                                    android:paddingLeft="40dp"
-                                    android:paddingStart="40dp"
-                                    android:gravity="center"
-                                    android:text="Présentation"
-                                    android:textColor="@color/grey42"
-                                    />
-
-                                <Button
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:id="@+id/ShowDialog"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/ic_add_black_24dp"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
-                                    android:layout_gravity="right"/>
-                            </LinearLayout>
-
-                            <!--fin malik-->
-
-
-                            <!--début 2  malik-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal"
-                                android:layout_weight="1">
-                                <!-- malik-->
-                                <EditText
-                                    android:id="@+id/formation"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:layout_marginBottom="20dp"
-                                    android:drawableStart="@drawable/ic_formation_black_24dp"
-                                    android:drawableLeft="@drawable/ic_formation_black_24dp"
-                                    android:enabled="false"
-                                    android:paddingLeft="40dp"
-                                    android:paddingStart="40dp"
-                                    android:gravity="center"
-                                    android:text="Formation"
-                                    android:textColor="@color/grey42"
-                                    />
-
-                                <Button
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:id="@+id/DialogFormation"
-
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/ic_add_black_24dp"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
-                                    android:layout_gravity="right"/>
-                            </LinearLayout>
-
-                            <!--fin 2 malik-->
-                            <!-- début 3 malik -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal"
-                                android:layout_weight="1">
-                                <!-- malik-->
-                                <EditText
-                                    android:id="@+id/langues"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:layout_marginBottom="20dp"
-                                    android:drawableStart="@drawable/ic_language_black_24dp"
-                                    android:drawableLeft="@drawable/ic_language_black_24dp"
-                                    android:enabled="false"
-                                    android:paddingLeft="40dp"
-                                    android:paddingStart="40dp"
-                                    android:gravity="center"
-                                    android:text="Langues parlées"
-                                    android:textColor="@color/grey42"
-                                    />
-
-                                <Button
-                                    android:layout_width="24dp"
-                                    android:id="@+id/DialogLangues"
-                                    android:layout_height="24dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/ic_add_black_24dp"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
-                                    android:layout_gravity="right"/>
-                            </LinearLayout>
-
-
-                            <!-- fin du 3 -->
-                            <!-- début du 4-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:orientation="horizontal"
-                                android:layout_weight="1">
-                                <!-- malik-->
-                                <EditText
-                                    android:id="@+id/price"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-
-                                    android:layout_marginBottom="20dp"
-                                    android:drawableStart="@drawable/ic_euro_symbol_black_24dp"
-                                    android:drawableLeft="@drawable/ic_euro_symbol_black_24dp"
-                                    android:enabled="false"
-                                    android:paddingLeft="40dp"
-                                    android:paddingStart="40dp"
-                                    android:gravity="center"
-                                    android:text="Tarfis et moyens de paiments"
-                                    android:textColor="@color/grey42"
-                                    />
-
-                                <Button
-                                    android:id="@+id/DialogPrix"
-
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/ic_add_black_24dp"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
-                                    android:layout_gravity="right"/>
-                            </LinearLayout>
-
-
-
-                            <!--fin du 4 -->
                             <EditText
-                                android:layout_width="454dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/account_jobtitle_pro"
                                 android:addTextChangedListener="@{user.watcher}"
@@ -266,7 +97,7 @@
                                 android:enabled="false"/>
 
                             <EditText
-                                android:layout_width="454dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/account_workphone_pro"
                                 android:addTextChangedListener="@{user.watcher}"
@@ -283,7 +114,7 @@
                                 android:enabled="false"/>
 
                             <EditText
-                                android:layout_width="454dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/account_email_pro"
                                 android:addTextChangedListener="@{user.watcher}"
@@ -298,7 +129,7 @@
                                 android:enabled="false"/>
 
                             <EditText
-                                android:layout_width="454dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/account_address_pro"
                                 android:addTextChangedListener="@{user.watcher}"
@@ -353,14 +184,15 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
-                app:layout_anchor="@+id/show_contact_bottomArea"
+                app:layout_anchor="@+id/show_contact_bottomArea_pro"
                 app:layout_anchorGravity="center_horizontal|bottom"
                 app:srcCompat="@drawable/background_login"
                 android:src="@drawable/background_login"/>
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_black_24dp"
+                android:src="@drawable/ic_create_black_24dp"
                 android:background="@color/colorPrimary"
                 android:layout_gravity="left|top"
                 android:layout_margin="18dp"
@@ -380,100 +212,3 @@
 
     </FrameLayout>
 </layout>
-
-
-    <!--LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.6">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:weightSum="1"
-            android:id="@+id/viewA"
-            android:orientation="vertical">
-
-        </RelativeLayout>
-
-            <com.sylvain.domisoin.Utilities.RoundedImageView
-                android:layout_height="100dp"
-                android:layout_width="100dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_centerInParent="false"
-                app:layout_anchor="@id/viewA"
-                app:layout_anchorGravity="bottom|right|end"
-                android:src="@drawable/background_login" />
-
-        </RelativeLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:layout_weight="0.4">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.account}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.json}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.email}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.address}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.workphone}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.id}" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.token}" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:addTextChangedListener="@{user.watcher}"
-                    android:text="@{user.job_title}" />
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-
-    </LinearLayout-->

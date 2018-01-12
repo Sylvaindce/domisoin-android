@@ -16,12 +16,14 @@ public class HTTPDeleteRequest extends AsyncTask<String, Void, String> {
     private Context mContext = null;
     private String mAction = null;
     private String mURL = null;
+    private String mToken = null;
 
-    public HTTPDeleteRequest(Context context, String action, String url) {
+    public HTTPDeleteRequest(Context context, String action, String url, String token) {
         super();
         mContext = context;
         mAction = action;
         mURL = url;
+        mToken = token;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class HTTPDeleteRequest extends AsyncTask<String, Void, String> {
             //BasicResponseHandler handler = new BasicResponseHandler();
             //return handler.handleResponse(serverResponse);
 
-            return  HTTPcall.makeServiceCall(mURL);
+            return  HTTPcall.makeServiceCall(mURL, mToken);
         }
         catch (Exception e) {
             // TODO Quitter proprement

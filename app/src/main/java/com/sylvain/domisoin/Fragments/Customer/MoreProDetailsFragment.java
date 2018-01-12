@@ -1,15 +1,11 @@
 package com.sylvain.domisoin.Fragments.Customer;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -32,33 +28,29 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 //implements CalendarView.OnDateChangeListener
-//teest github 19.11.2017 MALIK SKANDER BENDIF 
 
 public class MoreProDetailsFragment extends Fragment implements ExpandableListView.OnChildClickListener {
-
     private static final String TAG = MoreProDetailsFragment.class.getName();
     private CalendarView calendarView = null;
-    private CustomExpandableListAdapter listAdapterExp;
     private UserModel user = null;
+    //public String ourdate = "";
+    //private ProMore parent = null;
+
+
+    private CustomExpandableListAdapter listAdapterExp;
     private ExpandableListView expListView;
-    private Context context;
-
-
-    private View dialogFragment123 = null;
-
-
     private List<TitleCalendarValueModel> listDataHeader;
-
-    private List<String> listDataHeader1;
     private HashMap<String, List<String>> listDataChild;
+
+
     private Calendar currentCalendarView = null;
     private SimpleDateFormat sdf_disp = null;
     private SimpleDateFormat sdf_api = null;
+
     private ButtonInterface buttonInterface = null;
-    private Button btnmore;
-    public  TextView txtmore;
 
     public MoreProDetailsFragment() {
     }
@@ -66,102 +58,62 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       // dialogFragment123 = inflater.inflate(R.layout.presentatio_more, container, false);
-       // getDialog().setTitle("Plus d'informations");
-
-
         View view = inflater.inflate(R.layout.fragment_pro_details, container, false);
-        //txtmore = (TextView)MoreProDetailsFragment.getRoot().findViewById(R.id.presentation);
         user = ((ProMore)getParentFragment()).get_user();
-        currentCalendarView = Calendar.getInstance();
 
+        //parent = (ProMore)getParentFragment();
+
+        //calendarView = (CalendarView)view.findViewById(R.id.pro_more_calendar);
+        currentCalendarView = Calendar.getInstance();
+        //Calendar calendr = currentCalendarView;
+        //sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf_disp = new SimpleDateFormat("EEE dd MMM yyyy");
         sdf_api = new SimpleDateFormat("yyyy-MM-dd");
+        /*calendarView.setMinDate(calendr.getTimeInMillis());
+
+
+        ourdate = calendr.get(Calendar.YEAR) + "-";
+        if (calendr.get(Calendar.MONTH) < 10) {
+            ourdate = ourdate+"0"+String.valueOf(calendr.get(Calendar.MONTH));
+        } else {
+            ourdate = ourdate + String.valueOf(calendr.get(Calendar.MONTH));
+        }
+        ourdate = ourdate+"-";
+        if (calendr.get(Calendar.DAY_OF_MONTH) < 10) {
+            ourdate = ourdate+"0"+String.valueOf(calendr.get(Calendar.DAY_OF_MONTH));
+        } else {
+            ourdate = ourdate + String.valueOf(calendr.get(Calendar.DAY_OF_MONTH));
+        }
+
+
+        Log.d(TAG, ourdate);*/
+        //ourdate = sdf_disp.format(currentCalendarView.getTimeInMillis());
+        //parent.setOurDate(ourdate);
+        //Log.d(TAG, ourdate);
+        /*calendr.set(Calendar.DAY_OF_MONTH, currentCalendarView.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendarView.setMaxDate(calendr.getTimeInMillis());
+        calendarView.setOnDateChangeListener(this);*/
 
         TextView address = (TextView)view.findViewById(R.id.pro_more_address);
-       /* Button More = (Button)view.findViewById(R.id.Dialogplus);
-        Button Langues = (Button)view.findViewById(R.id.buttonlangues);
-
-        More.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MoreProDetailsFragment.this.getActivity());
-                builder.setTitle("Presentation du practicien ");
-                builder.setMessage("Le docteur blablabla");
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-                /*langues
-
-                Langues.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MoreProDetailsFragment.this.getActivity());
-                        builder.setTitle("Langues parlées par le practicien ");
-                        builder.setMessage("Français,Arabe,Angaais");
-                        builder.setCancelable(false);
-
-                        builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                                //code here
-
-                            }
-                        }); */
-                //langues
-/*
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-
-                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
-            }
-        });
-
-
-
-*/
-
         address.setText(user.getAddress());
+
 
         Log.d("TEST", user.getEvents());
 
+
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.expList2);
-      //  expListView = (ExpandableListView) view.findViewById(R.id.listpres);
-
-
 
         // preparing list data
         prepareListData();
 
         listAdapterExp = new CustomExpandableListAdapter(view.getContext(), listDataHeader, listDataChild);
-
 
         // setting list adapter
         expListView.setAdapter(listAdapterExp);
@@ -171,15 +123,26 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         return view;
     }
 
-    public void openDialog3(View view) {
+    /*@Override
+    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+        ourdate = String.valueOf(year) + "-";
+        if (month+1 < 10) {
+            ourdate = ourdate+"0"+String.valueOf(month+1);
+        } else {
+            ourdate = ourdate + String.valueOf(month+1);
+        }
+        ourdate = ourdate+"-";
+        if (dayOfMonth < 10) {
+            ourdate = ourdate+"0"+String.valueOf(dayOfMonth);
+        } else {
+            ourdate = ourdate + String.valueOf(dayOfMonth);
+        }
+        Log.d(TAG, ourdate);
+        parent.ourDate = ourdate;
+    }*/
 
-
-
-    }
     private void prepareListData() {
         listDataHeader = new LinkedList<TitleCalendarValueModel>();
-        listDataHeader1 = new ArrayList<String>();
-
         listDataChild = new HashMap<String, List<String>>();
         LinkedList<String> listpro_events = new LinkedList<String>();
 
@@ -250,6 +213,9 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         Toast.makeText(getContext(), listDataHeader.get(i).get_title() + listDataChild.get(listDataHeader.get(i).get_title()).get(i1), Toast.LENGTH_LONG).show();
+        //parent.ourDate = sdf_api.format(listDataHeader.get(i).get_time());
+        //parent.setOurDate(sdf_api.format(listDataHeader.get(i).get_time()));
+        //Log.d(TAG, parent.getOurDate());
 
         String Bhour = listDataChild.get(listDataHeader.get(i).get_title()).get(i1).split("-")[0].replaceAll(" ", "");
         Bhour = Bhour.replaceAll("h", ":");
@@ -259,10 +225,11 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         Ehour = Ehour.replaceAll("h", ":");
         Ehour = Ehour + ":00Z";
 
-
+        //Log.d("OURHOUR", Bhour);
 
         String Bdate = sdf_api.format(listDataHeader.get(i).get_time()) + "T" + Bhour;
         String Edate = sdf_api.format(listDataHeader.get(i).get_time()) + "T" + Ehour;
+        //buttonInterface.onBookClick(sdf_api.format(listDataHeader.get(i).get_time()));
         buttonInterface.onBookClick(Bdate, Edate);
 
         return false;

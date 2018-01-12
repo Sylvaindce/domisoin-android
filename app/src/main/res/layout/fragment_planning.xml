@@ -1,4 +1,7 @@
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.sylvain.domisoin.Fragments.Customer.PlanningFragment">
 
     <data>
 
@@ -7,12 +10,10 @@
             type="com.sylvain.domisoin.DataBind.userInfo" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whitegray"
-        tools:context="com.sylvain.domisoin.Fragments.Customer.PlanningFragment">
+        android:background="@color/whitegray">
 
         <TextView
             android:layout_width="match_parent"
@@ -26,14 +27,22 @@
             android:textStyle="italic"
             android:textSize="18sp"/>
 
-       <ListView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:id="@+id/planning"
-           android:dividerHeight="0dp"
-           android:divider="@null">
 
-       </ListView>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/exp_planning"
+                android:groupIndicator="@null"
+                android:dividerHeight="0dp"
+                android:divider="@null">
+            </ExpandableListView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 </layout>

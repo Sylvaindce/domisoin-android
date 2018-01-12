@@ -37,7 +37,7 @@ import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
-import com.sylvain.domisoin.Utilities.CustomProListView;
+import com.sylvain.domisoin.Utilities.CustomProListAdapter;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.databinding.FragmentSearchBinding;
 
@@ -48,18 +48,18 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener,AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener,AdapterView.OnLongClickListener ,ButtonInterface {
+public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener, ButtonInterface {
     private static final String TAG = SearchFragment.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_SEARCH_FRAG";
 
     public ProgressDialog progress = null;
     private FragmentSearchBinding fragmentSearchBinding = null;
-    private HomeCustomerActivity homeActivity = null;  //onLongListItemClick
+    private HomeCustomerActivity homeActivity = null;
     private userInfo UserInfo = null;
     private GoogleMap mMap = null;
     private List<UserModel> list_pro = null;
     private ListView listView_pro = null;
-    private CustomProListView mAdapter = null;
+    private CustomProListAdapter mAdapter = null;
     private ImageButton search_button = null;
     private EditText search_edittext = null;
 
@@ -129,28 +129,12 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-     /*   ProMore dialog = new ProMore();
+        ProMore dialog = new ProMore();
         dialog.setUserid_1(UserInfo.id.get());
         dialog.set_user(mAdapter.getItem(position));
         dialog.setButtonInterface(this);
-        dialog.show(getFragmentManager(), "more");*/
+        dialog.show(getFragmentManager(), "more");
     }
-    //public void OnLongClickListener(AdapterView<?> parent, View view, int position, long id)
-   // {
-      /*  ProMore dialog = new ProMore();
-        dialog.setUserid_1(UserInfo.id.get());
-        dialog.set_user(mAdapter.getItem(position));
-        dialog.setButtonInterface(this);
-        dialog.show(getFragmentManager(), "more"); */
-   // }
-
-    @Override
-    public boolean onLongClick(View v) {
-
-
-        return false;
-    }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -230,7 +214,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getPro() {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_url) + "users/?is_pro=true");
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true", UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
     }
@@ -242,7 +226,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getProFromJobTitle(String job_title) {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_url) + "users/?is_pro=true&job_title="+job_title);
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&job_title="+job_title, UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
@@ -250,7 +234,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
 
     public void setItemListView(String response) {
-        mAdapter = new CustomProListView(getContext());
+        mAdapter = new CustomProListAdapter(getContext());
 
         JSONArray resp = null;
         try {
@@ -288,7 +272,16 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                if (response.length() == 3) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226) {
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
@@ -309,27 +302,4 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onBookClick(String _ourBeginDate, String _ourEndDate) {
 
     }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        ProMore dialog = new ProMore();
-        dialog.setUserid_1(UserInfo.id.get());
-        dialog.set_user(mAdapter.getItem(position));
-        dialog.setButtonInterface(this);
-        dialog.show(getFragmentManager(), "more");
-        return false;
-    }
-/*
-     listView_pro.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-        int pos, long id) {
-            // TODO Auto-generated method stub
-
-            Log.v("long clicked","pos: " + pos);
-
-            return true;
-        }
-    });*/
-
 }

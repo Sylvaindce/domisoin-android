@@ -23,23 +23,33 @@ public class HTTPDeleteHandler {
     public HTTPDeleteHandler() {
     }
 
-    public String makeServiceCall(String reqUrl) {
+    public String makeServiceCall(String reqUrl, String token) {
         String response = null;
         HttpURLConnection conn = null;
         try {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
-            conn.addRequestProperty("Content-Type", "application/json");
-            conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            //conn.addRequestProperty("Content-Type", "application/json");
+            //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            if (!token.isEmpty() || !token.equals(""))
+                conn.setRequestProperty("Authorization", "JWT " + token);
+            //conn.addRequestProperty("Authorization", "JWT " + token);
 
             // read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            response = convertStreamToString(in);
-            response = "-1";
             response = String.valueOf(conn.getResponseCode());
+            if (Integer.decode(response) > 226) {
+                InputStream err = new BufferedInputStream(conn.getErrorStream());
+                response += " - " + convertStreamToString(err);
+            } else {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                response += " - " + convertStreamToString(in);
+                //response = "-1";
+                //response = String.valueOf(conn.getResponseCode());
+            }
+
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -52,6 +62,7 @@ public class HTTPDeleteHandler {
             if (conn != null)
                 conn.disconnect();
         }
+        Log.d(TAG, response);
         return response;
     }
 

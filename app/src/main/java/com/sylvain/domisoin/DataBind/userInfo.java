@@ -43,7 +43,7 @@ public class userInfo {
         address.set("empty");
         profile_img.set("empty");
         id.set("empty");
-        token.set("empty");
+        token.set("");
     }
 
     public TextWatcher watcher = new TextWatcher() {

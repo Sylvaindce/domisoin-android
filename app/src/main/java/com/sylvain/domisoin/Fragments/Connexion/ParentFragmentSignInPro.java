@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.UserInfo;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
@@ -209,9 +210,9 @@ public class ParentFragmentSignInPro extends Fragment implements View.OnClickLis
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
         }*/
 
-        String uri = getString(R.string.api_url)+"users/";
+        String uri = getString(R.string.api_base_url)+"users/";
 
-        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, uri, datas);
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, uri, datas,"");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Création de l'utilisateur", "Création en cours, merci de patienter...", true);
     }

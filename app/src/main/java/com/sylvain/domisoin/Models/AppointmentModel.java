@@ -21,7 +21,7 @@ public class AppointmentModel {
     private String location = null;
     private String duration = null;
     private String link = null;
-
+    private Boolean is_validate = true;
     public AppointmentModel() {
     }
 
@@ -125,6 +125,14 @@ public class AppointmentModel {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public void setIs_validate(Boolean _is_validate) {
+        is_validate = _is_validate;
+    }
+
+    public Boolean getIs_validate() {
+        return is_validate;
     }
 
 }

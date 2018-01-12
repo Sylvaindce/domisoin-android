@@ -2,16 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.NameSigninFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="399dp"
+        android:layout_height="match_parent"
         android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="15dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Salut. Comment tu t'appelles ?"
+            android:textColor="#000000"
+            android:textSize="22sp" />
 
 
         <LinearLayout
@@ -21,61 +29,59 @@
             android:gravity="top"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="82dp"
-                android:visibility="visible"
-                app:srcCompat="@drawable/lesteps"
-                tools:ignore="ContentDescription" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nom de famille"
+                android:textColor="#b0bec5" />
 
             <EditText
                 android:id="@+id/lastname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:hint="Nom de famille"
-                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="#212121"
-                tools:ignore="Deprecated" />
+                android:imeOptions="actionNext"
+                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prénom"
+                android:textColor="#b0bec5" />
 
             <EditText
                 android:id="@+id/firstname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:hint="Prénom"
-                android:imeOptions="actionNext"
                 android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profession"
+                android:textColor="#b0bec5" />
 
             <EditText
                 android:id="@+id/job"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                android:hint="Profession"
-                android:imeOptions="actionDone"
                 android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:textColor="#212121" />
 
-
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@+id/test123"
-            android:textColor="#000000"
-            android:textSize="22sp" />
-
-
     </LinearLayout>
+
 
 </FrameLayout>

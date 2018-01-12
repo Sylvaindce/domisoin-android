@@ -1,32 +1,39 @@
 package com.sylvain.domisoin.Fragments.Pro;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.sylvain.domisoin.Activities.ConnexionActivity;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Fragments.Customer.AccountFragment;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.databinding.FragmentProAccountBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 
 public class AccountProFragment extends Fragment implements View.OnClickListener {
@@ -34,18 +41,18 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
 
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_HOME_PRO_ACTIVITY";
 
-    private String url = "";
-
     private FragmentProAccountBinding fragmentProAccountBinding = null;
     private HomeProActivity homeActivity = null;
     private userInfo UserInfo = null;
     private ImageButton editInfo = null;
 
     private EditText account_jobtitle = null;
-    private Button more = null;
     private EditText account_workphone = null;
     private EditText account_email = null;
     private EditText account_address = null;
+    private ImageButton supprimer = null;
+    private static String DELETE_URL = null;
+    private ProgressDialog progress;
 
 
     public AccountProFragment() {
@@ -70,160 +77,8 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
         editInfo = (ImageButton) fragmentProAccountBinding.getRoot().findViewById(R.id.account_modify_button_pro);
         editInfo.setOnClickListener(this);
 
-
-        more =(Button)fragmentProAccountBinding.getRoot().findViewById(R.id.ShowDialog);
-        Button Formation =(Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogFormation);
-        Button Langues = (Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogLangues);
-        Button Prix = (Button)fragmentProAccountBinding.getRoot().findViewById(R.id.DialogPrix);
-        ImageButton Supprimer = (ImageButton)fragmentProAccountBinding.getRoot().findViewById(R.id.supprimer);
-
-        Supprimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
-                builder.setTitle("Suppresion de compte");
-                builder.setMessage("Voulez vous vraiment supprimer votre compte?");
-                builder.setCancelable(false);
-
-                builder.setNegativeButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-                builder.setPositiveButton("Supprimer mon compte", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-            }
-        });
-
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
-                builder.setTitle("Presentation du practicien ");
-                builder.setMessage("Le docteur blablabla");
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
-            }
-        });
-
-        Formation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
-                builder.setTitle("Formation Du Practicien ");
-                builder.setMessage("Université Paris Dauphine");
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
-            }
-        });
-
-        Langues.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
-                builder.setTitle("Langues Parlées");
-                builder.setMessage("Anglais,Français,Arabe,Tamoul");
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
-            }
-        });
-        Prix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountProFragment.this.getActivity());
-                builder.setTitle("Prix de la consulation");
-                builder.setMessage("50 Euros");
-                builder.setCancelable(false);
-
-                builder.setPositiveButton("Fermer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-
-                        //code here
-
-                    }
-                });
-
-
-                AlertDialog alert=builder.create();
-                alert.show();
-
-
-                //startActivity(new Intent(AccountFragment.this.getActivity(), pop.class));
-            }
-        });
+        supprimer = (ImageButton) fragmentProAccountBinding.getRoot().findViewById(R.id.supprimer);
+        supprimer.setOnClickListener(this);
 
         account_jobtitle = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_jobtitle_pro);
         account_workphone = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_workphone_pro);
@@ -231,17 +86,42 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
         account_address = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_address_pro);
 
         //UserInfo.jsonAnswer.set(getArguments().getString("infofrag"));
-
-        url = getString(R.string.api_url)+"users/";
+        DELETE_URL = getString(R.string.api_users_url)+UserInfo.id.get()+"/";
 
         return fragmentProAccountBinding.getRoot();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(receiver, new IntentFilter(ACTION_FOR_INTENT_CALLBACK));
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(receiver);
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.account_modify_button_pro:
+            case R.id.supprimer:
+                Log.d(TAG, "suppresion");
+                HTTPDeleteRequest task = new HTTPDeleteRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, DELETE_URL,UserInfo.token.get());
+                task.execute();
+                progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
+                /*SharedPreferences sharedPref = getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.remove(getString(R.string.save_account));
+                editor.remove(getString(R.string.save_password));
+                editor.apply();
+                Intent connIntent = new Intent(getActivity(), ConnexionActivity.class);
+                connIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(connIntent);*/
+                break;
+           /* case R.id.account_modify_button_pro:
                 Log.d(TAG, "account modify info");
                 if (account_jobtitle.isEnabled()) {
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_create_black_24dp));
@@ -257,11 +137,36 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
                     account_email.setEnabled(true);
                     account_address.setEnabled(true);
                 }
-                break;
+                break;*/
         }
 
     }
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (progress != null)
+            {
+                Toast.makeText(getActivity(),"khraaa" ,Toast.LENGTH_LONG).show();
+                progress.dismiss();
+            }
 
+            String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            Log.i(TAG, "RESPONSE = " + response);
+            if(response== null) {
+                Toast.makeText(getActivity(),"khraaa2" ,Toast.LENGTH_LONG).show();
+
+            }
+            if (response != null) {
+                if (response.length() == 3) {
+                    Snackbar.make(fragmentProAccountBinding.getRoot(), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                }
+            }
+        }
+
+        ;
+    };
     private void doUpdate() {
         userInfo userinfo = ((HomeProActivity)getActivity()).getUserInfo();
 
@@ -272,9 +177,9 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
             newjson.put("email", account_email.getText());
             newjson.put("adresse", account_address.getText());
 
-            HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, url+newjson.get("id")+"/", newjson);
+            HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+newjson.get("id")+"/", newjson, UserInfo.token.get());
             task.execute();
-            ((HomeCustomerActivity)getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
+            ((HomeProActivity)getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
 
         } catch (JSONException e) {
             e.printStackTrace();

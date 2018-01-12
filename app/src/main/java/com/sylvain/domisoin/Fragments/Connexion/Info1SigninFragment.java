@@ -23,10 +23,10 @@ public class Info1SigninFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fragment_info1_signin, container, false);
         EditText email = (EditText)view.findViewById(R.id.email);
         email.requestFocus();
+
         return view;
     }
 

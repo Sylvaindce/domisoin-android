@@ -2,11 +2,13 @@
 <resources>
     <color name="colorPrimary">#53b6bf</color>
     <color name="colorPrimaryDark">#00b6bf</color>
+    <color name="colorPrimaryLight">#bdb6bf</color>
     <color name="colorAccent">#172d76</color>
     <color name="ourWhite">#FAFAFA</color>
     <color name="grey">#212121</color>
     <color name="grey42">#424242</color>
     <color name="whitegray">#f5f5f5</color>
+    <color name="green">#8BC34A</color>
 
     <color name="colorSecondary">#e3dccc</color>
 </resources>

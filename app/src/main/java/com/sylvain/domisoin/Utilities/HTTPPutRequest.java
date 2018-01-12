@@ -14,19 +14,21 @@ import java.util.Map;
 
 public class HTTPPutRequest extends AsyncTask<String, Void, String> {
     private static final String TAG = HTTPPutRequest.class.getSimpleName();
-    public static final String HTTP_RESPONSE = "HTTP_Post_Response";
+    public static final String HTTP_RESPONSE = "HTTP_Put_Response";
 
     private Context mContext = null;
     private String mAction = null;
     private String mURL = null;
     private JSONObject mData = null;
+    private String mToken = null;
 
-    public HTTPPutRequest(Context context, String action, String url, JSONObject data) {
+    public HTTPPutRequest(Context context, String action, String url, JSONObject data, String token) {
         super();
         mContext = context;
         mAction = action;
         mURL = url;
         mData = data;
+        mToken = token;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class HTTPPutRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         try {
             HTTPPutHandler HTTPcall = new HTTPPutHandler();
-            return  HTTPcall.makeServiceCall(mURL, mData);
+            return  HTTPcall.makeServiceCall(mURL, mData, mToken);
         }
         catch (Exception e) {
             // TODO Quitter proprement

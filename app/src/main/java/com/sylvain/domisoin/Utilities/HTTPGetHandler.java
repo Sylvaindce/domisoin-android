@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Utilities;
 
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -23,21 +24,31 @@ public class HTTPGetHandler {
     public HTTPGetHandler() {
     }
 
-    public String makeServiceCall(String reqUrl) {
+    public String makeServiceCall(String reqUrl, String token) {
         String response = null;
         HttpURLConnection conn = null;
         try {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.addRequestProperty("Content-Type", "application/json");
-            conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            //conn.addRequestProperty("Content-Type", "application/json");
+            //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
 
-            // read the response
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            response = convertStreamToString(in);
+            if (!token.isEmpty() || !token.equals("")) {
+                String headtok = "JWT" + '\u0020' + token;
+                conn.setRequestProperty("Authorization", headtok);
+                Log.d(TAG, headtok);
+            }
+            response = String.valueOf(conn.getResponseCode());
+            if (Integer.decode(response) > 226) {
+                InputStream err = new BufferedInputStream(conn.getErrorStream());
+                response += " - " + convertStreamToString(err);
+            } else {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                response += " - " + convertStreamToString(in);
+            }
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -50,6 +61,7 @@ public class HTTPGetHandler {
             if(conn != null)
                 conn.disconnect();
         }
+        Log.d(TAG, response);
         return response;
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.sylvain.domisoin.Models.AppointmentModel;
 import com.sylvain.domisoin.R;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class CustomPlanningListView extends BaseAdapter {
     private ArrayList<String> id = new ArrayList<String>();
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
+    private ArrayList<Boolean> statList = new ArrayList<Boolean>();
+
     private LayoutInflater mInflater;
 
     public CustomPlanningListView(Context context) {
@@ -38,11 +41,23 @@ public class CustomPlanningListView extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addItemStat(final String item, String strid, Boolean valid) {
+        mData.add(item);
+        id.add(strid);
+        statList.add(valid);
+        notifyDataSetChanged();
+    }
+
     public void addSectionHeaderItem(final String item) {
         mData.add(item);
         id.add("null");
+        statList.add(false);
         sectionHeader.add(mData.size() - 1);
         notifyDataSetChanged();
+    }
+
+    public void addIs_Validate(Boolean stat) {
+        statList.add(stat);
     }
 
     @Override
@@ -77,12 +92,14 @@ public class CustomPlanningListView extends BaseAdapter {
     public void remove(int position) {
         mData.remove(position);
         id.remove(position);
+        statList.remove(position);
         notifyDataSetChanged();
     }
 
     public void clear() {
         mData.clear();
         id.clear();
+        statList.clear();
         notifyDataSetChanged();
     }
 
@@ -108,6 +125,9 @@ public class CustomPlanningListView extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        /*if (statList.get(position) == false) {
+            holder.textView.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryLight));
+        }*/
         holder.textView.setText(mData.get(position));
 
         return convertView;

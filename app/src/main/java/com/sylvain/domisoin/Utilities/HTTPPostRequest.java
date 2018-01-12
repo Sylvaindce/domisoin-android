@@ -32,13 +32,15 @@ public class HTTPPostRequest extends AsyncTask<String, Void, String> {
     private String mAction = null;
     private String mURL = null;
     private Map mData = null;
+    private String mToken = null;
 
-    public HTTPPostRequest(Context context, String action, String url, Map data) {
+    public HTTPPostRequest(Context context, String action, String url, Map data, String token) {
         super();
         mContext = context;
         mAction = action;
         mURL = url;
         mData = data;
+        mToken = token;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class HTTPPostRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         try {
             HTTPPostHandler HTTPcall = new HTTPPostHandler();
-            return  HTTPcall.makeServiceCall(mURL, mData);
+            return  HTTPcall.makeServiceCall(mURL, mData, mToken);
         }
         catch (Exception e) {
             // TODO Quitter proprement

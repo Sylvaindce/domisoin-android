@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.Info1SigninFragment">
 
     <LinearLayout
@@ -13,11 +12,23 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            app:srcCompat="@drawable/etape2sur3p" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Quel est ton e-mail?"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Nous ne vous spammerons pas."
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,43 +37,54 @@
             android:gravity="top"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adresse email"
+                android:textColor="#b0bec5" />
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:hint="Votre adresse email"
-                android:imeOptions="actionNext"
                 android:inputType="text"
                 android:singleLine="true"
+                android:imeOptions="actionNext"
                 android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mot de passe"
+                android:textColor="#b0bec5" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:hint="Créez votre mot de passe"
-                android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:imeOptions="actionNext"
                 android:textColor="#212121" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmation"
+                android:textColor="#b0bec5" />
 
             <EditText
                 android:id="@+id/cpassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:hint="Confirmez votre mot de passe."
-                android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:textColor="#212121" />
 
         </LinearLayout>
-
-
-
-
     </LinearLayout>
 
 
