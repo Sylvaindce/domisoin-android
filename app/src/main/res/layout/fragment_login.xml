@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:textAlignment="center"
-                    android:id="@+id/forgotpwd"
+                    android:id="@+id/lost_password"
                     android:text="Mot de passe oublié ?"/>
 
             </LinearLayout>

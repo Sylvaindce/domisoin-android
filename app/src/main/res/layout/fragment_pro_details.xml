@@ -27,6 +27,7 @@
             android:padding="15dp"
             android:layout_marginBottom="20dp"
             android:text="Address"
+            android:autoLink="map"
             android:textColor="@color/grey42" />
 
         <TextView

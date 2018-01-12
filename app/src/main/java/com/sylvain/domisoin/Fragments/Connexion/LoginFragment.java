@@ -20,9 +20,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
+import com.sylvain.domisoin.Dialogs.LostPasswordDialog;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
@@ -54,6 +56,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_LOGIN";
     private Switch remindme = null;
     private boolean remindme_value = false;
+
+    private TextView lost_password = null;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -102,6 +106,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         datas = new LinkedHashMap<String, String>();
 
+        lost_password = (TextView)loginfragment.findViewById(R.id.lost_password);
+        lost_password.setOnClickListener(this);
+
         //imm.showSoftInput(loginEdit, InputMethodManager.SHOW_IMPLICIT);
         //imm.showSoftInput(passwordEdit, InputMethodManager.SHOW_IMPLICIT);
 
@@ -148,6 +155,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             .setActionTextColor(Color.RED)
                             .show();
                 }
+                break;
+            case R.id.lost_password:
+                LostPasswordDialog lost_dialog = new LostPasswordDialog();
+                lost_dialog.show(getFragmentManager(), "lost_password");
+                //Log.d(TAG, "LOST password");
                 break;
         }
     }

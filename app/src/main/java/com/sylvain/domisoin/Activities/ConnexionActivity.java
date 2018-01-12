@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,11 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,7 +29,9 @@ import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -34,6 +40,7 @@ public class ConnexionActivity extends AppCompatActivity {
     private static final String TAG = ConnexionActivity.class.getName();
     private Map<String, String> datas                 = null;
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_AUTOLOGIN";
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private ProgressDialog progress;
 
     @Override
@@ -47,6 +54,8 @@ public class ConnexionActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         datas = new LinkedHashMap<String, String>();
+
+        checkAndRequestPermissions(true);
 
         SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
         String email = sharedPref.getString(getString(R.string.save_account), "email");
@@ -187,5 +196,32 @@ public class ConnexionActivity extends AppCompatActivity {
             }
         }
     };
+
+    private  boolean checkAndRequestPermissions(Boolean request) {
+        ArrayList<Integer> permissions_result = new ArrayList<Integer>();
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET};
+        List<String> listPermissionsNeeded = new ArrayList<String>();
+
+        for (int i = 0; i < permissions.length; ++i) {
+            permissions_result.add(ContextCompat.checkSelfPermission(this, permissions[i]));
+            switch (i) {
+                case 0:
+                    if (permissions_result.get(i) != PackageManager.PERMISSION_GRANTED)
+                        listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+                    break;
+                case 1:
+                    if (permissions_result.get(i) != PackageManager.PERMISSION_GRANTED)
+                        listPermissionsNeeded.add(Manifest.permission.INTERNET);
+                    break;
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            if (request) {
+                ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            }
+            return false;
+        }
+        return true;
+    }
 
 }
