@@ -43,6 +43,8 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
         return connexionFragment;
     }
 
+
+
     @Override
     public void onClick(View v) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -62,7 +64,7 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.signup_button:
                 Log.v("OnClick", "Signin button");
-                ft.replace(R.id.fragment_container, new ParentFragmentSignIn(), "SigninFragment()");
+                ft.replace(R.id.fragment_container, new InscriptionChoice(), "InscriptionChoice()");
                 ft.addToBackStack("signin");
                 ft.commit();
                 break;

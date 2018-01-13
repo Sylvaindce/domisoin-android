@@ -338,7 +338,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "-1";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {

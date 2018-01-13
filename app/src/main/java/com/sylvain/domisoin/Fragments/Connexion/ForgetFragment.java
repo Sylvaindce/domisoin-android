@@ -101,7 +101,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
                 if (login != null && !login.equals("")) {
                     Log.v("LoginValidate", login);
                     datas.clear();
-                    datas.put("email:", String.valueOf(login));
+                    datas.put("email", String.valueOf(login));
                     HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, FORGET_URL, datas,"");
                     task.execute();
                     //blabla
@@ -123,7 +123,7 @@ public class ForgetFragment extends Fragment implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             if (progress != null)
             {
-                Toast.makeText(getActivity(),"khraaa" ,Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"réinitialisation" ,Toast.LENGTH_LONG).show();
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);

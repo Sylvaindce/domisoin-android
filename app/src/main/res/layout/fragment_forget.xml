@@ -34,21 +34,25 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp"
-                android:gravity="top">
+                android:gravity="top"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#b0bec5"
-                    android:text="Nom d'utilisateur, email ou téléphone"/>
+                    android:text="Renseignez votre Email."
+                    android:textColor="#b0bec5" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
                     android:id="@+id/loginEdit1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_weight="0.09"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:hint="Votre email"
                     android:inputType="text"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="40dp"/>
+                    android:textColor="#212121" />
 
 
             </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/ourWhite">
@@ -128,28 +129,37 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/validate_container"
             android:gravity="center">
+
             <Button
                 android:id="@+id/delete_appointment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/signin_rounded_button"
-                android:text="Annuler"
-                android:textStyle="bold"
-                android:textColor="@color/ourWhite" />
+                android:text="  Annuler le  RDV  "
+                android:textColor="@color/ourWhite"
+                android:textStyle="bold" />
 
 
             <Button
                 android:id="@+id/close_appointment_more_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:layout_toRightOf="@id/delete_appointment_button"
+                android:layout_alignBaseline="@+id/delete_appointment_button"
+                android:layout_alignBottom="@+id/delete_appointment_button"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="26dp"
+                android:layout_marginRight="26dp"
                 android:background="@drawable/signin_rounded_button2"
-                android:text="Fermer"
+                android:gravity="center"
+                android:text="Retour"
                 android:textColor="@color/colorPrimary" />
         </RelativeLayout>
+
+
 
     </RelativeLayout>
 </ScrollView>

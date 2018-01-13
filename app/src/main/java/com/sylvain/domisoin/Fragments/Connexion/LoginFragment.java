@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -96,6 +98,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         datas = new LinkedHashMap<String, String>();
 
+        TextView forgotPassword = (TextView)loginfragment.findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(this);
+
         //imm.showSoftInput(loginEdit, InputMethodManager.SHOW_IMPLICIT);
         //imm.showSoftInput(passwordEdit, InputMethodManager.SHOW_IMPLICIT);
 
@@ -116,7 +121,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         switch (v.getId()) {
+            case R.id.forgotPassword:
+                ft.replace(R.id.fragment_container, new ForgetFragment(), "LoginFragment()");
+                ft.addToBackStack("login");
+                ft.commit();
+                break;
             case R.id.validate_login_button:
 
                 login = String.valueOf(loginEdit.getText());

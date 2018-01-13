@@ -59,7 +59,8 @@
                     android:text="Inscription pro"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
         </RelativeLayout>
