@@ -156,8 +156,7 @@
                     app:bar_color="@color/whitegray"
                     app:left_thumb_color="@color/colorPrimary"
                     app:right_thumb_color="@color/colorPrimary"
-                    app:bar_highlight_color="@color/colorPrimary"
-                    app:gap="20"/>
+                    app:bar_highlight_color="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -189,6 +188,7 @@
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:id="@+id/rdv_dur"
                     android:text="15" />
 
                 <TextView
@@ -201,6 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="60"
+                    android:id="@+id/rdv_dur_sb"
                     android:visibility="visible" />
 
             </LinearLayout>

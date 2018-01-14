@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
@@ -35,7 +36,9 @@ public class SigninProFragment extends Fragment {
 
         com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar rangeSeekbar = (com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar);
         rangeSeekbar.setCornerRadius(10);
-
+        rangeSeekbar.setMinValue(0);
+        rangeSeekbar.setMaxValue(1439);
+        rangeSeekbar.setGap(1);
         // get min and max text view
         final TextView begin_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
         final TextView end_hour = (TextView) view.findViewById(R.id.end_hour_pro);
@@ -43,8 +46,26 @@ public class SigninProFragment extends Fragment {
         rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
             public void valueChanged(Number minValue, Number maxValue) {
-                begin_hour.setText(String.valueOf(minValue));
-                end_hour.setText(String.valueOf(maxValue));
+                int minv = minValue.intValue() % 15;
+                int min_result = minValue.intValue();
+                if(minv != 0) {
+                    int res = 15 - minv;
+                    min_result = minValue.intValue() + res;
+                }
+                int min_hours = min_result / 60;
+                int min_minutes = (int) min_result % 60;
+
+                int maxv = maxValue.intValue() % 15;
+                int max_result = maxValue.intValue();
+                if(maxv != 0) {
+                    int res2 = 15 - maxv;
+                    max_result = maxValue.intValue() + res2;
+                }
+                int max_hours = max_result / 60;
+                int max_minutes = (int) max_result % 60;
+
+                begin_hour.setText(String.valueOf(min_hours)+":"+String.valueOf(min_minutes));
+                end_hour.setText(String.valueOf(max_hours)+":"+String.valueOf(max_minutes));
             }
         });
 
@@ -56,7 +77,34 @@ public class SigninProFragment extends Fragment {
             }
         });
 
+        final TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
+        SeekBar rdv_dur_sb = (SeekBar) view.findViewById(R.id.rdv_dur_sb);
 
+        rdv_dur_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
+                int min = 15;
+                int ourv = value%15;
+                if (value<15)
+                    value = 15;
+                if (ourv != 0) {
+                    int res = min - ourv;
+                    value = value+res;
+                }
+                Log.d("SeekBar", String.valueOf(value));
+                rdv_dur_txt.setText(String.valueOf(value));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         return view;
     }
