@@ -5,6 +5,10 @@
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.Info1SigninFragment">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,7 +51,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="text"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
@@ -63,7 +67,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
@@ -78,7 +82,7 @@
                 android:id="@+id/cpassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:imeOptions="actionDone"
@@ -87,5 +91,6 @@
         </LinearLayout>
     </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

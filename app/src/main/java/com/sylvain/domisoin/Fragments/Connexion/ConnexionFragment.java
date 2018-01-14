@@ -54,9 +54,12 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.signup_button:
                 Log.v("OnClick", "Signin button");
-                ft.replace(R.id.fragment_container, new ParentFragmentSignIn(), "SigninFragment()");
+                ft.replace(R.id.fragment_container, new SignInProPatientFragment(), "SignInProPatientFragment()");
                 ft.addToBackStack("signin");
                 ft.commit();
+                /*ft.replace(R.id.fragment_container, new ParentFragmentSignIn(), "SigninFragment()");
+                ft.addToBackStack("signin");
+                ft.commit();*/
                 break;
         }
     }

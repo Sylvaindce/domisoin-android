@@ -59,6 +59,8 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
     private Map<String, String> datas = null;
 
+    private Boolean pro_patient = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,9 +127,15 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         Info1SigninFragment info1 = new Info1SigninFragment();
         Info2SigninFragment info2 = new Info2SigninFragment();
 
+
         vAdapter.addFrag(name, "Name");
         vAdapter.addFrag(info2, "info2");
         vAdapter.addFrag(info1, "info1");
+
+        if (!pro_patient) {
+            SigninProFragment pro = new SigninProFragment();
+            vAdapter.addFrag(pro, "pro");
+        }
         viewPager.setAdapter(vAdapter);
         viewPager.setOffscreenPageLimit(vAdapter.getCount());
         viewPager.addOnPageChangeListener(this);
@@ -264,6 +272,9 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         return versul;
     }
 
+    public void setPro_Patient(Boolean q) {
+        pro_patient = q;
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

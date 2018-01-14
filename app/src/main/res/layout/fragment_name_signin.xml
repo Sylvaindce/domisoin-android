@@ -5,6 +5,10 @@
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.NameSigninFragment">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -83,5 +87,6 @@
         </LinearLayout>
     </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>
