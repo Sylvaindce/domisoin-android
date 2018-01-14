@@ -112,7 +112,7 @@ public class ModifyPwdDialog extends DialogFragment implements View.OnClickListe
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        
+
         try {
             JSONObject newjson = new JSONObject(ourdata.json.get());
             newjson.put("password", new_pwd.getText());

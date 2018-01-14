@@ -13,22 +13,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75969d34-ccf2-4c3f-b07a-194c7eaeb831" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/modify_pwd_dialog.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeCustomerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeCustomerActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeProActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeProActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/DataBind/userInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/DataBind/userInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" />
     </list>
     <ignored path="domisoin-android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,51 +84,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ModifyPwdDialog.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java">
+      <file leaf-file-name="ParentFragmentSignIn.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="114" column="8" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3989#4022#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="295">
+              <caret line="310" column="59" lean-forward="false" selection-start-line="310" selection-start-column="59" selection-end-line="310" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modify_pwd_dialog.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/modify_pwd_dialog.xml">
+      <file leaf-file-name="SigninProFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+            <state relative-caret-position="440">
+              <caret line="97" column="21" lean-forward="false" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_signinpro.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="172" column="43" lean-forward="false" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="android-designer2">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="136" column="19" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="146" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OptionsFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="42" column="38" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="38" />
-              <folding>
-                <element signature="e#7041#7073#0" expanded="true" />
-              </folding>
-            </state>
           </provider>
         </entry>
       </file>
@@ -168,6 +147,7 @@
       <find>trackTouchEvent</find>
       <find>onRangeSeekBarChan</find>
       <find>onRangeSeekBarValues</find>
+      <find>job</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1952,7 +1932,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ConnexionFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SignInProPatientFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_info1_signin.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_info2_signin.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_name_signin.xml" />
@@ -1965,8 +1944,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/range_circle.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/RangeSeekBar.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/LostPasswordDialog.java" />
@@ -1985,6 +1962,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/modify_pwd_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" />
       </list>
     </option>
   </component>
@@ -2178,29 +2158,11 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Dialogs" />
+              <option name="myItemId" value="Fragments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="domisoin-android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domisoin" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DataBind" />
+              <option name="myItemId" value="Connexion" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2348,7 +2310,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515967260761" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515969354003" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2396,7 +2358,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515967260761" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515969354003" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2579,7 +2541,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515967260762" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1515969354005" />
       </method>
     </configuration>
     <list size="1">
@@ -3098,17 +3060,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="203" column="47" lean-forward="false" selection-start-line="203" selection-start-column="47" selection-end-line="203" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/MoreProDetails2Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-194">
@@ -3122,16 +3073,6 @@
         <state relative-caret-position="-688">
           <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1452">
-          <caret line="88" column="31" lean-forward="false" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3301,14 +3242,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="237" column="64" lean-forward="false" selection-start-line="237" selection-start-column="39" selection-end-line="237" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/AboutFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -3317,21 +3250,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="42" column="38" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="38" />
+        <state relative-caret-position="2072">
+          <caret line="114" column="8" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
           <folding>
-            <element signature="e#7041#7073#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3981#4014#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="136" column="19" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="146" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3346,14 +3272,48 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="114" column="8" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
+        <state relative-caret-position="180">
+          <caret line="136" column="19" lean-forward="false" selection-start-line="133" selection-start-column="8" selection-end-line="146" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="42" column="38" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3989#4022#0" expanded="true" />
+            <element signature="e#7041#7073#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="172" column="43" lean-forward="false" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="310" column="59" lean-forward="false" selection-start-line="310" selection-start-column="59" selection-end-line="310" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="97" column="21" lean-forward="false" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

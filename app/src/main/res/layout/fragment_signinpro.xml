@@ -1,213 +1,219 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.SigninProFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Quelles est sont vos dispo ?"
-            android:textColor="#000000"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Prenez une petite pause"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:gravity="top"
-            android:orientation="vertical">
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="15dp">
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="N° ADELI"
-                android:textColor="#b0bec5" />
-
-            <EditText
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:inputType="number"
-                android:digits="0123456789"
-                android:maxLength="10"
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                android:textColor="#212121" />
+                android:layout_marginTop="10dp"
+                android:text="Quelles est sont vos dispo ?"
+                android:textColor="#000000"
+                android:textSize="22sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choisissez de vos jours de travail"
-                android:layout_marginBottom="10dp"
-                android:textColor="#b0bec5" />
+                android:layout_marginTop="10dp"
+                android:text="Prenez une petite pause"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
-            <LinearLayout
-                android:layout_width="350dp"
-                android:gravity="center"
-                android:layout_marginLeft="-20dp"
-                android:layout_height="54dp">
-
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd0"
-                    android:text="L" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd1"
-                    android:text="M" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd2"
-                    android:text="M" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd3"
-                    android:text="J" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd4"
-                    android:text="V" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd5"
-                    android:text="S" />
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="-20dp"
-                    android:paddingBottom="40dp"
-                    android:id="@+id/wd6"
-                    android:text="D" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Horaires d'ouvertures"
-                android:layout_marginBottom="0dp"
-                android:textColor="#b0bec5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:padding="5dp">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:id="@+id/begin_hour_pro"
-                    android:text="00h00"/>
+                    android:text="N° ADELI"
+                    android:textColor="#b0bec5" />
 
-                <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
-                    android:id="@+id/rangeSeekbar"
-                    android:layout_weight="0.2"
+                <EditText
+                    android:id="@+id/adeli"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:digits="0123456789"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColor="#212121" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Choisissez de vos jours de travail"
+                    android:textColor="#b0bec5" />
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="54dp"
+                    android:layout_marginLeft="-20dp"
+                    android:gravity="center">
+
+                    <CheckBox
+                        android:id="@+id/wd0"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="L" />
+
+                    <CheckBox
+                        android:id="@+id/wd1"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="M" />
+
+                    <CheckBox
+                        android:id="@+id/wd2"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="M" />
+
+                    <CheckBox
+                        android:id="@+id/wd3"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="J" />
+
+                    <CheckBox
+                        android:id="@+id/wd4"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="V" />
+
+                    <CheckBox
+                        android:id="@+id/wd5"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="S" />
+
+                    <CheckBox
+                        android:id="@+id/wd6"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="40dp"
+                        android:paddingLeft="-20dp"
+                        android:text="D" />
+
+                </LinearLayout>
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
-                    app:bar_color="@color/whitegray"
-                    app:left_thumb_color="@color/colorPrimary"
-                    app:right_thumb_color="@color/colorPrimary"
-                    app:bar_highlight_color="@color/colorPrimary" />
+                    android:text="Horaires d'ouvertures"
+                    android:textColor="#b0bec5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/begin_hour_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.4"
+                        android:text="00:00"
+                        android:textAlignment="center" />
+
+                    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                        android:id="@+id/rangeSeekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:layout_weight="0.2"
+                        app:bar_color="@color/whitegray"
+                        app:bar_highlight_color="@color/colorPrimary"
+                        app:left_thumb_color="@color/colorPrimary"
+                        app:right_thumb_color="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/end_hour_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.4"
+                        android:text="24:00"
+                        android:textAlignment="center" />
+
+
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:id="@+id/end_hour_pro"
-                    android:text="23h59"/>
+                    android:layout_marginBottom="15dp"
+                    android:text="Durée de vos rendez-vous"
+                    android:textColor="#b0bec5" />
 
-
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Durée de vos rendez-vous"
-                android:layout_marginBottom="15dp"
-                android:textColor="#b0bec5" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:id="@+id/rdv_dur"
-                    android:text="15" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="min"/>
-
-                <SeekBar
-                    style="@style/Widget.AppCompat.SeekBar"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="60"
-                    android:id="@+id/rdv_dur_sb"
-                    android:visibility="visible" />
+                    android:layout_marginRight="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/rdv_dur"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="min" />
+
+                    <SeekBar
+                        android:id="@+id/rdv_dur_sb"
+                        style="@style/Widget.AppCompat.SeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="60"
+                        android:visibility="visible" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
-    </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

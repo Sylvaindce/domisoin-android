@@ -54,6 +54,10 @@ public class SigninProFragment extends Fragment {
                 }
                 int min_hours = min_result / 60;
                 int min_minutes = (int) min_result % 60;
+                String min_minutes_str = String.valueOf(min_minutes);
+                if (min_minutes <= 0)
+                    min_minutes_str = "0"+String.valueOf(min_minutes);
+
 
                 int maxv = maxValue.intValue() % 15;
                 int max_result = maxValue.intValue();
@@ -63,9 +67,13 @@ public class SigninProFragment extends Fragment {
                 }
                 int max_hours = max_result / 60;
                 int max_minutes = (int) max_result % 60;
+                String max_minutes_str = String.valueOf(max_minutes);
+                if (max_minutes <= 0)
+                    max_minutes_str = "0"+String.valueOf(max_minutes);
 
-                begin_hour.setText(String.valueOf(min_hours)+":"+String.valueOf(min_minutes));
-                end_hour.setText(String.valueOf(max_hours)+":"+String.valueOf(max_minutes));
+
+                begin_hour.setText(String.valueOf(min_hours)+":"+min_minutes_str);
+                end_hour.setText(String.valueOf(max_hours)+":"+max_minutes_str);
             }
         });
 
@@ -87,7 +95,7 @@ public class SigninProFragment extends Fragment {
                 int ourv = value%15;
                 if (value<15)
                     value = 15;
-                if (ourv != 0) {
+                else if (ourv != 0) {
                     int res = min - ourv;
                     value = value+res;
                 }

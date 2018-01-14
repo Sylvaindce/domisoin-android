@@ -23,7 +23,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
@@ -155,9 +157,9 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                     //pager.setCurrentItem(pager.getCurrentItem() + 1, true);
                 }else if (pos == vAdapter.getCount()-1) {
                     //add verif
-                    //if (editTextVerification(pager.getCurrentItem())) {
+                    if (editTextVerification(pager.getCurrentItem())) {
                         getAlldata();
-                    //}
+                    }
                 }
                 break;
             case R.id.previous_signin_button:
@@ -265,6 +267,51 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 else
                     versul = true;
                 break;
+
+            case 3:
+                Log.d(TAG, "JE SUIS ICI");
+                //ADELI
+                EditText adeli = (EditText)view.findViewById(R.id.adeli);
+                Log.d(TAG, adeli.getText().toString());
+
+                //WORKING DAY BEGIN
+                CheckBox wd0 = (CheckBox)view.findViewById(R.id.wd0);
+                CheckBox wd1 = (CheckBox)view.findViewById(R.id.wd1);
+                CheckBox wd2 = (CheckBox)view.findViewById(R.id.wd2);
+                CheckBox wd3 = (CheckBox)view.findViewById(R.id.wd3);
+                CheckBox wd4 = (CheckBox)view.findViewById(R.id.wd4);
+                CheckBox wd5 = (CheckBox)view.findViewById(R.id.wd5);
+                CheckBox wd6 = (CheckBox)view.findViewById(R.id.wd6);
+                String working_day = "";
+                if (wd0.isChecked())
+                    working_day+="Lundi,";
+                if (wd1.isChecked())
+                    working_day+="Mardi,";
+                if (wd2.isChecked())
+                    working_day+="Mercredi,";
+                if (wd3.isChecked())
+                    working_day+="Jeudi,";
+                if (wd4.isChecked())
+                    working_day+="Vendredi,";
+                if (wd5.isChecked())
+                    working_day+="Samedi,";
+                if (wd6.isChecked())
+                    working_day+="Dimanche";
+                if (working_day.endsWith(","))
+                    working_day = working_day.substring(0, working_day.length() - 1);
+                Log.d(TAG, working_day);
+
+                //OPEN HOURS
+                TextView begin_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
+                TextView end_hour = (TextView) view.findViewById(R.id.end_hour_pro);
+                Log.d(TAG, begin_hour.getText().toString() + " " + end_hour.getText().toString());
+
+                //Duration
+                TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
+                Log.d(TAG, rdv_dur_txt.getText().toString());
+
+
+                versul = false;
             default:
                 break;
         }
@@ -323,7 +370,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response) == 0) {
+                if (response.equals("0")) {
                     Snackbar.make(view.findViewById(R.id.viewpager_signin), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
                             .setActionTextColor(Color.RED)
                             .show();
