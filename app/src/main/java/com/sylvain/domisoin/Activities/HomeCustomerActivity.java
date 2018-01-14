@@ -306,7 +306,10 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         String value = homeIntent.getExtras().getString("json");
         Log.d("HOME", value);
 
+        String mdp = homeIntent.getExtras().getString("mdp");
+
         UserInfo = new userInfo();
+        UserInfo.mdp.set(mdp);
         UserInfo.json.set(homeIntent.getExtras().getString("json"));
 
         JSONObject myjson = null;

@@ -24,6 +24,7 @@ public class userInfo {
     public ObservableField<String> profile_img = new ObservableField<String>();
     public ObservableField<String> id = new ObservableField<String>();
     public ObservableField<String> token = new ObservableField<String>();
+    public ObservableField<String> mdp = new ObservableField<String>();
 
 
     public userInfo() {
@@ -44,6 +45,7 @@ public class userInfo {
         profile_img.set("empty");
         id.set("empty");
         token.set("");
+        mdp.set("");
     }
 
     public TextWatcher watcher = new TextWatcher() {

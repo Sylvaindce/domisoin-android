@@ -212,6 +212,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homeprointent.putExtras(userinfo);
                             startActivity(homeprointent);
                         } else {
@@ -221,6 +222,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homecustomerintent.putExtras(userinfo);
                             startActivity(homecustomerintent);
                         }

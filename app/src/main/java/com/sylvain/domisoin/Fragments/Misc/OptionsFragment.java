@@ -27,6 +27,7 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.AboutFragment;
+import com.sylvain.domisoin.Dialogs.ModifyPwdDialog;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
@@ -78,7 +79,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.modify_pwd:
-
+                ModifyPwdDialog modifyPwdDialog = new ModifyPwdDialog(UserInfo);
+                modifyPwdDialog.show(getFragmentManager(), "modifypwd");
                 break;
             case R.id.delete_account:
                 AlertDialog.Builder builder;

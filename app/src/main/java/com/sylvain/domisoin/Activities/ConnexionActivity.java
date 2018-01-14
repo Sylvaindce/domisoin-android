@@ -177,6 +177,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homeprointent.putExtras(userinfo);
                             startActivity(homeprointent);
                         } else {
@@ -186,6 +187,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homeintent.putExtras(userinfo);
                             startActivity(homeintent);
                         }

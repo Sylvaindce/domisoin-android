@@ -2,50 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sylvain.domisoin.Dialogs.AboutFragment"
-    android:background="@color/ourWhite">
+    android:background="@color/ourWhite"
+    tools:context="com.sylvain.domisoin.Dialogs.AboutFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="500px"
-            android:layout_height="200px"
-            android:src="@drawable/domisoin_logo_line" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="Application Android"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/version" />
-
-        <Button
-            android:id="@+id/close_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:background="@drawable/signin_rounded_button2"
-            android:text="Fermer"
-            android:textColor="@color/colorPrimary" />
+            android:orientation="vertical">
 
-    </LinearLayout>
-</RelativeLayout>
+            <ImageView
+                android:layout_width="500px"
+                android:layout_height="200px"
+                android:src="@drawable/domisoin_logo_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Application Android"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/version"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/close_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/signin_rounded_button2"
+                android:gravity="center"
+                android:text="Fermer"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

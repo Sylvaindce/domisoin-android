@@ -319,7 +319,10 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         String value = homeIntent.getExtras().getString("json");
         Log.d("HOME Pro", value);
 
+        String mdp = homeIntent.getExtras().getString("mdp");
+
         UserInfo = new userInfo();
+        UserInfo.mdp.set(mdp);
         UserInfo.json.set(homeIntent.getExtras().getString("json"));
 
         JSONObject myjson = null;

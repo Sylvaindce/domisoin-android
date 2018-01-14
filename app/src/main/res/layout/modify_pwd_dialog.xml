@@ -1,0 +1,96 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ourWhite"
+    tools:context="com.sylvain.domisoin.Dialogs.ModifyPwdDialog">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/modify_pwd_container"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Modification de votre mot de passe"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/label_act_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Actuel"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/act_pwd_txt"
+                android:inputType="textPassword"
+                android:hint="Mot de passe actuel" />
+
+            <TextView
+                android:id="@+id/label_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nouveau"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/new_pwd_txt"
+                android:inputType="textPassword"
+                android:hint="Nouveau mot de passe" />
+
+            <TextView
+                android:id="@+id/label_ver_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vérifier"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/ver_new_pwd_txt"
+                android:inputType="textPassword"
+                android:hint="Deuxième saisie du nouveau mot de passe" />
+
+            <Button
+                android:id="@+id/validate_modify_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/signin_rounded_button2"
+                android:gravity="center"
+                android:text="Valider"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>
