@@ -1,7 +1,17 @@
 package com.sylvain.domisoin.Dialogs;
 
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +20,31 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by sylvain on 12/01/18.
  */
 
 public class LostPasswordDialog extends DialogFragment implements View.OnClickListener {
+    private static final String TAG = LostPasswordDialog.class.getName();
+    private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_LOST_PASSWORD";
 
     private View dialogFragment = null;
     private Button valider = null;
     private EditText email = null;
+    private Map<String, String> datas = null;
+    private ProgressDialog progress = null;
 
     public LostPasswordDialog(){}
 
@@ -34,10 +58,22 @@ public class LostPasswordDialog extends DialogFragment implements View.OnClickLi
         valider.setOnClickListener(this);
 
         email = (EditText)dialogFragment.findViewById(R.id.recover_email);
+        datas = new LinkedHashMap<String, String>();
 
         return dialogFragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(receiver, new IntentFilter(ACTION_FOR_INTENT_CALLBACK));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(receiver);
+    }
 
     @Override
     public void onStart() {
@@ -54,9 +90,53 @@ public class LostPasswordDialog extends DialogFragment implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.validate_recover_password:
-                getDialog().dismiss();
+                if (TextUtils.isEmpty(email.getText()) || !Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
+                    email.setError("Une adresse email valide est requise");
+                } else {
+                    do_http();
+                }
                 break;
         }
 
     }
+
+    private void do_http(){
+        datas.put("email", String.valueOf(email.getText()));
+
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_lost_password_url), datas, "");
+        task.execute();
+        progress = ProgressDialog.show(getActivity(), "Réinitialisation de votre mot de passe", "Réinitialisation de votre mot de passe, merci de patienter...", true);
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (progress != null) {
+                progress.dismiss();
+            }
+            String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            Log.i(TAG, "RESPONSE = " + response);
+            if (response != null) {
+                String response_code = "";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (Integer.decode(response_code) > 226 ) {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(Color.RED)
+                            .show();
+                } else {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Réinitialisation du mot de passe réussie", Snackbar.LENGTH_LONG)
+                            .show();
+                    dismiss();
+                }
+            }
+        }
+    };
+
 }

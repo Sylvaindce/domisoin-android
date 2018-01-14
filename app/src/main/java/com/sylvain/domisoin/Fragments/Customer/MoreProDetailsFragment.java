@@ -103,6 +103,9 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         TextView address = (TextView)view.findViewById(R.id.pro_more_address);
         address.setText(user.getAddress());
 
+        TextView phone = (TextView) view.findViewById(R.id.pro_more_phone);
+        phone.setText(user.getWorkphone());
+
 
         Log.d("TEST", user.getEvents());
 

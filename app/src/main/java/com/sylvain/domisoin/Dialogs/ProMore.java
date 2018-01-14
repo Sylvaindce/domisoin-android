@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
@@ -74,6 +75,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
     private ButtonInterface buttonInterface = null;
     private String mToken = null;
+    private LinearLayout pro_buttons = null;
 
     public ProMore(){}
 
@@ -96,8 +98,6 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         TextView profession = (TextView) dialogFragment.findViewById(R.id.pro_more_job);
         profession.setText(_user.getJob_title());
 
-
-
         /*TextView address = (TextView) dialogFragment.findViewById(R.id.pro_more_address);
         address.setText(_user.getAddress());*/
 
@@ -112,6 +112,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         previousPage = (Button)dialogFragment.findViewById(R.id.previous_pro_button);
         nextPage.setOnClickListener(this);
         previousPage.setOnClickListener(this);
+        pro_buttons = (LinearLayout)dialogFragment.findViewById(R.id.button_container_pro_form);
 
         datas = new LinkedHashMap<String, String>();
 
@@ -220,10 +221,12 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
             case 0:
                 previousPage.setVisibility(View.INVISIBLE);
                 nextPage.setVisibility(View.INVISIBLE);
+                pro_buttons.setVisibility(View.GONE);
                 break;
             default:
                 previousPage.setVisibility(View.VISIBLE);
                 nextPage.setVisibility(View.VISIBLE);
+                pro_buttons.setVisibility(View.VISIBLE);
                 break;
         }
         /*if (position == max) {

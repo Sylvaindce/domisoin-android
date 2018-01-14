@@ -14,9 +14,6 @@
         android:background="@color/ourWhite"
         tools:context=".Fragments.Pro.AccountProFragment">
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -204,8 +201,6 @@
 
 
         </android.support.design.widget.CoordinatorLayout>
-
-        </android.support.v4.widget.NestedScrollView>
 
     </FrameLayout>
 </layout>
