@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private ImageButton supprimer = null;
     private static String DELETE_URL = null;
     private ProgressDialog progress;
+    private String m_Text = "";
+
 
 
     public AccountFragment() {
@@ -94,6 +97,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AccountFragment.this.getActivity());
                 builder.setTitle("Suppresion de compte");
+                final EditText input = new EditText(getActivity());
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+
                 builder.setMessage("Voulez vous vraiment supprimer votre compte?");
                 builder.setCancelable(false);
 
@@ -101,6 +108,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                        m_Text = input.getText().toString();
 
                         //code here
 
