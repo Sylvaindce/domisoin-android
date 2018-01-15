@@ -26,12 +26,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +60,21 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
     private EditText phone = null;
     private EditText email = null;
     private EditText password = null;
+
+    //pro
+    private EditText adeli = null;
+    private CheckBox wd0 = null;
+    private CheckBox wd1 = null;
+    private CheckBox wd2 = null;
+    private CheckBox wd3 = null;
+    private CheckBox wd4 = null;
+    private CheckBox wd5 = null;
+    private CheckBox wd6 = null;
+    private TextView begin_working_hour = null;
+    private TextView end_working_hour = null;
+    private TextView rdv_dur_txt = null;
+    private List<String> day_offs = null;
+
 
     private Map<String, String> datas = null;
 
@@ -212,8 +229,22 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         datas.put("job_title", String.valueOf(job.getText()));
         datas.put("adresse", String.valueOf(address.getText())); //modify
         datas.put("workphone", String.valueOf(phone.getText())); //modify
-        datas.put("is_pro", "0"); //modify
         datas.put("password", String.valueOf(password.getText()));
+
+        //add pro data if pro
+        if (!pro_patient) {
+            datas.put("day_offs", String.valueOf(day_offs));
+            datas.put("duration", rdv_dur_txt.getText().toString());
+            datas.put("adeli", adeli.getText().toString());
+            datas.put("start_working_hour", begin_working_hour.getText().toString().split(":")[0]);
+            datas.put("start_working_minutes", begin_working_hour.getText().toString().split(":")[1]);
+            datas.put("end_working_hour", end_working_hour.getText().toString().split(":")[0]);
+            datas.put("end_working_minutes", end_working_hour.getText().toString().split(":")[1]);
+            datas.put("is_pro", "1");
+        } else {
+            datas.put("is_pro", "0"); //modify
+            datas.put("day_offs", "[]");
+        }
 
         /*for(int i = 0; i < datas.size(); ++i) {
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
@@ -249,7 +280,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             case 1:
                 address = (EditText) view.findViewById(R.id.address);
                 phone = (EditText) view.findViewById(R.id.phone);
-                if( address.getText().toString().length() == 0 )
+                if( address.getText().toString().length() == 0 || !address.getText().toString().contains(","))
                     address.setError("Une Adresse valide est requise");
                 else if( phone.getText().toString().length() != 10 )
                     phone.setError("Un Numéro valide est requis");
@@ -269,49 +300,67 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 break;
 
             case 3:
+                versul = true;
                 Log.d(TAG, "JE SUIS ICI");
                 //ADELI
-                EditText adeli = (EditText)view.findViewById(R.id.adeli);
+                adeli = (EditText)view.findViewById(R.id.adeli);
+                if (adeli.getText().length() < 6) {
+                    adeli.setError("Mauvais numéro ADELI");
+                    versul = false;
+                }
                 Log.d(TAG, adeli.getText().toString());
 
                 //WORKING DAY BEGIN
-                CheckBox wd0 = (CheckBox)view.findViewById(R.id.wd0);
-                CheckBox wd1 = (CheckBox)view.findViewById(R.id.wd1);
-                CheckBox wd2 = (CheckBox)view.findViewById(R.id.wd2);
-                CheckBox wd3 = (CheckBox)view.findViewById(R.id.wd3);
-                CheckBox wd4 = (CheckBox)view.findViewById(R.id.wd4);
-                CheckBox wd5 = (CheckBox)view.findViewById(R.id.wd5);
-                CheckBox wd6 = (CheckBox)view.findViewById(R.id.wd6);
-                String working_day = "";
-                if (wd0.isChecked())
-                    working_day+="Lundi,";
-                if (wd1.isChecked())
-                    working_day+="Mardi,";
-                if (wd2.isChecked())
-                    working_day+="Mercredi,";
-                if (wd3.isChecked())
-                    working_day+="Jeudi,";
-                if (wd4.isChecked())
-                    working_day+="Vendredi,";
-                if (wd5.isChecked())
-                    working_day+="Samedi,";
-                if (wd6.isChecked())
-                    working_day+="Dimanche";
-                if (working_day.endsWith(","))
-                    working_day = working_day.substring(0, working_day.length() - 1);
-                Log.d(TAG, working_day);
+                wd0 = (CheckBox)view.findViewById(R.id.wd0);
+                wd1 = (CheckBox)view.findViewById(R.id.wd1);
+                wd2 = (CheckBox)view.findViewById(R.id.wd2);
+                wd3 = (CheckBox)view.findViewById(R.id.wd3);
+                wd4 = (CheckBox)view.findViewById(R.id.wd4);
+                wd5 = (CheckBox)view.findViewById(R.id.wd5);
+                wd6 = (CheckBox)view.findViewById(R.id.wd6);
+                day_offs = new LinkedList<String>();
+                //day_offs = "[";
+                if (!wd0.isChecked()) {
+                    //day_offs+="\"Lundi\",";
+                    day_offs.add("\"1\"");
+                }
+                if (!wd1.isChecked()) {
+                    //day_offs += "\"Mardi\",";
+                    day_offs.add("\"2\"");
+                }
+                if (!wd2.isChecked()) {
+                    //day_offs += "\"Mercredi\",";
+                    day_offs.add("\"3\"");
+                }
+                if (!wd3.isChecked()) {
+                    //day_offs += "\"Jeudi\",";
+                    day_offs.add("\"4\"");
+                }
+                if (!wd4.isChecked()) {
+                    //day_offs += "\"Vendredi\",";
+                    day_offs.add("\"5\"");
+                }
+                if (!wd5.isChecked()) {
+                    //day_offs += "\"Samedi\",";
+                    day_offs.add("\"6\"");
+                }
+                if (!wd6.isChecked()) {
+                    //day_offs += "\"Dimanche\"";
+                    day_offs.add("\"7\"");
+                }
+                /*if (!day_offs.endsWith(","))
+                    day_offs = day_offs.substring(0, day_offs.length() - 1);
+                day_offs += "]";*/
+                Log.d(TAG, String.valueOf(day_offs));
 
                 //OPEN HOURS
-                TextView begin_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
-                TextView end_hour = (TextView) view.findViewById(R.id.end_hour_pro);
-                Log.d(TAG, begin_hour.getText().toString() + " " + end_hour.getText().toString());
+                begin_working_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
+                end_working_hour = (TextView) view.findViewById(R.id.end_hour_pro);
+                Log.d(TAG, begin_working_hour.getText().toString() + " " + end_working_hour.getText().toString());
 
                 //Duration
-                TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
+                rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
                 Log.d(TAG, rdv_dur_txt.getText().toString());
-
-
-                versul = false;
             default:
                 break;
         }
@@ -361,7 +410,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -371,14 +420,12 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                     }
                 }
                 if (response.equals("0")) {
-                    Snackbar.make(view.findViewById(R.id.viewpager_signin), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(view.findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     //go to login
                     FragmentTransaction ft = getFragmentManager().beginTransaction();

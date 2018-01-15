@@ -42,11 +42,24 @@
             android:orientation="vertical"
             android:weightSum="1">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:text="X"
+                android:textStyle="bold"
+                android:textColor="@color/whitegray"
+                android:gravity="center|end"
+                android:paddingRight="26dp"
+                android:paddingEnd="26dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/close_pro_more" />
+
             <TextView
                 android:id="@+id/pro_more_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:gravity="center"
                 android:text="Nom Prenom"
                 android:textColor="@color/whitegray"
@@ -56,7 +69,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:orientation="horizontal"
                 android:padding="15dp"
                 android:visibility="visible"

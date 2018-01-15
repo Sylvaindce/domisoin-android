@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetails2Fragment;
@@ -114,6 +115,9 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         previousPage.setOnClickListener(this);
         pro_buttons = (LinearLayout)dialogFragment.findViewById(R.id.button_container_pro_form);
 
+        Button close = (Button)dialogFragment.findViewById(R.id.close_pro_more);
+        close.setOnClickListener(this);
+
         datas = new LinkedHashMap<String, String>();
 
         return dialogFragment;
@@ -176,6 +180,10 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         int pos = viewpager.getCurrentItem();
 
         switch (v.getId()) {
+            case R.id.close_pro_more:
+                dismiss();
+                break;
+
             case R.id.next_pro_button:
                 if (pos < vAdapter.getCount()-1) {
                     //add verif
@@ -341,7 +349,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -350,10 +358,14 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(getActivity().findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     dismiss();
                     Log.d("Our Response", response);

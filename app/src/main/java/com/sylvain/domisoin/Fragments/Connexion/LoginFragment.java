@@ -21,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -151,9 +152,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     progress = ProgressDialog.show(getActivity(), "Authentification", "Vérification en cours, merci de patienter...", true);
                 }
                 else {
-                    Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Veuillez renseigner une adresse email et un mot de passe valide.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Veuillez renseigner une adresse email et un mot de passe valide.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 break;
             case R.id.lost_password:
@@ -174,7 +174,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -184,14 +184,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     }
                 }
                 if (response.equals("0")) {
-                    Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(loginfragment.findViewById(R.id.loginfragment_container), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     try {
                         JSONObject jsonObj = new JSONObject(response);

@@ -41,7 +41,6 @@ public class HTTPPutHandler {
             conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("PUT");
-
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty( "Content-Type", "application/json");
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
@@ -55,8 +54,8 @@ public class HTTPPutHandler {
             }
             //conn.addRequestProperty("Authorization", headtok);
             conn.setDoOutput(true);
-            //conn.setReadTimeout(10000);
-            //conn.setConnectTimeout(15000);
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
             //conn.setDoInput(true);
             conn.connect();
 

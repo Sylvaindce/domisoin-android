@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Fragments.Connexion.ConnexionFragment;
 import com.sylvain.domisoin.R;
@@ -127,7 +128,7 @@ public class ConnexionActivity extends AppCompatActivity {
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -138,9 +139,8 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
 
                 if (response.equals("0")) {
-                    Snackbar.make(findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getBaseContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                     SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.remove(getString(R.string.save_account));
@@ -155,9 +155,8 @@ public class ConnexionActivity extends AppCompatActivity {
                     editor.remove(getString(R.string.save_password));
                     editor.apply();
 
-                    Snackbar.make(findViewById(android.R.id.content), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                     launch_connfragm();
                 } else {
                     try {

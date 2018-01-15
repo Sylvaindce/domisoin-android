@@ -30,6 +30,8 @@ public class HTTPDeleteHandler {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
             //conn.addRequestProperty("Content-Type", "application/json");
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");

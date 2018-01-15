@@ -25,6 +25,7 @@ public class userInfo {
     public ObservableField<String> id = new ObservableField<String>();
     public ObservableField<String> token = new ObservableField<String>();
     public ObservableField<String> mdp = new ObservableField<String>();
+    public ObservableField<String> actualloc = new ObservableField<String>();
 
 
     public userInfo() {
@@ -46,6 +47,7 @@ public class userInfo {
         id.set("empty");
         token.set("");
         mdp.set("");
+        actualloc.set("Localisation");
     }
 
     public TextWatcher watcher = new TextWatcher() {

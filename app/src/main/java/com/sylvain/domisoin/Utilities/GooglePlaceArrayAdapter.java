@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLngBounds;
 
@@ -43,7 +44,11 @@ public class GooglePlaceArrayAdapter extends ArrayAdapter<GooglePlaceArrayAdapte
                              AutocompleteFilter filter) {
         super(context, resource);
         mBounds = bounds;
-        mPlaceFilter = filter;
+        //mPlaceFilter = filter;
+        mPlaceFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(Place.TYPE_COUNTRY)
+                .setCountry("FR")
+                .build();
     }
 
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {

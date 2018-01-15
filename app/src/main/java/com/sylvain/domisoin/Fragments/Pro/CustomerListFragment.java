@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.UserInfo;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -126,6 +127,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
 
     public void getClientsListFromAPI() {
         HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=false", ourActivity.UserInfo.token.get());
+        //HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_base_url) + "patients/", ourActivity.UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Actualisation", "Mise à jour de la liste des clients en cours, merci de patienter...", true);
@@ -207,7 +209,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -216,10 +218,13 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     getMyClients(response);
                 }

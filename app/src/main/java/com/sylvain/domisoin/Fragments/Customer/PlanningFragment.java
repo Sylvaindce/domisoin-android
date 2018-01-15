@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Dialogs.AppointmentMore;
 import com.sylvain.domisoin.Models.AppointmentModel;
@@ -250,7 +251,7 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {
 
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -260,14 +261,12 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     }
                 }
                 if (response.equals("0")) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else if (Integer.decode(response_code) > 226) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 }
 
                 else if (Integer.decode(response_code) == 204) {

@@ -50,8 +50,8 @@ public class HTTPPostHandler {
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);
-            //conn.setReadTimeout(10000);
-            //conn.setConnectTimeout(15000);
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
             //conn.setDoInput(true);
             conn.connect();
 
@@ -88,6 +88,8 @@ public class HTTPPostHandler {
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();
+        } catch (java.net.SocketTimeoutException e) {
+            Log.d(TAG, "TIMEOUT");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,6 +26,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,8 +49,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener, ButtonInterface {
     private static final String TAG = SearchFragment.class.getSimpleName();
@@ -62,8 +68,11 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     private CustomProListAdapter mAdapter = null;
     private ImageButton search_button = null;
     private EditText search_edittext = null;
+    private TextView search_pro_range = null;
 
     public String userid = "";
+    private  LocationListener locationListener = null;
+    private LocationManager locationManager = null;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -101,6 +110,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         search_button = (ImageButton)fragmentSearchBinding.getRoot().findViewById(R.id.validate_search_button);
         search_button.setOnClickListener(this);
         search_edittext = (EditText)fragmentSearchBinding.getRoot().findViewById(R.id.search_edittext);
+        search_pro_range = (TextView)fragmentSearchBinding.getRoot().findViewById(R.id.search_pro_range);
+        search_pro_range.setOnClickListener(this);
 
         return fragmentSearchBinding.getRoot();
     }
@@ -116,6 +127,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+        locationManager.removeUpdates(locationListener);
+        locationManager = null;
     }
 
     @Override
@@ -123,6 +136,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         switch (v.getId()) {
             case R.id.validate_search_button:
                 getSearch();
+                break;
+            case R.id.search_pro_range:
+                //draw circle on map + change range on api
+                Log.d(TAG, "Click on pro_range");
                 break;
         }
     }
@@ -148,27 +165,24 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void setLocationOnMap(Location location) {
-        /*Geocoder geocoder;
-        geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         List<Address> address;
         String yourAddress = "";
-        String yourCity;
-        String yourCountry;
+        String yourCity = "";
+        //String yourCountry;
         try {
             address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (address.size() > 0)
             {
                 yourAddress = address.get(0).getAddressLine(0);
                 yourCity = address.get(0).getAddressLine(1);
-                yourCountry = address.get(0).getAddressLine(2);
+                UserInfo.actualloc.set((yourAddress + ", " + yourCity).replace(", null", ""));
+                //yourCountry = address.get(0).getAddressLine(2);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Log.d(TAG, yourAddress);*/
-
         LatLng cur = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(cur).title("Position Actuelle"));
@@ -179,10 +193,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
     public void getCurrentLocation() {
         // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         // Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 setLocationOnMap(location);
@@ -272,7 +286,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -281,10 +295,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     setItemListView(response);
                     Log.d("test", response);

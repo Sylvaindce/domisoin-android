@@ -4,21 +4,43 @@
     android:layout_height="wrap_content"
     android:background="@color/ourWhite">
 
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:padding="20dp">
+        android:layout_marginTop="0dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="0dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:id="@+id/close_appointment_more_container">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:background="@color/whitegray"
+                android:id="@+id/close_appointment_more_button"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/label_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:layout_below="@id/close_appointment_more_container"
             android:textColor="#000000" />
 
         <TextView
@@ -103,7 +125,7 @@
             android:layout_below="@id/label_location"
             android:layout_marginBottom="15dp" />
 
-        <LinearLayout
+        <!--LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_location"
@@ -121,25 +143,41 @@
                 android:textColor="@color/ourWhite"
                 android:visibility="gone"/>
 
-        </LinearLayout>
+        </LinearLayout-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/validate_container"
+            android:layout_below="@id/txt_location"
             android:gravity="center">
+
+            <Button
+                android:id="@+id/validate_appointment_more_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:background="@drawable/signin_rounded_button_green"
+                android:text="Valider"
+                android:layout_toLeftOf="@id/delete_appointment_button"
+                android:textColor="@color/ourWhite"
+                android:visibility="gone"/>
+
+
             <Button
                 android:id="@+id/delete_appointment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:padding="16dp"
                 android:background="@drawable/signin_rounded_button"
-                android:text="Annuler"
-                android:textStyle="bold"
+                android:text="Annuler votre rendez-vous"
+                android:textStyle="normal"
+                android:textSize="12sp"
                 android:textColor="@color/ourWhite" />
 
 
-            <Button
+            <!--Button
                 android:id="@+id/close_appointment_more_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,7 +186,7 @@
                 android:layout_toRightOf="@id/delete_appointment_button"
                 android:background="@drawable/signin_rounded_button2"
                 android:text="Fermer"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary" /-->
         </RelativeLayout>
 
     </RelativeLayout>
