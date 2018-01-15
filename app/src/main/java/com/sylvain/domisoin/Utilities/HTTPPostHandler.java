@@ -44,7 +44,6 @@ public class HTTPPostHandler {
             //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
             if (!token.isEmpty() || !token.equals("")) {
-                Log.d(TAG, "LOGIN: "+token);
                 conn.setRequestProperty("Authorization", "JWT " + token);
             }
             //conn.addRequestProperty("Authorization", "JWT " + token);
