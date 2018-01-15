@@ -195,23 +195,27 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                     //getAlldata();
 
                     EditText desc = (EditText)dialogFragment.findViewById(R.id.pro_more_desc);
-                    Log.d("RESUME", desc.getText().toString());
-                    //Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
-                    Log.d("RESUME", ourBeginDate + " " + ourEndDate);
-                    Log.d("RESUME", _user.getId() + " " + userid_1);
+                    if (desc.getText().length() <= 0) {
+                        desc.setError("Veuillez remplir le champ.");
+                    }
+                    else {
+                        Log.d("RESUME", desc.getText().toString());
+                        //Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
+                        Log.d("RESUME", ourBeginDate + " " + ourEndDate);
+                        Log.d("RESUME", _user.getId() + " " + userid_1);
 
-                    datas.put("description", desc.getText().toString());
-                    datas.put("client", _user.getId());
-                    datas.put("author", userid_1);
-                    datas.put("type", "RDV");
-                    datas.put("start_date", ourBeginDate); //modify
-                    datas.put("end_date", ourEndDate); //modify
-                    datas.put("location", "Paris, France"); //modify
+                        datas.put("description", desc.getText().toString());
+                        datas.put("client", _user.getId());
+                        datas.put("author", userid_1);
+                        datas.put("type", "RDV");
+                        datas.put("start_date", ourBeginDate); //modify
+                        datas.put("end_date", ourEndDate); //modify
+                        datas.put("location", "Paris, France"); //modify
 
-                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
-                    task.execute();
-                    progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
-                    //}
+                        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
+                        task.execute();
+                        progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
+                    }
                 }
                 break;
             case R.id.previous_pro_button:
