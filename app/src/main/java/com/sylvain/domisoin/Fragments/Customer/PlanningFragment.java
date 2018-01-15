@@ -28,6 +28,7 @@ import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentPlanningBinding;
 
 import org.json.JSONArray;
@@ -265,7 +266,7 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     toast.show();
                 }
                 else if (Integer.decode(response_code) > 226) {
-                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
                     toast.show();
                 }
 

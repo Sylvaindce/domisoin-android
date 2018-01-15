@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Fragments.Connexion;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -78,7 +80,14 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
     private Map<String, String> datas = null;
 
-    private Boolean pro_patient = false;
+    private static Boolean pro_patient = false;
+
+    public ParentFragmentSignIn() {}
+
+    @SuppressLint("ValidFragment")
+    public ParentFragmentSignIn(Boolean is_pro_pat) {
+        pro_patient = is_pro_pat;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,7 +160,8 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         vAdapter.addFrag(info2, "info2");
         vAdapter.addFrag(info1, "info1");
 
-        if (!pro_patient) {
+        Log.d("Before SetupVP", String.valueOf(this.pro_patient));
+        if (!this.pro_patient) {
             SigninProFragment pro = new SigninProFragment();
             vAdapter.addFrag(pro, "pro");
         }
@@ -370,6 +380,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
     public void setPro_Patient(Boolean q) {
         pro_patient = q;
+        Log.d("In Parent SignIn", String.valueOf(pro_patient));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -424,7 +435,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                     toast.show();
                 }
                 else if (Integer.decode(response_code) > 226 ) {
-                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     //go to login

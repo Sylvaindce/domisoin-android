@@ -25,6 +25,7 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -132,7 +133,7 @@ public class LostPasswordDialog extends DialogFragment implements View.OnClickLi
                     toast.show();
                 }
                 else if (Integer.decode(response_code) > 226 ) {
-                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     Toast toast = Toast.makeText(getContext(), "Réinitialisation du mot de passe réussie", Toast.LENGTH_LONG);

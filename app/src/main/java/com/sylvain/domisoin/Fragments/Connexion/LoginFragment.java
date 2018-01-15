@@ -28,6 +28,7 @@ import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.Dialogs.LostPasswordDialog;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -188,7 +189,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     toast.show();
                 }
                 else if (Integer.decode(response_code) > 226 ) {
-                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     try {

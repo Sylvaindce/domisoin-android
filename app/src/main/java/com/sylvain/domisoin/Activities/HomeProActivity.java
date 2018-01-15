@@ -45,6 +45,7 @@ import com.sylvain.domisoin.Fragments.Pro.PlanningProFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -407,7 +408,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                     try {
                         JSONObject jsonObject = new JSONObject(UserInfo.json.get());
                         updateUserInfo(jsonObject);
-                        Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
                         toast.show();
                     } catch (JSONException e) {
                         e.printStackTrace();

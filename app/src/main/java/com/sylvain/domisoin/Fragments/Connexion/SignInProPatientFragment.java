@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,8 +65,9 @@ public class SignInProPatientFragment extends Fragment implements View.OnClickLi
                 pro_part = true;
                 break;
         }
-        ParentFragmentSignIn signin = new ParentFragmentSignIn();
-        signin.setPro_Patient(pro_part);
+        ParentFragmentSignIn signin = new ParentFragmentSignIn(pro_part);
+        Log.d("Patient ou Pro", String.valueOf(pro_part));
+        //signin.setPro_Patient(pro_part);
         ft.replace(R.id.fragment_container, new ParentFragmentSignIn(), "SigninFragment()");
         ft.addToBackStack("signin");
         ft.commit();
