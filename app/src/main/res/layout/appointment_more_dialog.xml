@@ -125,7 +125,7 @@
             android:layout_below="@id/label_location"
             android:layout_marginBottom="15dp" />
 
-        <!--LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_location"
@@ -143,25 +143,13 @@
                 android:textColor="@color/ourWhite"
                 android:visibility="gone"/>
 
-        </LinearLayout-->
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_location"
+            android:layout_below="@id/validate_container"
             android:gravity="center">
-
-            <Button
-                android:id="@+id/validate_appointment_more_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:background="@drawable/signin_rounded_button_green"
-                android:text="Valider"
-                android:layout_toLeftOf="@id/delete_appointment_button"
-                android:textColor="@color/ourWhite"
-                android:visibility="gone"/>
 
 
             <Button
