@@ -75,7 +75,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
     private TextView begin_working_hour = null;
     private TextView end_working_hour = null;
     private TextView rdv_dur_txt = null;
-    private List<String> day_offs = null;
+    private List<Integer> day_offs = null;
 
 
     private Map<String, String> datas = null;
@@ -301,6 +301,8 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
                 if (TextUtils.isEmpty(email.getText()) || !Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
                     email.setError("Une adresse email valide est requise");
+                } else if (password.getText().length() < 4) {
+                    password.setError("Un mot de passe de plus de 4 caractères est requis");
                 }
                 else if (TextUtils.isEmpty(password.getText()) || !password.getText().toString().equals(cpassword.getText().toString())) {
                     password.setError("Un mot de passe valide est requis. Le mot de passe de confirmation doit être identique au mot de passe renseigné");
@@ -328,35 +330,35 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 wd4 = (CheckBox)view.findViewById(R.id.wd4);
                 wd5 = (CheckBox)view.findViewById(R.id.wd5);
                 wd6 = (CheckBox)view.findViewById(R.id.wd6);
-                day_offs = new LinkedList<String>();
+                day_offs = new LinkedList<Integer>();
                 //day_offs = "[";
                 if (!wd0.isChecked()) {
                     //day_offs+="\"Lundi\",";
-                    day_offs.add("\"1\"");
+                    day_offs.add(1);
                 }
                 if (!wd1.isChecked()) {
                     //day_offs += "\"Mardi\",";
-                    day_offs.add("\"2\"");
+                    day_offs.add(2);
                 }
                 if (!wd2.isChecked()) {
                     //day_offs += "\"Mercredi\",";
-                    day_offs.add("\"3\"");
+                    day_offs.add(3);
                 }
                 if (!wd3.isChecked()) {
                     //day_offs += "\"Jeudi\",";
-                    day_offs.add("\"4\"");
+                    day_offs.add(4);
                 }
                 if (!wd4.isChecked()) {
                     //day_offs += "\"Vendredi\",";
-                    day_offs.add("\"5\"");
+                    day_offs.add(5);
                 }
                 if (!wd5.isChecked()) {
                     //day_offs += "\"Samedi\",";
-                    day_offs.add("\"6\"");
+                    day_offs.add(6);
                 }
                 if (!wd6.isChecked()) {
                     //day_offs += "\"Dimanche\"";
-                    day_offs.add("\"7\"");
+                    day_offs.add(7);
                 }
                 /*if (!day_offs.endsWith(","))
                     day_offs = day_offs.substring(0, day_offs.length() - 1);

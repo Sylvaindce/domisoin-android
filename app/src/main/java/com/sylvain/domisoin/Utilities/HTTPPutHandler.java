@@ -3,6 +3,8 @@ package com.sylvain.domisoin.Utilities;
 import android.util.Base64;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -58,6 +60,25 @@ public class HTTPPutHandler {
             conn.setConnectTimeout(5000);
             //conn.setDoInput(true);
             conn.connect();
+
+            try {
+                if (data.has("day_offs")) {
+                    String tmp = String.valueOf(data.get("day_offs"));
+                    JSONArray toto = new JSONArray();
+                    if (!tmp.equals("[]")) {
+                        tmp = tmp.replace("[", "");
+                        tmp = tmp.replace("]", "");
+                        tmp = tmp.replace(" ", "");
+                        String[] tmp_ar = tmp.split(",");
+                        for (String s : tmp_ar)
+                            toto.put(Integer.decode(s));
+                    }
+                    data.put("day_offs", toto);
+                }
+                Log.d("PUT JSON", data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             //JSONObject json = JsonUtils.mapToJson(data);
 

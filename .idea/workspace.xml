@@ -19,24 +19,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeCustomerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeCustomerActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeProActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/HomeProActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/LostPasswordDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/LostPasswordDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ModifyPwdDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ProMore.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ProMore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/Info2SigninFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/Info2SigninFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/PlanningFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/PlanningFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/SearchFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/SearchFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/AccountProFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/AccountProFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/CustomerListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/CustomerListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/PlanningProFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/PlanningProFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java" />
     </list>
     <ignored path="domisoin-android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -98,11 +83,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ConnexionActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConnexionActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="137" column="13" lean-forward="true" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
+            <state relative-caret-position="354">
+              <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParentFragmentSignIn.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="267" column="56" lean-forward="false" selection-start-line="267" selection-start-column="56" selection-end-line="267" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HTTPPostRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-200">
+              <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HTTPPostHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="67" column="32" lean-forward="false" selection-start-line="59" selection-start-column="12" selection-end-line="76" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HTTPPutHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="77" column="26" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -1938,14 +1963,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/customer_form.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/DataBind/userInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_my_location_black_24dp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPGetHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPDeleteHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/MoreProDetailsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/appointment_more_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SignInProPatientFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/ManageErrorText.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_signinpro.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java" />
@@ -1965,6 +1987,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Misc/OptionsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/CustomerListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Pro/PlanningProFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java" />
       </list>
     </option>
   </component>
@@ -2038,6 +2063,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="domisoin" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Utilities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2183,6 +2212,28 @@
               <option name="myItemId" value="Fragments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Connexion" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domisoin-android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domisoin" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2247,7 +2298,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="device.picker.selection" value="192.168.42.105:5555" />
+    <property name="device.picker.selection" value="192.168.0.20:5555" />
     <property name="VectorAssetImportPath" value="$USER_HOME$" />
     <property name="settings.editor.selected.configurable" value="reference.idesettings.emmet" />
   </component>
@@ -2348,7 +2399,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516138717290" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516146700641" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2396,7 +2447,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516138717290" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516146700642" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2428,6 +2479,27 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -2558,7 +2630,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516138717291" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1516146700643" />
       </method>
     </configuration>
     <list size="1">
@@ -2607,6 +2679,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2625,7 +2698,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14167129" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2573326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39805827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2784,13 +2857,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java</url>
-          <line>69</line>
+          <line>90</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java</url>
-          <line>90</line>
+          <line>111</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
@@ -2873,21 +2946,11 @@
           <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="50" />
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/modify_pwd_dialog.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2947,14 +3010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="56" column="33" lean-forward="false" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/professional_form.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3003,13 +3058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="33" column="41" lean-forward="false" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="48" column="45" lean-forward="true" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -3163,14 +3211,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="196" column="13" lean-forward="false" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Dialogs/ProMore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -3187,34 +3227,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1420">
-          <caret line="255" column="40" lean-forward="false" selection-start-line="255" selection-start-column="40" selection-end-line="255" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1021">
-          <caret line="100" column="29" lean-forward="false" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SignInProPatientFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
           <caret line="68" column="9" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3581">
-          <caret line="227" column="135" lean-forward="false" selection-start-line="227" selection-start-column="135" selection-end-line="227" selection-end-column="135" />
           <folding />
         </state>
       </provider>
@@ -3293,8 +3309,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Activities/ConnexionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="137" column="13" lean-forward="true" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
+        <state relative-caret-position="354">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Customer/AccountFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1661">
+          <caret line="227" column="135" lean-forward="false" selection-start-line="227" selection-start-column="135" selection-end-line="227" selection-end-column="135" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/LoginFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="151" column="95" lean-forward="false" selection-start-line="151" selection-start-column="42" selection-end-line="151" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/SigninProFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1081">
+          <caret line="100" column="29" lean-forward="false" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-200">
+          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Fragments/Connexion/ParentFragmentSignIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="267" column="56" lean-forward="false" selection-start-line="267" selection-start-column="56" selection-end-line="267" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPostHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="67" column="32" lean-forward="false" selection-start-line="59" selection-start-column="12" selection-end-line="76" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sylvain/domisoin/Utilities/HTTPPutHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="77" column="26" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
           <folding />
         </state>
       </provider>

@@ -2,6 +2,8 @@ package com.sylvain.domisoin.Utilities;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -55,6 +57,24 @@ public class HTTPPostHandler {
             conn.connect();
 
             JSONObject json = JsonUtils.mapToJson(data);
+            try {
+                if (json.has("day_offs")) {
+                    String tmp = String.valueOf(json.get("day_offs"));
+                    JSONArray toto = new JSONArray();
+                    if (!tmp.equals("[]")) {
+                        tmp = tmp.replace("[", "");
+                        tmp = tmp.replace("]", "");
+                        tmp = tmp.replace(" ", "");
+                        String[] tmp_ar = tmp.split(",");
+                        for (String s : tmp_ar)
+                            toto.put(Integer.decode(s));
+                    }
+                    json.put("day_offs", toto);
+                }
+                Log.d("POST JSON", json.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             //Write
             OutputStream os = conn.getOutputStream();
@@ -119,4 +139,16 @@ public class HTTPPostHandler {
         }
         return sb.toString();
     }
+
+    /*private int[] convert(String string) {
+        int number[] = new int[string.length()];
+
+
+
+        for (int i = 0; i < string.length(); i++) {
+            number[i] = Integer.parseInt(string.charAt(i)); //Note charAt
+        }
+        return number;
+    }*/
+
 }
