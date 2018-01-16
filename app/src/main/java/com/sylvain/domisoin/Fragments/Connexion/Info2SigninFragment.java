@@ -117,7 +117,7 @@ public class Info2SigninFragment extends Fragment implements GoogleApiClient.OnC
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
 
-        Toast.makeText(getContext(), "Google Places API connection failed with error code:" + connectionResult.getErrorCode(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard. " + connectionResult.getErrorCode(), Toast.LENGTH_LONG).show();
     }
 
     @Override

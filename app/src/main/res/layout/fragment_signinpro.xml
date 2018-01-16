@@ -133,6 +133,42 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="Durée de vos rendez-vous"
+                    android:textColor="#b0bec5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/rdv_dur"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="min" />
+
+                    <SeekBar
+                        android:id="@+id/rdv_dur_sb"
+                        style="@style/Widget.AppCompat.SeekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="60"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
                     android:text="Horaires d'ouvertures"
                     android:textColor="#b0bec5" />
@@ -176,41 +212,6 @@
 
                 </LinearLayout>
 
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:text="Durée de vos rendez-vous"
-                    android:textColor="#b0bec5" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/rdv_dur"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="15" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="min" />
-
-                    <SeekBar
-                        android:id="@+id/rdv_dur_sb"
-                        style="@style/Widget.AppCompat.SeekBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="60"
-                        android:visibility="visible" />
-
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

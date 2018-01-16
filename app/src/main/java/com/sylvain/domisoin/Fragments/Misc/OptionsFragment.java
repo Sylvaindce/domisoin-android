@@ -140,11 +140,14 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
             if (progress != null) {
                 progress.dismiss();
             }
-            String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
-            if (response == null)
+            String response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            if (response == null) {
                 response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
-            if (response == null)
-                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            }
 
             if (response != null) {
                 Log.d("OptionFrag", response);

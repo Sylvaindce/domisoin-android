@@ -28,6 +28,8 @@ import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentPlanningBinding;
 
@@ -248,6 +250,10 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
             if (response == null) {
                 response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {

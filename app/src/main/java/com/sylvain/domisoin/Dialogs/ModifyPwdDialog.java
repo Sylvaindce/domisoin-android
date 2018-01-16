@@ -24,6 +24,9 @@ import android.widget.Toast;
 
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
@@ -100,8 +103,14 @@ public class ModifyPwdDialog extends DialogFragment implements View.OnClickListe
             act_pwd.setError("Mauvais mot de passe");
             error = true;
         }
-        if (!String.valueOf(new_pwd.getText()).equals(String.valueOf(ver_new_pwd.getText())) || new_pwd.getText().toString().length() == 0) {
+        if (new_pwd.getText().toString().length() < 4) {
+            new_pwd.setError("veuillez entrer un mot de passe valide (min 4 caractères)");
+            error = true;
+        }
+
+        if (!String.valueOf(new_pwd.getText()).equals(String.valueOf(ver_new_pwd.getText()))) {
             ver_new_pwd.setError("Les mots de passe ne sont pas identiques");
+
             error = true;
         }
         return error;
@@ -148,6 +157,13 @@ public class ModifyPwdDialog extends DialogFragment implements View.OnClickListe
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
 
             if (response != null) {
                 Log.d(TAG, response);

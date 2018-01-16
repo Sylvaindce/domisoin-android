@@ -29,7 +29,10 @@ import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.CustomProListAdapter;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
@@ -208,6 +211,13 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "400";

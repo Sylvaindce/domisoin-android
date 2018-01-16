@@ -115,14 +115,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener, G
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_create_black_24dp));
                     account_jobtitle.setEnabled(false);
                     account_workphone.setEnabled(false);
-                    account_email.setEnabled(false);
+                    //account_email.setEnabled(false);
                     mAutocompleteTextView.setEnabled(false);
                     doUpdate();
                 } else {
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
                     account_jobtitle.setEnabled(true);
                     account_workphone.setEnabled(true);
-                    account_email.setEnabled(true);
+                    //account_email.setEnabled(true);
                     mAutocompleteTextView.setEnabled(true);
                 }
                 break;
@@ -138,7 +138,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener, G
                 JSONObject newjson = new JSONObject(userinfo.json.get());
                 newjson.put("job_title", account_jobtitle.getText());
                 newjson.put("workphone", account_workphone.getText());
-                newjson.put("email", account_email.getText());
+                //newjson.put("email", account_email.getText());
                 newjson.put("adresse", mAutocompleteTextView.getText());
 
                 HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + newjson.get("id") + "/", newjson, UserInfo.token.get());
@@ -165,10 +165,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener, G
             account_jobtitle.setError("Une Profession valide est requise");
             result = true;
         }
-        if (TextUtils.isEmpty(account_email.getText()) || !Patterns.EMAIL_ADDRESS.matcher(account_email.getText()).matches()) {
+        /*if (TextUtils.isEmpty(account_email.getText()) || !Patterns.EMAIL_ADDRESS.matcher(account_email.getText()).matches()) {
             account_email.setError("Une adresse email valide est requise");
             result = true;
-        }
+        }*/
         return result;
     }
 
@@ -225,7 +225,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener, G
         Log.e(TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
 
-        Toast.makeText(getContext(), "Google Places API connection failed with error code:" + connectionResult.getErrorCode(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard. " + connectionResult.getErrorCode(), Toast.LENGTH_LONG).show();
     }
 
     @Override

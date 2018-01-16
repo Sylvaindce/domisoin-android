@@ -41,6 +41,8 @@ import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
 import com.sylvain.domisoin.Fragments.Misc.OptionsFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
@@ -337,6 +339,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
             UserInfo.last_name.set(myjson.getString("last_name"));
             UserInfo.is_pro.set(myjson.getBoolean("is_pro"));
             UserInfo.address.set(myjson.getString("adresse"));
+            if (UserInfo.actualloc.get().equals("Localisation"))
+                UserInfo.actualloc.set(myjson.getString("adresse"));
             UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
@@ -374,8 +378,12 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
-            if (response == null){
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
                 response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {

@@ -35,6 +35,7 @@ import com.sylvain.domisoin.Utilities.CustomPlanningExpandableListAdapter;
 import com.sylvain.domisoin.Utilities.CustomPlanningListView;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentPlanningProBinding;
@@ -240,6 +241,8 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
             if (response == null) {
                 response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
                 status = 2;
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "Planning Pro RESPONSE = " + response);
             if (response != null) {

@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
@@ -117,6 +119,13 @@ public class LostPasswordDialog extends DialogFragment implements View.OnClickLi
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "400";

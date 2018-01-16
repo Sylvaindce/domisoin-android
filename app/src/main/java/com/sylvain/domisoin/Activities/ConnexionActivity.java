@@ -25,7 +25,10 @@ import android.widget.Toast;
 
 import com.sylvain.domisoin.Fragments.Connexion.ConnexionFragment;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
@@ -126,6 +129,13 @@ public class ConnexionActivity extends AppCompatActivity {
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {

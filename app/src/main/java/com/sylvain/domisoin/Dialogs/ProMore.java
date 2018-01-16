@@ -35,7 +35,10 @@ import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
@@ -352,6 +355,13 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "400";

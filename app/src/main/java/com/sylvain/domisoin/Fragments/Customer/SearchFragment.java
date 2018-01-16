@@ -42,7 +42,10 @@ import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.CustomProListAdapter;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentSearchBinding;
 
@@ -111,8 +114,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         search_button = (ImageButton)fragmentSearchBinding.getRoot().findViewById(R.id.validate_search_button);
         search_button.setOnClickListener(this);
         search_edittext = (EditText)fragmentSearchBinding.getRoot().findViewById(R.id.search_edittext);
-        search_pro_range = (TextView)fragmentSearchBinding.getRoot().findViewById(R.id.search_pro_range);
-        search_pro_range.setOnClickListener(this);
+        /*search_pro_range = (TextView)fragmentSearchBinding.getRoot().findViewById(R.id.search_pro_range);
+        search_pro_range.setOnClickListener(this);*/
 
         return fragmentSearchBinding.getRoot();
     }
@@ -138,10 +141,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             case R.id.validate_search_button:
                 getSearch();
                 break;
-            case R.id.search_pro_range:
+           /* case R.id.search_pro_range:
                 //draw circle on map + change range on api
                 Log.d(TAG, "Click on pro_range");
-                break;
+                break;*/
         }
     }
 
@@ -285,6 +288,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "400";

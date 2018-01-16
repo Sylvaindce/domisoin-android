@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +29,10 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.Dialogs.LostPasswordDialog;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
@@ -136,8 +141,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                 login = String.valueOf(loginEdit.getText());
                 password = String.valueOf(passwordEdit.getText());
+                Boolean verif = false;
 
-                if (login != null && !login.equals("") && password != null && !password.equals("")) {
+                if (TextUtils.isEmpty(login) || !Patterns.EMAIL_ADDRESS.matcher(login).matches()) {
+                    loginEdit.setError("Une adresse email valide est requise");
+                    verif = true;
+                }
+
+                if (TextUtils.isEmpty(password) || password.length() < 4) {
+                    passwordEdit.setError("Un mot de passe de plus de 4 caractères est requis");
+                    verif = true;
+                }
+
+                if (!verif) {
                     Log.v("LoginValidate", login);
                     Log.v("LoginValidate", password);
                     datas.clear();
@@ -152,10 +168,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     task.execute();
                     progress = ProgressDialog.show(getActivity(), "Authentification", "Vérification en cours, merci de patienter...", true);
                 }
-                else {
+                /*else {
                     Toast toast = Toast.makeText(getContext(), "Veuillez renseigner une adresse email et un mot de passe valide.", Toast.LENGTH_LONG);
                     toast.show();
-                }
+                }*/
                 break;
             case R.id.lost_password:
                 LostPasswordDialog lost_dialog = new LostPasswordDialog();
@@ -172,6 +188,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
