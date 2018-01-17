@@ -47,6 +47,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
+                android:maxLength="40"
                 android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:textColor="#212121" />
 
@@ -61,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
+                android:maxLength="40"
                 android:inputType="text"
                 android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:imeOptions="actionNext"
@@ -79,6 +81,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
                 android:inputType="text"
+                android:maxLength="40"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:imeOptions="actionDone"
                 android:singleLine="true"

@@ -5,6 +5,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
+import org.json.JSONArray;
+
 public class userInfo {
     private static final String TAG = userInfo.class.getSimpleName();
 
@@ -27,6 +29,12 @@ public class userInfo {
     public ObservableField<String> mdp = new ObservableField<String>();
     public ObservableField<String> actualloc = new ObservableField<String>();
 
+    public ObservableField<String> duration = new ObservableField<String>();
+    public ObservableField<String> begin_working_hour = new ObservableField<String>();
+    public ObservableField<String> begin_working_minutes = new ObservableField<String>();
+    public ObservableField<String> end_working_hour = new ObservableField<String>();
+    public ObservableField<String> end_working_minutes = new ObservableField<String>();
+    public ObservableField<JSONArray> day_offs = new ObservableField<JSONArray>();
 
     public userInfo() {
         account.set("You are in account section.");
@@ -48,6 +56,13 @@ public class userInfo {
         token.set("");
         mdp.set("");
         actualloc.set("Localisation");
+
+        duration.set("15");
+        begin_working_hour.set("8");
+        begin_working_minutes.set("0");
+        end_working_hour.set("17");
+        end_working_minutes.set("0");
+        day_offs.set(new JSONArray());
     }
 
     public TextWatcher watcher = new TextWatcher() {

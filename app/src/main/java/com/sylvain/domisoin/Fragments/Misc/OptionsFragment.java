@@ -29,6 +29,7 @@ import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.AboutFragment;
 import com.sylvain.domisoin.Dialogs.ModifyPwdDialog;
+import com.sylvain.domisoin.Dialogs.ModifyWorkingData;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
@@ -46,6 +47,7 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     private Button modify_pwd = null;
     private Button delete_acc = null;
     private Button about_domi = null;
+    private Button modify_working_data = null;
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_OPTIONSFRAG";
     private ProgressDialog progress = null;
     private userInfo UserInfo = null;
@@ -73,6 +75,8 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
         delete_acc.setOnClickListener(this);
         about_domi = (Button)view.findViewById(R.id.aboutdomi);
         about_domi.setOnClickListener(this);
+        modify_working_data = (Button) view.findViewById(R.id.modify_working_data);
+        modify_working_data.setOnClickListener(this);
 
         return view;
     }
@@ -114,6 +118,10 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 AboutFragment dialog = new AboutFragment();
                 dialog.show(getFragmentManager(), "about");
                 break;
+            case R.id.modify_working_data:
+                ModifyWorkingData modifyWData = new ModifyWorkingData(UserInfo);
+                modifyWData.show(getFragmentManager(), "modifywd");
+                break;
         }
     }
 
@@ -131,6 +139,11 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
 
     public void setUserInfo(userInfo _User) {
         UserInfo = _User;
+        if (UserInfo.is_pro.get()) {
+            modify_working_data.setVisibility(View.VISIBLE);
+        } else {
+            modify_working_data.setVisibility(View.INVISIBLE);
+        }
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {

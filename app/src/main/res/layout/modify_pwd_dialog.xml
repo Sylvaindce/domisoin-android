@@ -45,6 +45,7 @@
                 android:textSize="14sp"
                 android:id="@+id/act_pwd_txt"
                 android:inputType="textPassword"
+                android:maxLength="40"
                 android:hint="Mot de passe actuel" />
 
             <TextView
@@ -59,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:maxLength="40"
                 android:id="@+id/new_pwd_txt"
                 android:inputType="textPassword"
                 android:hint="Nouveau mot de passe" />
@@ -75,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:maxLength="40"
                 android:id="@+id/ver_new_pwd_txt"
                 android:inputType="textPassword"
                 android:hint="Deuxième saisie du nouveau mot de passe" />

@@ -28,6 +28,7 @@ import com.sylvain.domisoin.Dialogs.CustomerMore;
 import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.CustomPatientListAdapter;
 import com.sylvain.domisoin.Utilities.CustomProListAdapter;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
@@ -55,7 +56,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     private ListView listView_customers = null;
     private List<String> myClientsListId = null;
     private List<UserModel> myClientsList = null;
-    private CustomProListAdapter adapter = null;
+    private CustomPatientListAdapter adapter = null;
     private ImageButton search_button = null;
     private EditText search_text = null;
 
@@ -176,7 +177,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void setListClients() {
-        adapter = new CustomProListAdapter(getContext());
+        adapter = new CustomPatientListAdapter(getContext());
         adapter.setList(myClientsList);
         listView_customers.setAdapter(adapter);
         listView_customers.setOnItemClickListener(this);

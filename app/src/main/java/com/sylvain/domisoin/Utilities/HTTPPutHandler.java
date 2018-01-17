@@ -56,8 +56,8 @@ public class HTTPPutHandler {
             }
             //conn.addRequestProperty("Authorization", headtok);
             conn.setDoOutput(true);
-            conn.setReadTimeout(5000);
-            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
             //conn.setDoInput(true);
             conn.connect();
 

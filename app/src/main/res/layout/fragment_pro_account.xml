@@ -92,6 +92,7 @@
                                 android:drawableStart="@drawable/ic_card_travel_black_24dp"
                                 android:drawableLeft="@drawable/ic_card_travel_black_24dp"
                                 android:text="@{user.job_title}"
+                                android:maxLength="40"
                                 android:layout_marginBottom="20dp"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
@@ -124,6 +125,7 @@
                                 android:drawableStart="@drawable/ic_email_black_24dp"
                                 android:drawableLeft="@drawable/ic_email_black_24dp"
                                 android:text="@{user.email}"
+                                android:maxLength="40"
                                 android:layout_marginBottom="20dp"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
@@ -140,6 +142,7 @@
                                 android:drawableLeft="@drawable/ic_public_black_24dp"
                                 android:text="@{user.address}"
                                 android:layout_marginBottom="20dp"
+                                android:maxLength="150"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
                                 android:enabled="false"/>

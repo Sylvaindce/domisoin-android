@@ -131,8 +131,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
-        locationManager.removeUpdates(locationListener);
-        locationManager = null;
+        if (locationManager!=null) {
+            locationManager.removeUpdates(locationListener);
+            locationManager = null;
+        }
     }
 
     @Override

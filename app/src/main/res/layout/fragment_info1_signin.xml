@@ -54,6 +54,7 @@
                 android:layout_marginBottom="20dp"
                 android:inputType="text"
                 android:singleLine="true"
+                android:maxLength="40"
                 android:imeOptions="actionNext"
                 android:textColor="#212121" />
 
@@ -70,6 +71,7 @@
                 android:layout_marginBottom="20dp"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:maxLength="40"
                 android:imeOptions="actionNext"
                 android:textColor="#212121" />
             <TextView
@@ -85,6 +87,7 @@
                 android:layout_marginBottom="20dp"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:maxLength="40"
                 android:imeOptions="actionDone"
                 android:textColor="#212121" />
 

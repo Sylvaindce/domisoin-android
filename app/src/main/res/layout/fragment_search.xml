@@ -46,6 +46,7 @@
                         android:background="#FFFFFF"
                         android:padding="10dp"
                         android:hint="Recherche"
+                        android:maxLength="30"
                         android:id="@+id/search_edittext"
                         android:layout_weight="1"/>
 
