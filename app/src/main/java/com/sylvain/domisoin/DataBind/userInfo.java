@@ -58,9 +58,9 @@ public class userInfo {
         actualloc.set("Localisation");
 
         duration.set("15");
-        begin_working_hour.set("8");
+        begin_working_hour.set("0");
         begin_working_minutes.set("0");
-        end_working_hour.set("17");
+        end_working_hour.set("0");
         end_working_minutes.set("0");
         day_offs.set(new JSONArray());
     }

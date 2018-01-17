@@ -50,6 +50,7 @@ import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -356,6 +357,15 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
+
+            UserInfo.duration.set(myjson.getString("event_duration"));
+            UserInfo.begin_working_hour.set(myjson.getString("start_working_hour"));
+            //UserInfo.begin_working_minutes.set(myjson.getString("start_working_minutes"));
+            UserInfo.end_working_hour.set(myjson.getString("end_working_hour"));
+            //UserInfo.end_working_minutes.set(myjson.getString("end_working_minutes"));
+            UserInfo.day_offs.set(myjson.getJSONArray("day_offs"));
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

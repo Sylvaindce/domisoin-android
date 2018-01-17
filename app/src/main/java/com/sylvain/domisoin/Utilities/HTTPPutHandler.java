@@ -61,7 +61,7 @@ public class HTTPPutHandler {
             //conn.setDoInput(true);
             conn.connect();
 
-            try {
+            /*try {
                 if (data.has("day_offs")) {
                     String tmp = String.valueOf(data.get("day_offs"));
                     JSONArray toto = new JSONArray();
@@ -78,7 +78,7 @@ public class HTTPPutHandler {
                 Log.d("PUT JSON", data.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             //JSONObject json = JsonUtils.mapToJson(data);
 

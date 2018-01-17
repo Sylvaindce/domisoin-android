@@ -126,6 +126,7 @@ public class ModifyPwdDialog extends DialogFragment implements View.OnClickListe
         try {
             JSONObject newjson = new JSONObject(ourdata.json.get());
             newjson.put("password", new_pwd.getText());
+            newjson.put("adresse", ourdata.address.get());
 
             HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+newjson.get("id")+"/", newjson, ourdata.token.get());
             task.execute();

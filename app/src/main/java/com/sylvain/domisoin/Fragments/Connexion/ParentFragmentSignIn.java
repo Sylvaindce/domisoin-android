@@ -30,7 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import java.util.ArrayList;
@@ -244,7 +247,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         //add pro data if pro
         if (!pro_patient) {
             datas.put("day_offs", String.valueOf(day_offs));
-            datas.put("duration", rdv_dur_txt.getText().toString());
+            datas.put("event_duration", rdv_dur_txt.getText().toString());
             datas.put("adeli", adeli.getText().toString());
             datas.put("start_working_hour", begin_working_hour.getText().toString().split(":")[0]);
             datas.put("start_working_minutes", begin_working_hour.getText().toString().split(":")[1]);
@@ -421,6 +424,13 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
                 String response_code = "400";
