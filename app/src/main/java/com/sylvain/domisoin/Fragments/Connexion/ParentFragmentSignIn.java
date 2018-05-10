@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
     private EditText first_name = null;
     private EditText last_name= null;
     private EditText job = null;
+    private Spinner job_pro = null;
     private EditText address = null;
     private EditText phone = null;
     private EditText email = null;
@@ -154,17 +156,22 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
         vAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
-        NameSigninFragment name = new NameSigninFragment();
+        if (ParentFragmentSignIn.pro_patient){
+            NameSigninFragment name = new NameSigninFragment();
+            vAdapter.addFrag(name, "Name");
+        } else {
+            NameSigninProFragment name_pro = new NameSigninProFragment();
+            vAdapter.addFrag(name_pro, "Name");
+        }
+
         Info1SigninFragment info1 = new Info1SigninFragment();
         Info2SigninFragment info2 = new Info2SigninFragment();
 
-
-        vAdapter.addFrag(name, "Name");
         vAdapter.addFrag(info2, "info2");
         vAdapter.addFrag(info1, "info1");
 
-        Log.d("Before SetupVP", String.valueOf(this.pro_patient));
-        if (!this.pro_patient) {
+        Log.d("Before SetupVP", String.valueOf(ParentFragmentSignIn.pro_patient));
+        if (!ParentFragmentSignIn.pro_patient) {
             SigninProFragment pro = new SigninProFragment();
             vAdapter.addFrag(pro, "pro");
         }
@@ -239,13 +246,14 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         datas.put("email", String.valueOf(email.getText()));
         datas.put("first_name", String.valueOf(first_name.getText()));
         datas.put("last_name", String.valueOf(last_name.getText()));
-        datas.put("job_title", String.valueOf(job.getText()));
         datas.put("adresse", String.valueOf(address.getText())); //modify
         datas.put("workphone", String.valueOf(phone.getText())); //modify
         datas.put("password", String.valueOf(password.getText()));
 
         //add pro data if pro
         if (!pro_patient) {
+            datas.put("job_title", String.valueOf(String.valueOf(job_pro.getSelectedItem())));
+
             datas.put("day_offs", String.valueOf(day_offs));
             datas.put("event_duration", rdv_dur_txt.getText().toString());
             datas.put("adeli", adeli.getText().toString());
@@ -255,6 +263,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             datas.put("end_working_minutes", end_working_hour.getText().toString().split(":")[1]);
             datas.put("is_pro", "1");
         } else {
+            datas.put("job_title", String.valueOf(job.getText()));
             datas.put("is_pro", "0"); //modify
             datas.put("day_offs", "[]");
         }
@@ -278,17 +287,29 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
         switch (position) {
             case 0:
-                first_name = (EditText) view.findViewById(R.id.firstname);
-                last_name = (EditText) view.findViewById(R.id.lastname);
-                job = (EditText) view.findViewById(R.id.job);
-                if( last_name.getText().toString().length() == 0 )
-                    last_name.setError("Un Nom de famille valide est requis");
-                else if( first_name.getText().toString().length() == 0 )
-                    first_name.setError("Un Prénom valide est requis");
-                else if( job.getText().toString().length() == 0 )
-                    job.setError("Une Profession valide est requise");
-                else
-                    versul = true;
+                if (ParentFragmentSignIn.pro_patient) {
+                    first_name = (EditText) view.findViewById(R.id.firstname);
+                    last_name = (EditText) view.findViewById(R.id.lastname);
+                    job = (EditText) view.findViewById(R.id.job);
+                    if (last_name.getText().toString().length() == 0)
+                        last_name.setError("Un Nom de famille valide est requis");
+                    else if (first_name.getText().toString().length() == 0)
+                        first_name.setError("Un Prénom valide est requis");
+                    else if (job.getText().toString().length() == 0)
+                        job.setError("Une Profession valide est requise");
+                    else
+                        versul = true;
+                } else {
+                    first_name = (EditText) view.findViewById(R.id.firstname_pro);
+                    last_name = (EditText) view.findViewById(R.id.lastname_pro);
+                    job_pro = (Spinner) view.findViewById(R.id.job_pro);
+                    if (last_name.getText().toString().length() == 0)
+                        last_name.setError("Un Nom de famille valide est requis");
+                    else if (first_name.getText().toString().length() == 0)
+                        first_name.setError("Un Prénom valide est requis");
+                    else
+                        versul = true;
+                }
                 break;
             case 1:
                 address = (EditText) view.findViewById(R.id.address);

@@ -45,9 +45,15 @@ public class HTTPPostHandler {
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            if (!token.isEmpty() || !token.equals("")) {
+            /*if (!token.isEmpty() || !token.equals("")) {
                 conn.setRequestProperty("Authorization", "JWT " + token);
-            }
+            }*/
+
+            /*if (!token.isEmpty() || !token.equals("")) {
+                String headtok = "JWT" + '\u0020' + token;
+                conn.setRequestProperty("Authorization", headtok);
+                Log.d(TAG, headtok);
+            }*/
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);

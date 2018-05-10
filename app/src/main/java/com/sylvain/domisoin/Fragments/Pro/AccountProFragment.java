@@ -118,14 +118,14 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
                 Log.d(TAG, "account modify info");
                 if (account_jobtitle.isEnabled()) {
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_create_black_24dp));
-                    account_jobtitle.setEnabled(false);
+                    //account_jobtitle.setEnabled(false);
                     account_workphone.setEnabled(false);
                     //account_email.setEnabled(false);
                     mAutocompleteTextView.setEnabled(false);
                     doUpdate();
                 } else {
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
-                    account_jobtitle.setEnabled(true);
+                    //account_jobtitle.setEnabled(true);
                     account_workphone.setEnabled(true);
                     //account_email.setEnabled(true);
                     mAutocompleteTextView.setEnabled(true);
@@ -141,7 +141,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
         if (!verif_fields()) {
             try {
                 JSONObject newjson = new JSONObject(userinfo.json.get());
-                newjson.put("job_title", account_jobtitle.getText());
+                //newjson.put("job_title", account_jobtitle.getText());
                 newjson.put("workphone", account_workphone.getText());
                 //newjson.put("email", account_email.getText());
                 newjson.put("adresse", mAutocompleteTextView.getText());

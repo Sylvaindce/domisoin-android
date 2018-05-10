@@ -25,4 +25,22 @@
     <string name="demo_min_label">00:00</string>
     <string name="demo_max_label">23:59</string>
 
+    <string-array name="jobs_array">
+        <item>Infirmier</item>
+        <item>Pédiatre</item>
+        <item>Kinésithérapeute</item>
+    </string-array>
+
+    <string-array name="range_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+    </string-array>
 </resources>

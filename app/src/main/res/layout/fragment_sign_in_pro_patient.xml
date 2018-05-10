@@ -40,7 +40,7 @@
                 android:layout_height="80dp"
                 android:id="@+id/signin_cust"
                 android:background="@drawable/signin_rounded_button"
-                android:text="Particulier"
+                android:text="Patient"
                 android:layout_margin="16dp"
                 android:padding="20dp"
                 android:textColor="#FFFFFF"

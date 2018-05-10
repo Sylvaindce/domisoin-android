@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2.2">
+                android:layout_weight="1.4">
                 <fragment
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -70,20 +70,30 @@
                     android:layout_marginLeft="15dp"
                     android:orientation="horizontal"
                     android:background="@color/colorPrimary"
-                    android:weightSum="1">
+                    android:weightSum="4">
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/search_bar_location"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:gravity="center"
-                        android:padding="6dp"
+                        android:padding="2dp"
                         android:textColor="#FFFFFF"
                         android:text="@{user.actualloc}"
                         android:drawableLeft="@drawable/ic_place_black_24dp" />
 
-
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:id="@+id/search_bar_rayon"
+                        android:text="@{Integer.toString(user.rayon)}"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="2dp"
+                        android:textColor="@color/colorPrimary"
+                        android:drawableLeft="@drawable/ic_my_location_black_24dp"/>
 
                 </LinearLayout>
 
@@ -92,7 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.8"
+                android:layout_weight="2.6"
                 android:orientation="horizontal">
 
                 <ListView
