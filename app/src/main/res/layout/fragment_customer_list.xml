@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/greylight"
     tools:context="com.sylvain.domisoin.Fragments.Pro.CustomerListFragment">
 
     <LinearLayout
@@ -10,10 +11,19 @@
         android:orientation="vertical"
         android:weightSum="4">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mes Patients"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="#FFFFFF"
             android:layout_margin="15dp">
 
             <EditText
@@ -40,6 +50,7 @@
         <ListView
             android:id="@+id/listView_Customer"
             android:layout_weight="4"
+            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

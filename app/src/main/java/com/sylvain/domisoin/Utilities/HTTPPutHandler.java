@@ -49,11 +49,11 @@ public class HTTPPutHandler {
             //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
             //String headtok = String.format("%-3s"," ", headt);
-            /*if (!token.isEmpty() || !token.equals("")) {
+            if (!token.isEmpty() || !token.equals("")) {
                 String headtok = "JWT" + '\u0020' + token;
                 conn.setRequestProperty("Authorization", headtok);
                 Log.d(TAG, headtok);
-            }*/
+            }
             //conn.addRequestProperty("Authorization", headtok);
             conn.setDoOutput(true);
             conn.setReadTimeout(15000);

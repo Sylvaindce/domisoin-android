@@ -78,10 +78,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     private TextView rayon_button = null;
 
     public String userid = "";
-    private LocationListener locationListener = null;
-    private LocationManager locationManager = null;
+    //private LocationListener locationListener = null;
+    //private LocationManager locationManager = null;
     private Marker ourpos = null;
-    private Geocoder geocoder = null;
+    //private Geocoder geocoder = null;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -105,7 +105,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         fragmentSearchBinding.setUser(UserInfo);
 
         ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment)).getMapAsync(this);
-        getCurrentLocation();
+        //getCurrentLocation();
 
         //SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         //mapFragment.getMapAsync(this);
@@ -137,10 +137,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
-        if (locationManager!=null) {
+        /*if (locationManager!=null) {
             locationManager.removeUpdates(locationListener);
             locationManager = null;
-        }
+        }*/
     }
 
     @Override
@@ -179,12 +179,12 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        //geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         // Add a marker in Paris and move the camera
-        LatLng paris = new LatLng(48.866667, 2.333333);
+        /*LatLng paris = new LatLng(48.866667, 2.333333);
         mMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(paris));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(paris));*/
     }
 
     /*public void proOnMap() {
@@ -204,7 +204,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         }
     }*/
 
-    public void setLocationOnMap(Location location) {
+    /*public void setLocationOnMap(Location location) {
         List<Address> address;
         String yourAddress = "";
         String yourCity = "";
@@ -233,9 +233,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         //LatLng cur = new LatLng(location.getLatitude(), location.getLongitude());
         //mMap.clear();
         //getPro();
-    }
+    }*/
 
-    public void getCurrentLocation() {
+    /*public void getCurrentLocation() {
         // Acquire a reference to the system Location Manager
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -243,7 +243,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                setLocationOnMap(location);
+                //setLocationOnMap(location);
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -269,10 +269,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-    }
+    }*/
 
     public void getPro() {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon_check=true", UserInfo.token.get());
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon=" + UserInfo.rayon.get(), UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
     }
@@ -284,7 +284,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getProFromJobTitle(String job_title) {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon_check=true&job_title="+job_title, UserInfo.token.get());
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon=" + UserInfo.rayon.get() + "&job_title="+job_title, UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
@@ -294,6 +294,12 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void setItemListView(String response) {
         mAdapter = new CustomProListAdapter(getContext());
         mMap.clear();
+
+        LatLng cur = new LatLng(Double.valueOf(UserInfo.lat.get()), Double.valueOf(UserInfo.lng.get()));
+        ourpos = mMap.addMarker(new MarkerOptions().position(cur).title("Position Actuelle"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
+        mMap.moveCamera((CameraUpdateFactory.zoomTo(5)));
+
         JSONArray resp = null;
         try {
             resp = new JSONArray(response);
@@ -310,9 +316,16 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 pro.setProfile_img(tmp.getString("profile_img"));
                 pro.setIs_pro(tmp.getBoolean("is_pro"));
                 pro.setEvents(tmp.getString("events"));
+                pro.setLat(tmp.getString("lat"));
+                pro.setLng(tmp.getString("lng"));
                 list_pro.add(pro);
-
-                try {
+                mMap.addMarker(new MarkerOptions()
+                        .title(pro.first_name + pro.last_name)
+                        .snippet(pro.job_title)
+                        .position(new LatLng(Double.valueOf(pro.getLat()), Double.valueOf(pro.getLng())))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                );
+               /* try {
 
                     List<Address> addrs = geocoder.getFromLocationName(pro.address, 1);
                     if (addrs.size() > 0) {
@@ -327,7 +340,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                     addrs.clear();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 mAdapter.addItem(pro);
             }

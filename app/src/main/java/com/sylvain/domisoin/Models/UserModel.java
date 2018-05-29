@@ -19,6 +19,8 @@ public class UserModel {
     public Boolean is_pro = null;
     public String events = null;
     public JSONArray json_event = null;
+    public String lat = null;
+    public String lng = null;
 
     public void setId(String id) {
         this.id = id;
@@ -108,4 +110,21 @@ public class UserModel {
     public JSONArray getJson_event() {
         return json_event;
     }
+
+    public String getLat() {
+        return this.lat;
+    }
+
+    public String getLng() {
+        return this.lng;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
 }

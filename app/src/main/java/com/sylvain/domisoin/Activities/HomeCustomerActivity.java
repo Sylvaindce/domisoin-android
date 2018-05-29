@@ -344,6 +344,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
             UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
+            UserInfo.lat.set(myjson.getString("lat"));
+            UserInfo.lng.set(myjson.getString("lng"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

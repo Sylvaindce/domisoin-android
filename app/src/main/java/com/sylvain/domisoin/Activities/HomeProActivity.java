@@ -364,8 +364,8 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             UserInfo.end_working_hour.set(myjson.getString("end_working_hour"));
             //UserInfo.end_working_minutes.set(myjson.getString("end_working_minutes"));
             UserInfo.day_offs.set(myjson.getJSONArray("day_offs"));
-
-
+            UserInfo.lat.set(myjson.getString("lat"));
+            UserInfo.lng.set(myjson.getString("lng"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

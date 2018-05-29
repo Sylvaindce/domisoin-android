@@ -49,11 +49,11 @@ public class HTTPPostHandler {
                 conn.setRequestProperty("Authorization", "JWT " + token);
             }*/
 
-            /*if (!token.isEmpty() || !token.equals("")) {
+            if (!token.isEmpty() || !token.equals("")) {
                 String headtok = "JWT" + '\u0020' + token;
                 conn.setRequestProperty("Authorization", headtok);
                 Log.d(TAG, headtok);
-            }*/
+            }
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);

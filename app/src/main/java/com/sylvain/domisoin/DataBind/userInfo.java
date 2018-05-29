@@ -36,6 +36,8 @@ public class userInfo {
     public ObservableField<String> end_working_minutes = new ObservableField<String>();
     public ObservableField<JSONArray> day_offs = new ObservableField<JSONArray>();
     public ObservableField<Integer> rayon = new ObservableField<Integer>();
+    public ObservableField<String> lat = new ObservableField<String>();
+    public ObservableField<String> lng = new ObservableField<String>();
 
     public userInfo() {
         account.set("You are in account section.");
@@ -65,6 +67,8 @@ public class userInfo {
         end_working_minutes.set("0");
         day_offs.set(new JSONArray());
         rayon.set(10);
+        lat.set("48.866667");
+        lng.set("2.333333");
     }
 
     public TextWatcher watcher = new TextWatcher() {

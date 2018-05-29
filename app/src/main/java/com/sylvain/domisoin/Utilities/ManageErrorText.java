@@ -21,6 +21,8 @@ public class ManageErrorText {
         error = error.replace("\n", "");
         error = error.replace("enter a valid email address", "Entrez une adresse mail valide");
         error = error.replace("Not found", "Non trouvé");
+        error = error.replace("User Is Not Confirmed", "Compte utilisateur en attente de validation");
+        error = error.replace("message", "");
         return error;
     }
 
