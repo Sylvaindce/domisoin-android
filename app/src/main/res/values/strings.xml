@@ -13,7 +13,8 @@
     <string name="api_lost_password_url">https://domisoin-beta.herokuapp.com/api/reset-password/</string-->
 
     <string name="api_base_url">https://domisoin.herokuapp.com/api/</string>
-    <string name="api_login_url">https://domisoin.herokuapp.com/api-auth/login/</string>
+    <!--string name="api_login_url">https://domisoin.herokuapp.com/api-auth/login/</string-->
+    <string name="api_login_url">https://domisoin.herokuapp.com/api/auth/login/</string>
     <string name="api_users_url">https://domisoin.herokuapp.com/api/users/</string>
     <string name="api_events_url">https://domisoin.herokuapp.com/api/events/</string>
     <string name="api_lost_password_url">https://domisoin.herokuapp.com/api/reset-password/</string>

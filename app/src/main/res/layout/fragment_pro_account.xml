@@ -101,6 +101,20 @@
                             <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/account_jobspec_pro"
+                                android:addTextChangedListener="@{user.watcher}"
+                                android:gravity="center"
+                                android:textColor="@color/grey42"
+                                android:text="@{user.pro_spec}"
+                                android:maxLength="40"
+                                android:layout_marginBottom="20dp"
+                                android:paddingStart="40dp"
+                                android:paddingLeft="40dp"
+                                android:enabled="false"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:id="@+id/account_workphone_pro"
                                 android:addTextChangedListener="@{user.watcher}"
                                 android:gravity="center"

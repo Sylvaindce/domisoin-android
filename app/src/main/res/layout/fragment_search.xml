@@ -88,7 +88,7 @@
                         android:layout_height="match_parent"
                         android:background="#FFFFFF"
                         android:id="@+id/search_bar_rayon"
-                        android:text="@{Integer.toString(user.rayon)}"
+                        android:text="@{`` + user.rayon}"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="2dp"

@@ -39,6 +39,8 @@ public class userInfo {
     public ObservableField<String> lat = new ObservableField<String>();
     public ObservableField<String> lng = new ObservableField<String>();
 
+    public ObservableField<String> pro_spec = new ObservableField<>();
+
     public userInfo() {
         account.set("You are in account section.");
         planning.set("Pas de rendez-vous prévu.");
@@ -69,6 +71,7 @@ public class userInfo {
         rayon.set(10);
         lat.set("48.866667");
         lng.set("2.333333");
+        pro_spec.set("Généraliste");
     }
 
     public TextWatcher watcher = new TextWatcher() {
