@@ -341,7 +341,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
             UserInfo.address.set(myjson.getString("adresse"));
             if (UserInfo.actualloc.get().equals("Localisation"))
                 UserInfo.actualloc.set(myjson.getString("adresse"));
-            UserInfo.profile_img.set(myjson.getString("profile_img"));
+            //UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
             UserInfo.lat.set(myjson.getString("lat"));

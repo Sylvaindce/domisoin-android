@@ -52,6 +52,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private EditText passwordEdit = null;
     private Button validate = null;
     private ProgressDialog progress;
+    private String token = "";
 
     private String login = null;
     private String password = null;
@@ -217,7 +218,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 } else {
                     try {
                         JSONObject jsonObj = new JSONObject(response);
-                        Log.d(TAG, jsonObj.getString("is_pro"));
+                        //Log.d(TAG, jsonObj.getString("is_pro"));
 
                         if (remindme_value) {
                             SharedPreferences sharedPref = getDefaultSharedPreferences(getActivity().getApplicationContext());
@@ -227,26 +228,38 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             editor.apply();
                         }
 
-                        if (jsonObj.getBoolean("is_pro")) {
-                            //is pro
-                            Intent homeprointent = new Intent(getActivity(), HomeProActivity.class);
-                            homeprointent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            Bundle userinfo = new Bundle();
-                            userinfo.putString("json", response);
-                            userinfo.putString("userid", jsonObj.getString("id"));
-                            userinfo.putString("mdp", datas.get("password"));
-                            homeprointent.putExtras(userinfo);
-                            startActivity(homeprointent);
-                        } else {
-                            //isnt pro
-                            Intent homecustomerintent = new Intent(getActivity(), HomeCustomerActivity.class);
-                            homecustomerintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            Bundle userinfo = new Bundle();
-                            userinfo.putString("json", response);
-                            userinfo.putString("userid", jsonObj.getString("id"));
-                            userinfo.putString("mdp", datas.get("password"));
-                            homecustomerintent.putExtras(userinfo);
-                            startActivity(homecustomerintent);
+                        if (jsonObj.has("token")) {
+                            token = jsonObj.getString("token");
+                            HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_me), token);
+                            task.execute();
+                            progress = ProgressDialog.show(getActivity(), "Authentification", "Vérification en cours, merci de patienter...", true);
+                        }
+                        else if (jsonObj.has("is_pro")) {
+                            if (jsonObj.getBoolean("is_pro")) {
+                                //is pro
+                                Intent homeprointent = new Intent(getActivity(), HomeProActivity.class);
+                                homeprointent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                Bundle userinfo = new Bundle();
+                                jsonObj.put("token", token);
+                                //userinfo.putString("json", response);
+                                userinfo.putString("json", jsonObj.toString());
+                                userinfo.putString("userid", jsonObj.getString("id"));
+                                userinfo.putString("mdp", datas.get("password"));
+                                homeprointent.putExtras(userinfo);
+                                startActivity(homeprointent);
+                            } else {
+                                //isnt pro
+                                Intent homecustomerintent = new Intent(getActivity(), HomeCustomerActivity.class);
+                                homecustomerintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                Bundle userinfo = new Bundle();
+                                jsonObj.put("token", token);
+                                //userinfo.putString("json", response);
+                                userinfo.putString("json", jsonObj.toString());
+                                userinfo.putString("userid", jsonObj.getString("id"));
+                                userinfo.putString("mdp", datas.get("password"));
+                                homecustomerintent.putExtras(userinfo);
+                                startActivity(homecustomerintent);
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

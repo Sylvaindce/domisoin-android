@@ -1,6 +1,7 @@
 package com.sylvain.domisoin.Activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -47,10 +48,13 @@ public class ConnexionActivity extends AppCompatActivity {
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_AUTOLOGIN";
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private ProgressDialog progress;
+    private String token = "";
+    private Activity ourAct = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ourAct = this;
         setContentView(R.layout.activity_connexion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -172,7 +176,41 @@ public class ConnexionActivity extends AppCompatActivity {
                 } else {
                     try {
                         JSONObject jsonObj = new JSONObject(response);
-                        Log.d(TAG, jsonObj.getString("is_pro"));
+                        //Log.d(TAG, jsonObj.getString("is_pro"));
+
+                        if (jsonObj.has("token")) {
+                            token = jsonObj.getString("token");
+                            HTTPGetRequest task = new HTTPGetRequest(ConnexionActivity.this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_me), token);
+                            task.execute();
+                            progress = ProgressDialog.show(ConnexionActivity.this, "Authentification", "Vérification en cours, merci de patienter...", true);
+                        }
+                        else if (jsonObj.has("is_pro")) {
+                            if (jsonObj.getBoolean("is_pro")) {
+                                //is pro
+                                Intent homeprointent = new Intent(getApplicationContext(), HomeProActivity.class);
+                                homeprointent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                Bundle userinfo = new Bundle();
+                                jsonObj.put("token", token);
+                                //userinfo.putString("json", response);
+                                userinfo.putString("json", jsonObj.toString());
+                                userinfo.putString("userid", jsonObj.getString("id"));
+                                userinfo.putString("mdp", datas.get("password"));
+                                homeprointent.putExtras(userinfo);
+                                startActivity(homeprointent);
+                            } else {
+                                //isnt pro
+                                Intent homecustomerintent = new Intent(getApplicationContext(), HomeCustomerActivity.class);
+                                homecustomerintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                Bundle userinfo = new Bundle();
+                                jsonObj.put("token", token);
+                                //userinfo.putString("json", response);
+                                userinfo.putString("json", jsonObj.toString());
+                                userinfo.putString("userid", jsonObj.getString("id"));
+                                userinfo.putString("mdp", datas.get("password"));
+                                homecustomerintent.putExtras(userinfo);
+                                startActivity(homecustomerintent);
+                            }
+                        }
 
                         /*SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
@@ -180,7 +218,7 @@ public class ConnexionActivity extends AppCompatActivity {
                         editor.putString(getString(R.string.save_password), datas.get("password"));
                         editor.apply();*/
 
-                        if (jsonObj.getBoolean("is_pro")) {
+                        /*if (jsonObj.getBoolean("is_pro")) {
                             //is pro
                             Intent homeprointent = new Intent(getApplicationContext(), HomeProActivity.class);
                             homeprointent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -200,7 +238,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             userinfo.putString("mdp", datas.get("password"));
                             homeintent.putExtras(userinfo);
                             startActivity(homeintent);
-                        }
+                        }*/
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

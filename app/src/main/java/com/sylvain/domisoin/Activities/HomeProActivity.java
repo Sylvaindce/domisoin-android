@@ -354,7 +354,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             UserInfo.last_name.set(myjson.getString("last_name"));
             UserInfo.is_pro.set(myjson.getBoolean("is_pro"));
             UserInfo.address.set(myjson.getString("adresse"));
-            UserInfo.profile_img.set(myjson.getString("profile_img"));
+            //UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
 

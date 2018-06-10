@@ -313,7 +313,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 pro.setJob_title(tmp.getString("job_title"));
                 pro.setAddress(tmp.getString("adresse"));
                 pro.setWorkphone(tmp.getString("workphone"));
-                pro.setProfile_img(tmp.getString("profile_img"));
+                //pro.setProfile_img(tmp.getString("profile_img"));
                 pro.setIs_pro(tmp.getBoolean("is_pro"));
                 pro.setEvents(tmp.getString("events"));
                 pro.setLat(tmp.getString("lat"));
