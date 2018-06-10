@@ -2,6 +2,8 @@ package com.sylvain.domisoin.Utilities;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -43,19 +45,42 @@ public class HTTPPostHandler {
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            if (!token.isEmpty() || !token.equals("")) {
-                Log.d(TAG, "LOGIN: "+token);
+            /*if (!token.isEmpty() || !token.equals("")) {
                 conn.setRequestProperty("Authorization", "JWT " + token);
-            }
+            }*/
+
+            /*if (!token.isEmpty() || !token.equals("")) {
+                String headtok = "JWT" + '\u0020' + token;
+                conn.setRequestProperty("Authorization", headtok);
+                Log.d(TAG, headtok);
+            }*/
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);
-            //conn.setReadTimeout(10000);
-            //conn.setConnectTimeout(15000);
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
             //conn.setDoInput(true);
             conn.connect();
 
             JSONObject json = JsonUtils.mapToJson(data);
+            try {
+                if (json.has("day_offs")) {
+                    String tmp = String.valueOf(json.get("day_offs"));
+                    JSONArray toto = new JSONArray();
+                    if (!tmp.equals("[]")) {
+                        tmp = tmp.replace("[", "");
+                        tmp = tmp.replace("]", "");
+                        tmp = tmp.replace(" ", "");
+                        String[] tmp_ar = tmp.split(",");
+                        for (String s : tmp_ar)
+                            toto.put(Integer.decode(s));
+                    }
+                    json.put("day_offs", toto);
+                }
+                Log.d("POST JSON", json.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             //Write
             OutputStream os = conn.getOutputStream();
@@ -88,6 +113,8 @@ public class HTTPPostHandler {
             e.printStackTrace();
         } catch (ProtocolException e) {
             e.printStackTrace();
+        } catch (java.net.SocketTimeoutException e) {
+            Log.d(TAG, "TIMEOUT");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -118,4 +145,16 @@ public class HTTPPostHandler {
         }
         return sb.toString();
     }
+
+    /*private int[] convert(String string) {
+        int number[] = new int[string.length()];
+
+
+
+        for (int i = 0; i < string.length(); i++) {
+            number[i] = Integer.parseInt(string.charAt(i)); //Note charAt
+        }
+        return number;
+    }*/
+
 }

@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Fragments.Customer.AccountFragment;
@@ -37,13 +38,19 @@ import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
 import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
+import com.sylvain.domisoin.Fragments.Misc.OptionsFragment;
 import com.sylvain.domisoin.Fragments.Pro.AccountProFragment;
 import com.sylvain.domisoin.Fragments.Pro.CustomerListFragment;
 import com.sylvain.domisoin.Fragments.Pro.PlanningProFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +63,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
  * Created by sylvain on 01/10/17.
  */
 
-public class HomeProActivity extends AppCompatActivity implements View.OnClickListener { //ViewPager.OnPageChangeListener, ButtonInterface
+public class HomeProActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener { //ViewPager.OnPageChangeListener, ButtonInterface
 
     private static final String TAG = HomeProActivity.class.getSimpleName();
 
@@ -75,13 +82,14 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
 
     public ProgressDialog progress = null;
 
-    /*private BottomSheetBehavior mBottomSheetBehavior = null;
+    private BottomSheetBehavior mBottomSheetBehavior = null;
     private View bottomSheet = null;
     private int height = 0;
     private int width = 0;
     private Double mheight = 0.0;
-    private Drawable oldDrawable = null;*/
+    private Drawable oldDrawable = null;
     private AppCompatImageButton deconnexionButton = null;
+    private OptionsFragment frag1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +104,8 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
 
         setUserData();
 
-        /*fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);*/
+        fab = (FloatingActionButton) findViewById(R.id.fab_pro);
+        fab.setOnClickListener(this);
 
         deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button_pro);
         deconnexionButton.setOnClickListener(this);
@@ -120,12 +128,13 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
 
-        bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheet = findViewById(R.id.bottom_sheet_pro);
         mheight = Double.valueOf(height - getSupportActionBar().getHeight() - (height * 0.2));
         ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
         params.height = mheight.intValue();
         params.width = width;
-        bottomSheet.setLayoutParams(params);
+        bottomSheet.setLayoutParams(params);*/
+        bottomSheet = findViewById(R.id.bottom_sheet_pro);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(false);
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -141,9 +150,10 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         });
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        MainChatFragment frag1 = new MainChatFragment();
-        ft.replace(R.id.bottom_sheet_chat_settings, frag1, "MainChatFragment");
-        ft.commit();*/
+        //change here
+        frag1 = new OptionsFragment();
+        ft.replace(R.id.bottom_sheet_pro, frag1, "Options");
+        ft.commit();
     }
 
     private void setupTabIcons() {
@@ -198,7 +208,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         adapter.addFrag(customerListFragment, "Clients");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
-        //viewPager.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -216,16 +226,17 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.fab:
+            case R.id.fab_pro:
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN || mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     oldDrawable = fab.getDrawable();
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_clear_white_24dp));
+                    frag1.setUserInfo(UserInfo);
                 } else {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     fab.setImageDrawable(oldDrawable);
                 }
-                break;*/
+                break;
             case R.id.deconnexion_button_pro:
                 SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -241,12 +252,14 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    /*@Override
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
+        //final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
 
         if (position == 2) {
-            final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
+            fab.setVisibility(View.VISIBLE);
+
+            /*final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
             frag1.setInterface(this);
             runOnUiThread(new Runnable() {
                 @Override
@@ -262,9 +275,14 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_more_white_24dp));
                     oldDrawable = fab.getDrawable();
                 }
-            });
+            });*/
         } else {
-            runOnUiThread(new Runnable() {
+            fab.setVisibility(View.INVISIBLE);
+            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                fab.setImageDrawable(oldDrawable);
+            }
+            /*runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     MainChatFragment myFragment = (MainChatFragment) getSupportFragmentManager().findFragmentByTag("MainChatFragment");
@@ -282,7 +300,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                         oldDrawable = fab.getDrawable();
                     }
                 }
-            });
+            });*/
         }
     }
 
@@ -294,7 +312,7 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }*/
+    }
 
     public userInfo getUserInfo() {
         return UserInfo;
@@ -307,7 +325,10 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         String value = homeIntent.getExtras().getString("json");
         Log.d("HOME Pro", value);
 
+        String mdp = homeIntent.getExtras().getString("mdp");
+
         UserInfo = new userInfo();
+        UserInfo.mdp.set(mdp);
         UserInfo.json.set(homeIntent.getExtras().getString("json"));
 
         JSONObject myjson = null;
@@ -336,13 +357,23 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
+
+            UserInfo.duration.set(myjson.getString("event_duration"));
+            UserInfo.begin_working_hour.set(myjson.getString("start_working_hour"));
+            //UserInfo.begin_working_minutes.set(myjson.getString("start_working_minutes"));
+            UserInfo.end_working_hour.set(myjson.getString("end_working_hour"));
+            //UserInfo.end_working_minutes.set(myjson.getString("end_working_minutes"));
+            UserInfo.day_offs.set(myjson.getJSONArray("day_offs"));
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    /*@Override
+    /*
+    @Override
     public void buttonClicked(View v) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
@@ -352,7 +383,8 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.chat_button:
                 Log.v("OnClick", "Chat Button");
                 bottomSheet.setLayoutParams(params);
-                ft.replace(R.id.bottom_sheet_chat_settings, new MainChatFragment(), "MainChatFragment2");
+                //ft.replace(R.id.bottom_sheet_chat_settings, new MainChatFragment(), "MainChatFragment2");
+                ft.replace(R.id.bottom_sheet_pro, new MainChatFragment(), "MainChatFragment2");
                 ft.addToBackStack("MainChatFragment");
                 ft.commit();
                 break;
@@ -370,9 +402,17 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
+
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -381,13 +421,16 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getBaseContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
                     try {
                         JSONObject jsonObject = new JSONObject(UserInfo.json.get());
                         updateUserInfo(jsonObject);
-                        Snackbar.make(findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                                .setActionTextColor(Color.RED)
-                                .show();
+                        Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                        toast.show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -395,9 +438,8 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                     try {
                         JSONObject jsonObj = new JSONObject(response);
                         updateUserInfo(jsonObj);
-                        Snackbar.make(findViewById(android.R.id.content), "Mise à jour effectuée avec succès.", Snackbar.LENGTH_LONG)
-                                .setActionTextColor(Color.GREEN)
-                                .show();
+                        Toast toast = Toast.makeText(getBaseContext(), "Mise à jour effectuée avec succès.", Toast.LENGTH_LONG);
+                        toast.show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

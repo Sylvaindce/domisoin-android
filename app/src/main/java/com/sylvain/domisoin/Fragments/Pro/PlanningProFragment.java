@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
@@ -31,7 +34,10 @@ import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.CustomPlanningExpandableListAdapter;
 import com.sylvain.domisoin.Utilities.CustomPlanningListView;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentPlanningProBinding;
 
 import org.json.JSONArray;
@@ -64,6 +70,10 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     private ExpandableListView exp_planning = null;
     private CustomPlanningExpandableListAdapter listAdapterExp = null;
     private String oldClickItem = "";
+    private SwipeRefreshLayout swipeContainer;
+    private TextView not_validate_number = null;
+    private LinearLayout not_validate_container = null;
+    private Integer number_validate_rdv = 0;
 
     public PlanningProFragment() {
         // Required empty public constructor
@@ -87,8 +97,22 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         fragmentPlanningProBinding.setUser(UserInfo);
 
         nordv = (TextView)fragmentPlanningProBinding.getRoot().findViewById(R.id.nordv_pro);
+
+        swipeContainer = (SwipeRefreshLayout) fragmentPlanningProBinding.getRoot().findViewById(R.id.swipeContainerPro);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+UserInfo.id.get()+"/", UserInfo.token.get());
+                task.execute();
+            }
+        });
+
         exp_planning = (ExpandableListView)fragmentPlanningProBinding.getRoot().findViewById(R.id.planning_pro);
         exp_planning.setOnChildClickListener(this);
+
+        not_validate_container = (LinearLayout)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_container_pro);
+        not_validate_number = (TextView)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_number_pro);
 
         setPlanningMap();
 
@@ -145,6 +169,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         LinkedList<AppointmentModel> apt_tmp = new LinkedList<>();
         TreeMap<Date, LinkedList<AppointmentModel>> organized_data = new TreeMap<>();
 
+        number_validate_rdv = 0;
+        not_validate_container.setVisibility(View.GONE);
+
         try {
 
             jsonevents = new JSONArray(UserInfo.events.get());
@@ -164,6 +191,10 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
                 apm.setDuration(obj_tmp.getString("duration"));
                 apm.setLink(obj_tmp.getString("link"));
                 apm.setIs_validate(obj_tmp.getBoolean("validate"));
+
+                if (!apm.getIs_validate()) {
+                    ++number_validate_rdv;
+                }
 
                 if (i == 0) {
                     olddate = apm.getStart_date();
@@ -186,6 +217,12 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         } catch(JSONException e) {
             e.printStackTrace();
         }
+
+        if (number_validate_rdv > 0) {
+            not_validate_number.setText(String.valueOf(number_validate_rdv));
+            not_validate_container.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -194,14 +231,23 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
             if (progress != null) {
                 progress.dismiss();
             }
+            swipeContainer.setRefreshing(false);
+            int status = -1;
             String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
             if(response == null) {
                 response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+                status = 1;
+            }
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+                status = 2;
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "Planning Pro RESPONSE = " + response);
             if (response != null) {
 
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -210,10 +256,13 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else if (Integer.decode(response_code) == 204) {
                     JSONArray tmparray = new JSONArray();
@@ -237,7 +286,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
                     Log.d(TAG, UserInfo.events.get());
                 }
-                else if (Integer.decode(response_code) == 200) {
+                else if (Integer.decode(response_code) == 200 && status == 1) {
                     JSONArray tmparray = new JSONArray();
                     for (int i = 0; i < jsonevents.length(); ++i) {
                         try {
@@ -257,6 +306,16 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
                     setPlanningMap();
 
                     Log.d(TAG, UserInfo.events.get());
+                }
+                else if (Integer.decode(response_code) == 200 && status == 2) {
+                    try {
+                        JSONObject tmp = new JSONObject(response);
+                        UserInfo.events.set(tmp.getString("events"));
+
+                        setPlanningMap();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

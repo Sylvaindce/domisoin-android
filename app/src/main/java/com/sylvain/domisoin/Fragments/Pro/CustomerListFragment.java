@@ -20,14 +20,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.UserInfo;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.Dialogs.CustomerMore;
 import com.sylvain.domisoin.Dialogs.ProMore;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.CustomPatientListAdapter;
 import com.sylvain.domisoin.Utilities.CustomProListAdapter;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +56,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     private ListView listView_customers = null;
     private List<String> myClientsListId = null;
     private List<UserModel> myClientsList = null;
-    private CustomProListAdapter adapter = null;
+    private CustomPatientListAdapter adapter = null;
     private ImageButton search_button = null;
     private EditText search_text = null;
 
@@ -125,6 +132,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
 
     public void getClientsListFromAPI() {
         HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=false", ourActivity.UserInfo.token.get());
+        //HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_base_url) + "patients/", ourActivity.UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Actualisation", "Mise à jour de la liste des clients en cours, merci de patienter...", true);
@@ -169,7 +177,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void setListClients() {
-        adapter = new CustomProListAdapter(getContext());
+        adapter = new CustomPatientListAdapter(getContext());
         adapter.setList(myClientsList);
         listView_customers.setAdapter(adapter);
         listView_customers.setOnItemClickListener(this);
@@ -204,9 +212,16 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -215,10 +230,13 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     getMyClients(response);
                 }

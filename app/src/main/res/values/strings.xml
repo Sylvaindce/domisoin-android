@@ -10,6 +10,7 @@
     <string name="api_login_url">https://domisoin-beta.herokuapp.com/api/auth/login/</string>
     <string name="api_users_url">https://domisoin-beta.herokuapp.com/api/users/</string>
     <string name="api_events_url">https://domisoin-beta.herokuapp.com/api/events/</string>
+    <string name="api_lost_password_url">https://domisoin-beta.herokuapp.com/api/reset-password/</string>
     <!--API ROUTES END-->
 
     <string name="title_activity_maps">Map</string>
@@ -18,4 +19,28 @@
 
     <string name="groupHolder">groupHolder</string>
     <string name="childHolder">childHolder</string>
+
+    <string name="version">Version 1.0</string>
+
+    <string name="demo_min_label">00:00</string>
+    <string name="demo_max_label">23:59</string>
+
+    <string-array name="jobs_array">
+        <item>Infirmier</item>
+        <item>Pédiatre</item>
+        <item>Kinésithérapeute</item>
+    </string-array>
+
+    <string-array name="range_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+    </string-array>
 </resources>

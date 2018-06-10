@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,29 +26,40 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.ProMore;
+import com.sylvain.domisoin.Dialogs.RangeDialog;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.CustomProListAdapter;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentSearchBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener, ButtonInterface {
     private static final String TAG = SearchFragment.class.getSimpleName();
@@ -62,8 +75,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     private CustomProListAdapter mAdapter = null;
     private ImageButton search_button = null;
     private EditText search_edittext = null;
+    private TextView rayon_button = null;
 
     public String userid = "";
+    private LocationListener locationListener = null;
+    private LocationManager locationManager = null;
+    private Marker ourpos = null;
+    private Geocoder geocoder = null;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -102,6 +120,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         search_button.setOnClickListener(this);
         search_edittext = (EditText)fragmentSearchBinding.getRoot().findViewById(R.id.search_edittext);
 
+        rayon_button = (TextView)fragmentSearchBinding.getRoot().findViewById(R.id.search_bar_rayon);
+        rayon_button.setOnClickListener(this);
+
         return fragmentSearchBinding.getRoot();
     }
 
@@ -116,6 +137,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+        if (locationManager!=null) {
+            locationManager.removeUpdates(locationListener);
+            locationManager = null;
+        }
     }
 
     @Override
@@ -124,12 +149,27 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
             case R.id.validate_search_button:
                 getSearch();
                 break;
+            case R.id.search_bar_rayon:
+                //draw circle on map + change range on api
+                Log.d(TAG, "Click on pro_range");
+                RangeDialog rangeDialog = new RangeDialog(new ButtonInterface() {
+                    @Override
+                    public void buttonClicked(View v) {}
+
+                    @Override
+                    public void onBookClick(String _ourBeginDate, String _ourEndDate) {
+                        UserInfo.rayon.set(Integer.valueOf(_ourBeginDate));
+                    }
+                });
+                rangeDialog.show(getFragmentManager(), "range_dialog");
+                //Log.d(TAG, "LOST password");
+                break;
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ProMore dialog = new ProMore();
+        ProMore dialog = new ProMore(UserInfo.token.get());
         dialog.setUserid_1(UserInfo.id.get());
         dialog.set_user(mAdapter.getItem(position));
         dialog.setButtonInterface(this);
@@ -139,50 +179,68 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         // Add a marker in Paris and move the camera
         LatLng paris = new LatLng(48.866667, 2.333333);
         mMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(paris));
-
     }
 
-    public void setLocationOnMap(Location location) {
-        /*Geocoder geocoder;
-        geocoder = new Geocoder(getActivity(), Locale.getDefault());
+    /*public void proOnMap() {
+        for (int i = 0; i < list_pro.size(); ++i) {
+            try {
+                Address addr = geocoder.getFromLocationName(list_pro.get(i).address, 1).get(0);
+                mMap.addMarker(new MarkerOptions()
+                        .title(list_pro.get(i).first_name + list_pro.get(i).last_name)
+                        .snippet(list_pro.get(i).job_title)
+                        .position(new LatLng(addr.getLatitude(), addr.getLongitude()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("Pro Address", list_pro.get(i).address);
+        }
+    }*/
 
+    public void setLocationOnMap(Location location) {
         List<Address> address;
         String yourAddress = "";
-        String yourCity;
-        String yourCountry;
+        String yourCity = "";
+        //String yourCountry;
         try {
             address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (address.size() > 0)
             {
                 yourAddress = address.get(0).getAddressLine(0);
                 yourCity = address.get(0).getAddressLine(1);
-                yourCountry = address.get(0).getAddressLine(2);
+                //UserInfo.actualloc.set((yourAddress + ", " + yourCity).replace(", null", ""));
+                if (!UserInfo.actualloc.get().equals((yourAddress + ", " + yourCity).replace(", null", ""))) {
+                    UserInfo.actualloc.set((yourAddress + ", " + yourCity).replace(", null", ""));
+                    if (ourpos != null)
+                        ourpos.remove();
+                    LatLng cur = new LatLng(location.getLatitude(), location.getLongitude());
+                    ourpos = mMap.addMarker(new MarkerOptions().position(cur).title("Position Actuelle"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
+                    mMap.moveCamera((CameraUpdateFactory.zoomTo(15)));
+                }
+                //yourCountry = address.get(0).getAddressLine(2);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Log.d(TAG, yourAddress);*/
-
-        LatLng cur = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(cur).title("Position Actuelle"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
-        mMap.moveCamera((CameraUpdateFactory.zoomTo(15)));
+        //LatLng cur = new LatLng(location.getLatitude(), location.getLongitude());
+        //mMap.clear();
         //getPro();
     }
 
     public void getCurrentLocation() {
         // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         // Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 setLocationOnMap(location);
@@ -214,7 +272,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getPro() {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true", UserInfo.token.get());
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon_check=true", UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
     }
@@ -226,7 +284,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     }
 
     public void getProFromJobTitle(String job_title) {
-        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&job_title="+job_title, UserInfo.token.get());
+        HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=true&rayon_check=true&job_title="+job_title, UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Recherche", "Mise à jour de la liste des professionnels locaux en cours, merci de patienter...", true);
@@ -235,7 +293,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
 
     public void setItemListView(String response) {
         mAdapter = new CustomProListAdapter(getContext());
-
+        mMap.clear();
         JSONArray resp = null;
         try {
             resp = new JSONArray(response);
@@ -253,6 +311,24 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 pro.setIs_pro(tmp.getBoolean("is_pro"));
                 pro.setEvents(tmp.getString("events"));
                 list_pro.add(pro);
+
+                try {
+
+                    List<Address> addrs = geocoder.getFromLocationName(pro.address, 1);
+                    if (addrs.size() > 0) {
+                        Address addr = addrs.get(0);
+                        mMap.addMarker(new MarkerOptions()
+                            .title(pro.first_name + pro.last_name)
+                            .snippet(pro.job_title)
+                            .position(new LatLng(addr.getLatitude(), addr.getLongitude()))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        );
+                    }
+                    addrs.clear();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 mAdapter.addItem(pro);
             }
         } catch (JSONException e) {
@@ -260,6 +336,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         }
         listView_pro.setAdapter(mAdapter);
         listView_pro.setOnItemClickListener(this);
+        //proOnMap();
     }
 
 
@@ -270,9 +347,16 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -281,10 +365,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     setItemListView(response);
                     Log.d("test", response);

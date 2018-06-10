@@ -24,7 +24,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetails2Fragment;
@@ -33,7 +35,11 @@ import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.Models.UserModel;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,6 +80,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
     private ButtonInterface buttonInterface = null;
     private String mToken = null;
+    private LinearLayout pro_buttons = null;
 
     public ProMore(){}
 
@@ -96,8 +103,6 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         TextView profession = (TextView) dialogFragment.findViewById(R.id.pro_more_job);
         profession.setText(_user.getJob_title());
 
-
-
         /*TextView address = (TextView) dialogFragment.findViewById(R.id.pro_more_address);
         address.setText(_user.getAddress());*/
 
@@ -112,6 +117,10 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         previousPage = (Button)dialogFragment.findViewById(R.id.previous_pro_button);
         nextPage.setOnClickListener(this);
         previousPage.setOnClickListener(this);
+        pro_buttons = (LinearLayout)dialogFragment.findViewById(R.id.button_container_pro_form);
+
+        Button close = (Button)dialogFragment.findViewById(R.id.close_pro_more);
+        close.setOnClickListener(this);
 
         datas = new LinkedHashMap<String, String>();
 
@@ -175,6 +184,10 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         int pos = viewpager.getCurrentItem();
 
         switch (v.getId()) {
+            case R.id.close_pro_more:
+                dismiss();
+                break;
+
             case R.id.next_pro_button:
                 if (pos < vAdapter.getCount()-1) {
                     //add verif
@@ -186,23 +199,27 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                     //getAlldata();
 
                     EditText desc = (EditText)dialogFragment.findViewById(R.id.pro_more_desc);
-                    Log.d("RESUME", desc.getText().toString());
-                    //Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
-                    Log.d("RESUME", ourBeginDate + " " + ourEndDate);
-                    Log.d("RESUME", _user.getId() + " " + userid_1);
+                    if (desc.getText().length() <= 0) {
+                        desc.setError("Veuillez remplir le champ.");
+                    }
+                    else {
+                        Log.d("RESUME", desc.getText().toString());
+                        //Log.d("RESUME", ourDate + " " + ourBeginHours + " " + ourEndHours);
+                        Log.d("RESUME", ourBeginDate + " " + ourEndDate);
+                        Log.d("RESUME", _user.getId() + " " + userid_1);
 
-                    datas.put("description", desc.getText().toString());
-                    datas.put("client", _user.getId());
-                    datas.put("author", userid_1);
-                    datas.put("type", "RDV");
-                    datas.put("start_date", ourBeginDate); //modify
-                    datas.put("end_date", ourEndDate); //modify
-                    datas.put("location", "Paris, France"); //modify
+                        datas.put("description", desc.getText().toString());
+                        datas.put("client", _user.getId());
+                        datas.put("author", userid_1);
+                        datas.put("type", "RDV");
+                        datas.put("start_date", ourBeginDate); //modify
+                        datas.put("end_date", ourEndDate); //modify
+                        datas.put("location", "Paris, France"); //modify
 
-                    HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
-                    task.execute();
-                    progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
-                    //}
+                        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
+                        task.execute();
+                        progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
+                    }
                 }
                 break;
             case R.id.previous_pro_button:
@@ -220,10 +237,12 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
             case 0:
                 previousPage.setVisibility(View.INVISIBLE);
                 nextPage.setVisibility(View.INVISIBLE);
+                pro_buttons.setVisibility(View.GONE);
                 break;
             default:
                 previousPage.setVisibility(View.VISIBLE);
                 nextPage.setVisibility(View.VISIBLE);
+                pro_buttons.setVisibility(View.VISIBLE);
                 break;
         }
         /*if (position == max) {
@@ -336,9 +355,16 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -347,10 +373,14 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
-                    Snackbar.make(getActivity().findViewById(R.id.viewpager_signin), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. ("+response+")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 } else {
                     dismiss();
                     Log.d("Our Response", response);

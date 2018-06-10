@@ -5,6 +5,10 @@
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.NameSigninFragment">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,6 +47,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
+                android:maxLength="40"
                 android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:textColor="#212121" />
 
@@ -57,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
+                android:maxLength="40"
                 android:inputType="text"
                 android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:imeOptions="actionNext"
@@ -75,6 +81,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
                 android:inputType="text"
+                android:maxLength="40"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:imeOptions="actionDone"
                 android:singleLine="true"
@@ -83,5 +90,6 @@
         </LinearLayout>
     </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.sylvain.domisoin.Activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,25 +8,35 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Fragments.Connexion.ConnexionFragment;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -34,6 +45,7 @@ public class ConnexionActivity extends AppCompatActivity {
     private static final String TAG = ConnexionActivity.class.getName();
     private Map<String, String> datas                 = null;
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_AUTOLOGIN";
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private ProgressDialog progress;
 
     @Override
@@ -47,6 +59,8 @@ public class ConnexionActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         datas = new LinkedHashMap<String, String>();
+
+        checkAndRequestPermissions(true);
 
         SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
         String email = sharedPref.getString(getString(R.string.save_account), "email");
@@ -115,10 +129,17 @@ public class ConnexionActivity extends AppCompatActivity {
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
             Log.i(TAG, "RESPONSE = " + response);
 
             if (response != null) {
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -129,9 +150,8 @@ public class ConnexionActivity extends AppCompatActivity {
                 }
 
                 if (response.equals("0")) {
-                    Snackbar.make(findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getBaseContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                     SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.remove(getString(R.string.save_account));
@@ -146,9 +166,8 @@ public class ConnexionActivity extends AppCompatActivity {
                     editor.remove(getString(R.string.save_password));
                     editor.apply();
 
-                    Snackbar.make(findViewById(android.R.id.content), "Une erreur s'est produite, veuillez verifier vos informations et essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                     launch_connfragm();
                 } else {
                     try {
@@ -168,6 +187,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homeprointent.putExtras(userinfo);
                             startActivity(homeprointent);
                         } else {
@@ -177,6 +197,7 @@ public class ConnexionActivity extends AppCompatActivity {
                             Bundle userinfo = new Bundle();
                             userinfo.putString("json", response);
                             userinfo.putString("userid", jsonObj.getString("id"));
+                            userinfo.putString("mdp", datas.get("password"));
                             homeintent.putExtras(userinfo);
                             startActivity(homeintent);
                         }
@@ -187,5 +208,32 @@ public class ConnexionActivity extends AppCompatActivity {
             }
         }
     };
+
+    private  boolean checkAndRequestPermissions(Boolean request) {
+        ArrayList<Integer> permissions_result = new ArrayList<Integer>();
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET};
+        List<String> listPermissionsNeeded = new ArrayList<String>();
+
+        for (int i = 0; i < permissions.length; ++i) {
+            permissions_result.add(ContextCompat.checkSelfPermission(this, permissions[i]));
+            switch (i) {
+                case 0:
+                    if (permissions_result.get(i) != PackageManager.PERMISSION_GRANTED)
+                        listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+                    break;
+                case 1:
+                    if (permissions_result.get(i) != PackageManager.PERMISSION_GRANTED)
+                        listPermissionsNeeded.add(Manifest.permission.INTERNET);
+                    break;
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            if (request) {
+                ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            }
+            return false;
+        }
+        return true;
+    }
 
 }

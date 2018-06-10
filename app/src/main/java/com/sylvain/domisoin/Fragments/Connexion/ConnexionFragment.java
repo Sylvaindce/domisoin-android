@@ -32,8 +32,6 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
 
         //RoundedPic rounder = new RoundedPic(getResources());
         //rounded_pic.setImageDrawable(rounder.createRoundedBitmapDrawableWithBorder(BitmapFactory.decodeResource(getResources(),R.drawable.background_login)));
-        Button login_button_pro = (Button)connexionFragment.findViewById(R.id.login_button_pro);
-        login_button_pro.setOnClickListener(this);
 
         Button login_button = (Button)connexionFragment.findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
@@ -42,8 +40,6 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
 
         return connexionFragment;
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -56,17 +52,14 @@ public class ConnexionFragment extends Fragment implements View.OnClickListener 
                 //Login test = new Login(this.getContext());
                 //test.execute();
                 break;
-            case R.id.login_button_pro:
-                Log.v("OnClick", "Signin button pro");
-                ft.replace(R.id.fragment_container, new ParentFragmentSignInPro(), "SigninFragmentPro()");
-                ft.addToBackStack("signin");
-                ft.commit();
-                break;
             case R.id.signup_button:
                 Log.v("OnClick", "Signin button");
-                ft.replace(R.id.fragment_container, new InscriptionChoice(), "InscriptionChoice()");
+                ft.replace(R.id.fragment_container, new SignInProPatientFragment(), "SignInProPatientFragment()");
                 ft.addToBackStack("signin");
                 ft.commit();
+                /*ft.replace(R.id.fragment_container, new ParentFragmentSignIn(), "SigninFragment()");
+                ft.addToBackStack("signin");
+                ft.commit();*/
                 break;
         }
     }

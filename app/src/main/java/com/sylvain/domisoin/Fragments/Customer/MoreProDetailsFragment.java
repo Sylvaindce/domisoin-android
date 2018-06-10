@@ -103,6 +103,9 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
         TextView address = (TextView)view.findViewById(R.id.pro_more_address);
         address.setText(user.getAddress());
 
+        TextView phone = (TextView) view.findViewById(R.id.pro_more_phone);
+        phone.setText(user.getWorkphone());
+
 
         Log.d("TEST", user.getEvents());
 
@@ -212,7 +215,7 @@ public class MoreProDetailsFragment extends Fragment implements ExpandableListVi
 
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-        Toast.makeText(getContext(), listDataHeader.get(i).get_title() + listDataChild.get(listDataHeader.get(i).get_title()).get(i1), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), listDataHeader.get(i).get_title() + " " + listDataChild.get(listDataHeader.get(i).get_title()).get(i1), Toast.LENGTH_LONG).show();
         //parent.ourDate = sdf_api.format(listDataHeader.get(i).get_time());
         //parent.setOurDate(sdf_api.format(listDataHeader.get(i).get_time()));
         //Log.d(TAG, parent.getOurDate());

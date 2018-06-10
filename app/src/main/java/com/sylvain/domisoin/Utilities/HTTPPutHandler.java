@@ -3,6 +3,8 @@ package com.sylvain.domisoin.Utilities;
 import android.util.Base64;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -41,24 +43,42 @@ public class HTTPPutHandler {
             conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("PUT");
-
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty( "Content-Type", "application/json");
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
             //String headtok = String.format("%-3s"," ", headt);
-            if (!token.isEmpty() || !token.equals("")) {
+            /*if (!token.isEmpty() || !token.equals("")) {
                 String headtok = "JWT" + '\u0020' + token;
                 conn.setRequestProperty("Authorization", headtok);
                 Log.d(TAG, headtok);
-            }
+            }*/
             //conn.addRequestProperty("Authorization", headtok);
             conn.setDoOutput(true);
-            //conn.setReadTimeout(10000);
-            //conn.setConnectTimeout(15000);
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
             //conn.setDoInput(true);
             conn.connect();
+
+            /*try {
+                if (data.has("day_offs")) {
+                    String tmp = String.valueOf(data.get("day_offs"));
+                    JSONArray toto = new JSONArray();
+                    if (!tmp.equals("[]")) {
+                        tmp = tmp.replace("[", "");
+                        tmp = tmp.replace("]", "");
+                        tmp = tmp.replace(" ", "");
+                        String[] tmp_ar = tmp.split(",");
+                        for (String s : tmp_ar)
+                            toto.put(Integer.decode(s));
+                    }
+                    data.put("day_offs", toto);
+                }
+                Log.d("PUT JSON", data.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }*/
 
             //JSONObject json = JsonUtils.mapToJson(data);
 

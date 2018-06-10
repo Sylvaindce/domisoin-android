@@ -15,6 +15,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
+            android:text="Téléphone:"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pro_more_phone"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="0600010203"
+            android:autoLink="map"
+            android:textColor="@color/grey42" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
             android:text="Adresse: "
             android:textStyle="bold"
             android:textSize="16sp"
@@ -27,6 +46,7 @@
             android:padding="15dp"
             android:layout_marginBottom="20dp"
             android:text="Address"
+            android:autoLink="map"
             android:textColor="@color/grey42" />
 
         <TextView

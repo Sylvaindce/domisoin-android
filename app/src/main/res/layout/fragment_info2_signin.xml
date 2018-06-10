@@ -5,6 +5,10 @@
     android:background="#FFFFFF"
     tools:context="com.sylvain.domisoin.Fragments.Connexion.Info2SigninFragment">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +47,16 @@
                 android:text="Adresse postale"
                 android:textColor="#b0bec5" />
 
-            <EditText
+            <AutoCompleteTextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:maxLength="150"
+                android:layout_marginBottom="20dp"
+                android:hint=""/>
+
+            <!--EditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -52,7 +65,7 @@
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
-                android:textColor="#212121" />
+                android:textColor="#212121" /-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -65,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:digits="0123456789"
                 android:maxLength="10"
                 android:imeOptions="actionDone"
@@ -76,5 +89,6 @@
         </LinearLayout>
     </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

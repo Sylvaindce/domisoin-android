@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ourWhite"
+
     android:orientation="vertical"
     android:weightSum="2">
 
@@ -25,22 +26,12 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="15dp"
                 android:layout_weight="0.1"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
                 android:padding="5dp"
-                android:src="@drawable/ic_assignment_ind_white_24dp" />
-
-            <TextView
-                android:id="@+id/pro_more_job"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:gravity="center"
-                android:text="Profession"
-                android:textColor="@color/whitegray"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_user_md_white" />
 
         </LinearLayout>
 
@@ -52,11 +43,29 @@
             android:orientation="vertical"
             android:weightSum="1">
 
+            <Button
+                android:id="@+id/close_pro_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.4"
+                android:background="@null"
+                android:elevation="0dp"
+                android:gravity="center|end"
+                android:paddingEnd="26dp"
+                android:paddingRight="26dp"
+                android:text="X"
+
+                android:textAlignment="textEnd"
+                android:textColor="@color/whitegray"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/pro_more_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_height="130dp"
+                android:layout_marginBottom="1dp"
                 android:gravity="center"
                 android:text="Nom Prenom"
                 android:textColor="@color/whitegray"
@@ -66,41 +75,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:orientation="horizontal"
                 android:padding="15dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:weightSum="0.5">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/pro_more_job"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_favorite_black_24dp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_favorite_black_24dp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_favorite_black_24dp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_favorite_border_black_24dp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/ic_favorite_border_black_24dp" />
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="Profession"
+                    android:textColor="@color/whitegray"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -125,12 +115,13 @@
         </android.support.v4.view.ViewPager>
 
         <LinearLayout
+            android:id="@+id/button_container_pro_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
+            android:background="#FFFFFF"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="#FFFFFF"
             android:padding="0dp">
 
             <LinearLayout

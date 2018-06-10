@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Fragments.Customer.AccountFragment;
@@ -37,10 +38,14 @@ import com.sylvain.domisoin.Fragments.Customer.MainChatFragment;
 import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Fragments.Customer.SettingsChatMenuFragment;
+import com.sylvain.domisoin.Fragments.Misc.OptionsFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +55,7 @@ import java.util.List;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
-public class HomeCustomerActivity extends AppCompatActivity implements View.OnClickListener { //ViewPager.OnPageChangeListener,  ButtonInterface
+public class HomeCustomerActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener { //ViewPager.OnPageChangeListener,  ButtonInterface
     private static final String TAG = HomeCustomerActivity.class.getSimpleName();
 
     private TabLayout tabLayout;
@@ -65,17 +70,18 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
 
     //public String name = "lol";
 
-    //public FloatingActionButton fab = null;
+    public FloatingActionButton fab = null;
 
     public ProgressDialog progress = null;
 
-    //private BottomSheetBehavior mBottomSheetBehavior = null;
-    //private View bottomSheet = null;
-    //private int height = 0;
-    //private int width = 0;
-    //private Double mheight = 0.0;
-    //private Drawable oldDrawable = null;
+    private BottomSheetBehavior mBottomSheetBehavior = null;
+    private View bottomSheet = null;
+    private int height = 0;
+    private int width = 0;
+    private Double mheight = 0.0;
+    private Drawable oldDrawable = null;
     private AppCompatImageButton deconnexionButton = null;
+    private OptionsFragment frag1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +96,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
 
         setUserData();
 
-        /*fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);*/
+        fab = (FloatingActionButton) findViewById(R.id.fab_cust);
+        fab.setOnClickListener(this);
 
         deconnexionButton = (AppCompatImageButton) findViewById(R.id.deconnexion_button_customer);
         deconnexionButton.setOnClickListener(this);
@@ -114,12 +120,13 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
 
-        bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheet = findViewById(R.id.bottom_sheet_customer);
         mheight = Double.valueOf(height - getSupportActionBar().getHeight() - (height * 0.2));
         ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
         params.height = mheight.intValue();
         params.width = width;
-        bottomSheet.setLayoutParams(params);
+        bottomSheet.setLayoutParams(params);*/
+        bottomSheet = findViewById(R.id.bottom_sheet_customer);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(false);
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -135,9 +142,9 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         });
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        MainChatFragment frag1 = new MainChatFragment();
-        ft.replace(R.id.bottom_sheet_chat_settings, frag1, "MainChatFragment");
-        ft.commit();*/
+        frag1 = new OptionsFragment();
+        ft.replace(R.id.bottom_sheet_customer, frag1, "Options");
+        ft.commit();
     }
 
     private void setupTabIcons() {
@@ -186,7 +193,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         adapter.addFrag(searchFragment, "Rechercher");
         adapter.addFrag(accountFragment, "Compte");
         viewPager.setAdapter(adapter);
-        //viewPager.addOnPageChangeListener(this);
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -204,16 +211,17 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.fab:
+            case R.id.fab_cust:
                 if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN || mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     oldDrawable = fab.getDrawable();
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_clear_white_24dp));
+                    frag1.setUserInfo(UserInfo);
                 } else {
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     fab.setImageDrawable(oldDrawable);
                 }
-                break;*/
+                break;
             case R.id.deconnexion_button_customer:
                 SharedPreferences sharedPref = getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -229,12 +237,14 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    /*@Override
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
+        //final ViewGroup.LayoutParams params = bottomSheet.getLayoutParams();
 
         if (position == 2) {
-            final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
+
+            fab.setVisibility(View.VISIBLE);
+            /*final SettingsChatMenuFragment frag1 = new SettingsChatMenuFragment();
             frag1.setInterface(this);
             runOnUiThread(new Runnable() {
                 @Override
@@ -250,9 +260,14 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                     fab.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_more_white_24dp));
                     oldDrawable = fab.getDrawable();
                 }
-            });
+            });*/
         } else {
-            runOnUiThread(new Runnable() {
+            fab.setVisibility(View.INVISIBLE);
+            if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                fab.setImageDrawable(oldDrawable);
+            }
+            /*runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     MainChatFragment myFragment = (MainChatFragment) getSupportFragmentManager().findFragmentByTag("MainChatFragment");
@@ -270,11 +285,11 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                         oldDrawable = fab.getDrawable();
                     }
                 }
-            });
+            });*/
         }
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void onPageSelected(int position) {
 
     }
@@ -282,7 +297,7 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }*/
+    }
 
     public userInfo getUserInfo() {
         return UserInfo;
@@ -295,7 +310,10 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
         String value = homeIntent.getExtras().getString("json");
         Log.d("HOME", value);
 
+        String mdp = homeIntent.getExtras().getString("mdp");
+
         UserInfo = new userInfo();
+        UserInfo.mdp.set(mdp);
         UserInfo.json.set(homeIntent.getExtras().getString("json"));
 
         JSONObject myjson = null;
@@ -321,6 +339,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
             UserInfo.last_name.set(myjson.getString("last_name"));
             UserInfo.is_pro.set(myjson.getBoolean("is_pro"));
             UserInfo.address.set(myjson.getString("adresse"));
+            if (UserInfo.actualloc.get().equals("Localisation"))
+                UserInfo.actualloc.set(myjson.getString("adresse"));
             UserInfo.profile_img.set(myjson.getString("profile_img"));
             UserInfo.id.set(myjson.getString("id"));
             UserInfo.token.set(myjson.getString("token"));
@@ -358,12 +378,16 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                 progress.dismiss();
             }
             String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
-            if (response == null){
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
                 response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "RESPONSE = " + response);
             if (response != null) {
-                String response_code = "";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -372,13 +396,16 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                         Log.d(TAG, response);
                     }
                 }
-                if (Integer.decode(response_code) > 226 ) {
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getBaseContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
                     try {
                         JSONObject jsonObject = new JSONObject(UserInfo.json.get());
                         updateUserInfo(jsonObject);
-                        Snackbar.make(findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                                .setActionTextColor(Color.RED)
-                                .show();
+                        Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                        toast.show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -386,9 +413,8 @@ public class HomeCustomerActivity extends AppCompatActivity implements View.OnCl
                     try {
                         JSONObject jsonObj = new JSONObject(response);
                         updateUserInfo(jsonObj);
-                        Snackbar.make(findViewById(android.R.id.content), "Mise à jour effectuée avec succès.", Snackbar.LENGTH_LONG)
-                                .setActionTextColor(Color.GREEN)
-                                .show();
+                        Toast toast = Toast.makeText(getBaseContext(), "Mise à jour effectuée avec succès.", Toast.LENGTH_LONG);
+                        toast.show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -92,6 +92,7 @@
                                 android:drawableLeft="@drawable/ic_card_travel_black_24dp"
                                 android:text="@{user.job_title}"
                                 android:layout_marginBottom="20dp"
+                                android:maxLength="40"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
                                 android:enabled="false"/>
@@ -123,12 +124,13 @@
                                 android:drawableStart="@drawable/ic_email_black_24dp"
                                 android:drawableLeft="@drawable/ic_email_black_24dp"
                                 android:text="@{user.email}"
+                                android:maxLength="40"
                                 android:layout_marginBottom="20dp"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
                                 android:enabled="false"/>
 
-                            <EditText
+                            <AutoCompleteTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/account_address"
@@ -138,6 +140,7 @@
                                 android:drawableStart="@drawable/ic_public_black_24dp"
                                 android:drawableLeft="@drawable/ic_public_black_24dp"
                                 android:text="@{user.address}"
+                                android:maxLength="150"
                                 android:layout_marginBottom="20dp"
                                 android:paddingStart="40dp"
                                 android:paddingLeft="40dp"
@@ -188,14 +191,6 @@
                 app:layout_anchorGravity="center_horizontal|bottom"
                 app:srcCompat="@drawable/background_login"
                 android:src="@drawable/background_login"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_create_black_24dp"
-                android:background="@color/colorPrimary"
-                android:layout_gravity="left|top"
-                android:layout_margin="18dp"
-                android:id="@+id/supprimer"/>
 
             <ImageButton
                 android:layout_width="wrap_content"

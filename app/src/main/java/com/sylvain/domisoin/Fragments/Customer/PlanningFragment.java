@@ -16,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sylvain.domisoin.Dialogs.AppointmentMore;
 import com.sylvain.domisoin.Models.AppointmentModel;
@@ -26,6 +28,9 @@ import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.R;
 import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 import com.sylvain.domisoin.databinding.FragmentPlanningBinding;
 
 import org.json.JSONArray;
@@ -55,7 +60,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
     private CustomPlanningExpandableListAdapter listAdapterExp = null;
     private String oldClickItem = "";
     private SwipeRefreshLayout swipeContainer;
-
+    private TextView not_validate_number = null;
+    private LinearLayout not_validate_container = null;
+    private Integer number_validate_rdv = 0;
 
 
     public PlanningFragment() {
@@ -98,6 +105,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
 
         exp_planning = (ExpandableListView)fragmentPlanningBinding.getRoot().findViewById(R.id.exp_planning);
         exp_planning.setOnChildClickListener(this);
+
+        not_validate_container = (LinearLayout)fragmentPlanningBinding.getRoot().findViewById(R.id.not_validate_container_cust);
+        not_validate_number = (TextView)fragmentPlanningBinding.getRoot().findViewById(R.id.not_validate_number_cust);
 
         setPlanningMap();
 
@@ -174,6 +184,9 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
         LinkedList<AppointmentModel> apt_tmp = new LinkedList<>();
         TreeMap<Date, LinkedList<AppointmentModel>> organized_data = new TreeMap<>();
 
+        number_validate_rdv = 0;
+        not_validate_container.setVisibility(View.GONE);
+
         try {
 
             jsonevents = new JSONArray(UserInfo.events.get());
@@ -193,6 +206,10 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                 apm.setDuration(obj_tmp.getString("duration"));
                 apm.setLink(obj_tmp.getString("link"));
                 apm.setIs_validate(obj_tmp.getBoolean("validate"));
+
+                if (!apm.getIs_validate()) {
+                    ++number_validate_rdv;
+                }
 
                 if (i == 0) {
                     olddate = apm.getStart_date();
@@ -215,6 +232,12 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
         } catch(JSONException e) {
             e.printStackTrace();
         }
+
+        if (number_validate_rdv > 0) {
+            not_validate_number.setText(String.valueOf(number_validate_rdv));
+            not_validate_container.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -227,11 +250,15 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
             String response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
             if (response == null) {
                 response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
             }
             Log.i(TAG, "Planning Fragment RESPONSE = " + response);
             if (response != null) {
 
-                String response_code = "-1";
+                String response_code = "400";
                 if (response.contains(" - ")) {
                     response_code = response.split(" - ")[0];
                     try {
@@ -241,14 +268,12 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     }
                 }
                 if (response.equals("0")) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 else if (Integer.decode(response_code) > 226) {
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Une erreur s'est produite, veuillez essayer de nouveau. (" + response + ")", Snackbar.LENGTH_LONG)
-                            .setActionTextColor(Color.RED)
-                            .show();
+                    Toast toast = Toast.makeText(getContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
                 }
 
                 else if (Integer.decode(response_code) == 204) {
@@ -279,7 +304,15 @@ public class PlanningFragment extends Fragment implements ExpandableListView.OnC
                     //TODO remove date if only one event
                 }
                 else if (Integer.decode(response_code) == 200){
-                    Log.d(TAG, "Refresh Moi");
+                    try {
+                        JSONObject tmp = new JSONObject(response);
+                        UserInfo.events.set(tmp.getString("events"));
+
+                        setPlanningMap();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }
