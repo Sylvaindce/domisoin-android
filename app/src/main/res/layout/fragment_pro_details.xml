@@ -56,7 +56,8 @@
             android:text="Pour prendre un rendez-vous choisissez une date"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
 
         <CalendarView
             android:layout_width="match_parent"
@@ -69,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expList2"
-            android:visibility="visible">
+            android:visibility="gone">
         </ExpandableListView>
 
     </LinearLayout>

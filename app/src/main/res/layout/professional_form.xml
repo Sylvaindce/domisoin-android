@@ -52,8 +52,9 @@
                 android:gravity="center|end"
                 android:paddingRight="26dp"
                 android:paddingEnd="26dp"
-                android:background="@color/colorPrimary"
-                android:id="@+id/close_pro_more" />
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/close_pro_more"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <TextView
                 android:id="@+id/pro_more_name"
@@ -104,6 +105,7 @@
             android:id="@+id/pro_more_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:layout_weight="0.2">
 
         </android.support.v4.view.ViewPager>
@@ -116,6 +118,7 @@
             android:orientation="vertical"
             android:background="#FFFFFF"
             android:id="@+id/button_container_pro_form"
+            android:visibility="visible"
             android:padding="0dp">
 
             <LinearLayout

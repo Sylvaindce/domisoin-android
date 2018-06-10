@@ -236,13 +236,13 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         switch (position) {
             case 0:
                 previousPage.setVisibility(View.INVISIBLE);
-                nextPage.setVisibility(View.INVISIBLE);
-                pro_buttons.setVisibility(View.GONE);
+                nextPage.setVisibility(View.VISIBLE);
+                //pro_buttons.setVisibility(View.VISIBLE);
                 break;
             default:
                 previousPage.setVisibility(View.VISIBLE);
                 nextPage.setVisibility(View.VISIBLE);
-                pro_buttons.setVisibility(View.VISIBLE);
+                //pro_buttons.setVisibility(View.VISIBLE);
                 break;
         }
         /*if (position == max) {
@@ -285,7 +285,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
         vAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
-        viewPager.setOffscreenPageLimit(1);
+        //viewPager.setOffscreenPageLimit(1);
 
         MoreProDetailsFragment details1 = new MoreProDetailsFragment();
         details1.setInterface(this);

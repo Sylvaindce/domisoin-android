@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -159,6 +160,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                     @Override
                     public void onBookClick(String _ourBeginDate, String _ourEndDate) {
                         UserInfo.rayon.set(Integer.valueOf(_ourBeginDate));
+                        getProFromJobTitle("");
                     }
                 });
                 rangeDialog.show(getFragmentManager(), "range_dialog");
@@ -179,6 +181,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         //geocoder = new Geocoder(getActivity(), Locale.getDefault());
 
         // Add a marker in Paris and move the camera
@@ -298,7 +301,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
         LatLng cur = new LatLng(Double.valueOf(UserInfo.lat.get()), Double.valueOf(UserInfo.lng.get()));
         ourpos = mMap.addMarker(new MarkerOptions().position(cur).title("Position Actuelle"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cur));
-        mMap.moveCamera((CameraUpdateFactory.zoomTo(5)));
+        mMap.moveCamera((CameraUpdateFactory.zoomTo(10)));
 
         JSONArray resp = null;
         try {

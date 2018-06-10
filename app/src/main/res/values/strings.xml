@@ -51,4 +51,15 @@
         <item>45</item>
         <item>50</item>
     </string-array>
+
+    <string-array name="care_name">
+        <item>Consultation générale</item>
+        <item>Intervention diverse</item>
+    </string-array>
+
+    <array name="care_duration">
+        <item>10</item>
+        <item>25</item>
+    </array>
+
 </resources>
