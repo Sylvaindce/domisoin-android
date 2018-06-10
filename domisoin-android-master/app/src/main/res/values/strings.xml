@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Domisoin</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--API ROUTES BEGIN-->
+    <!--string name="api_base_url">https://domisoin-beta.herokuapp.com/api/</string>
+    <string name="api_login_url">https://domisoin-beta.herokuapp.com/api/auth/login/</string>
+    <string name="api_users_url">https://domisoin-beta.herokuapp.com/api/users/</string>
+    <string name="api_events_url">https://domisoin-beta.herokuapp.com/api/events/</string>
+    <string name="api_lost_password_url">https://domisoin-beta.herokuapp.com/api/reset-password/</string-->
+    <!--string name="api_login_url">https://domisoin.herokuapp.com/api-auth/login/</string-->
+
+
+    <string name="api_base_url">https://domisoin.herokuapp.com/api/</string>
+    <string name="api_login_url">https://domisoin.herokuapp.com/api/auth/login/</string>
+    <string name="api_users_url">https://domisoin.herokuapp.com/api/users/</string>
+    <string name="api_events_url">https://domisoin.herokuapp.com/api/events/</string>
+    <string name="api_lost_password_url">https://domisoin.herokuapp.com/api/reset-password/</string>
+    <!--API ROUTES END-->
+
+    <string name="title_activity_maps">Map</string>
+    <string name="save_account">email</string>
+    <string name="save_password">password</string>
+
+    <string name="groupHolder">groupHolder</string>
+    <string name="childHolder">childHolder</string>
+
+    <string name="version">Version 1.0</string>
+
+    <string name="demo_min_label">00:00</string>
+    <string name="demo_max_label">23:59</string>
+
+    <string-array name="jobs_array">
+        <item>Infirmier</item>
+        <item>Pédiatre</item>
+        <item>Kinésithérapeute</item>
+    </string-array>
+
+    <string-array name="planets_array">
+        <item>Assistant de service social</item>
+        <item>Audioprothésiste</item>
+        <item>Diététicien</item>
+        <item>Mars</item>
+        <item>Epithésiste</item>
+        <item>Ergothérapeute</item>
+        <item>Infirmier</item>
+        <item>Infirmier psychiatrique</item>
+        <item>Manipulateur en radiologie</item>
+        <item>Oculariste</item>
+        <item>Opticien-lunetier</item>
+        <item>Orthopédiste-orthésiste</item>
+        <item>Orthophoniste</item>
+        <item>Orthoprothésiste</item>
+        <item>Orthoptiste</item>
+        <item>Podo-orthésiste</item>
+        <item>Psychomotricien</item>
+        <item>Psychologue</item>
+        <item>Technicien de laboratoire</item>
+    </string-array>
+
+    <string-array name="range_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+    </string-array>
+</resources>

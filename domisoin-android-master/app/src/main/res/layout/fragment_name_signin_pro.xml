@@ -1,0 +1,111 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.sylvain.domisoin.Fragments.Connexion.NameSigninFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Salut. Comment tu t'appelles ?"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nom de famille"
+                android:textColor="#b0bec5" />
+
+            <EditText
+                android:id="@+id/lastname_pro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="40dp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:maxLength="40"
+                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prénom"
+                android:textColor="#b0bec5"
+                android:textStyle="bold|italic"/>
+
+            <EditText
+                android:id="@+id/firstname_pro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="40dp"
+                android:maxLength="40"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyz -ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColor="#212121" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profession"
+                android:textColor="#b0bec5" />
+
+            <Spinner
+                android:id="@+id/job_pro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="40dp"
+                android:imeOptions="actionDone"
+                android:textColor="#212121" />
+
+            <TextView
+                android:id="@+id/labelSpinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Selectionnez votre spécialité"
+                android:textStyle="bold|italic" />
+
+
+            <Spinner
+                android:id="@+id/spec_pro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignBaseline="@id/labelSpinner1"
+                android:layout_toRightOf="@id/labelSpinner1"
+                android:drawSelectorOnTop="true"
+                android:hapticFeedbackEnabled="false" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
