@@ -104,6 +104,11 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
 
         setUserData();
 
+        HTTPGetRequest task = new HTTPGetRequest(this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url)+UserInfo.id.get()+"/calendar/", UserInfo.token.get());
+        task.execute();
+        progress = ProgressDialog.show(this, "Authentification", "Vérification en cours, merci de patienter...", true);
+
+
         fab = (FloatingActionButton) findViewById(R.id.fab_pro);
         fab.setOnClickListener(this);
 
@@ -424,6 +429,13 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                 if (response.equals("0")) {
                     Toast toast = Toast.makeText(getBaseContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
                     toast.show();
+                }
+                else if (Integer.decode(response_code) == 200) {
+                    if (response.equals("{}\n")) {
+                        Intent pro_config = new Intent(getBaseContext(), SetupProActivity.class);
+                        startActivity(pro_config);
+                    }
+                        Log.d("HomeProAct", response);
                 }
                 else if (Integer.decode(response_code) > 226 ) {
                     try {

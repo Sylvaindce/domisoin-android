@@ -61,5 +61,6 @@
         <item>10 min</item>
         <item>25 min</item>
     </string-array>
+    <string name="title_activity_setup_pro">SetupProActivity</string>
 
 </resources>
