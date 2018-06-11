@@ -141,7 +141,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener, G
                 //newjson.put("email", account_email.getText());
                 newjson.put("adresse", mAutocompleteTextView.getText());
 
-                HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_me), newjson, UserInfo.token.get());
+                HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + newjson.get("id") + "/", newjson, UserInfo.token.get());
                 task.execute();
                 ((HomeCustomerActivity) getActivity()).progress = ProgressDialog.show(getActivity(), "Validation", "Mise à jour en cours, merci de patienter...", true);
 
