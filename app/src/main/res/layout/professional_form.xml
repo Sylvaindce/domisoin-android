@@ -159,8 +159,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="12dp"
                         android:background="@drawable/signin_rounded_button"
-                        android:padding="0dp"
-                        android:text="Reserver"
+                        android:padding="6dp"
+                        android:text="Prendre un rendez-vous"
                         android:textColor="#FFFFFF"
                         android:textSize="12sp"
                         android:textStyle="bold" />

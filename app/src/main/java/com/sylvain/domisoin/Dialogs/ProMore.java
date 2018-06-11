@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetails2Fragment;
+import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsCares;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsFragment;
 import com.sylvain.domisoin.Fragments.Customer.SearchFragment;
 import com.sylvain.domisoin.Interfaces.ButtonInterface;
@@ -289,9 +290,11 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
 
         MoreProDetailsFragment details1 = new MoreProDetailsFragment();
         details1.setInterface(this);
+        MoreProDetailsCares cares = new MoreProDetailsCares();
         MoreProDetails2Fragment details2 = new MoreProDetails2Fragment();
 
         vAdapter.addFrag(details1, "details1");
+        vAdapter.addFrag(cares, "cares");
         vAdapter.addFrag(details2, "details2");
         viewPager.setAdapter(vAdapter);
         viewPager.setOffscreenPageLimit(vAdapter.getCount());

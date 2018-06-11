@@ -57,9 +57,9 @@
         <item>Intervention diverse</item>
     </string-array>
 
-    <array name="care_duration">
-        <item>10</item>
-        <item>25</item>
-    </array>
+    <string-array name="care_duration">
+        <item>10 min</item>
+        <item>25 min</item>
+    </string-array>
 
 </resources>
