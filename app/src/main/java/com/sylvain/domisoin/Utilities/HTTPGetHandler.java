@@ -31,8 +31,8 @@ public class HTTPGetHandler {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(50000);
+            conn.setConnectTimeout(50000);
             //conn.addRequestProperty("Content-Type", "application/json");
             //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty("Content-Type", "application/json");

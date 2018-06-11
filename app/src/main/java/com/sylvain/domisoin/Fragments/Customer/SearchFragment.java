@@ -321,6 +321,11 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 pro.setEvents(tmp.getString("events"));
                 pro.setLat(tmp.getString("lat"));
                 pro.setLng(tmp.getString("lng"));
+                pro.setWorking_day(tmp.getJSONArray("day_offs"));
+                pro.setSpeciality(tmp.getString("speciality"));
+                pro.setStart_working_hour(tmp.getString("start_working_hour"));
+                pro.setEnd_working_hour(tmp.getString("end_working_hour"));
+                pro.setAdeli(tmp.getString("adeli"));
                 list_pro.add(pro);
                 mMap.addMarker(new MarkerOptions()
                         .title(pro.first_name + pro.last_name)

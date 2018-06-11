@@ -7,6 +7,8 @@ import android.util.Log;
 
 import org.json.JSONArray;
 
+import java.util.Hashtable;
+
 public class userInfo {
     private static final String TAG = userInfo.class.getSimpleName();
 
@@ -41,6 +43,8 @@ public class userInfo {
 
     public ObservableField<String> pro_spec = new ObservableField<>();
 
+    public Hashtable<Integer, String> weeks = null;
+
     public userInfo() {
         account.set("You are in account section.");
         planning.set("Pas de rendez-vous prévu.");
@@ -72,6 +76,18 @@ public class userInfo {
         lat.set("48.866667");
         lng.set("2.333333");
         pro_spec.set("Généraliste");
+
+        // SET WEEKS DICT
+        weeks = new Hashtable<Integer, String>();
+        weeks.put(1, "Lundi");
+        weeks.put(2, "Mardi");
+        weeks.put(3, "Mercredi");
+        weeks.put(4, "Jeudi");
+        weeks.put(5, "Vendredi");
+        weeks.put(6, "Samedi");
+        weeks.put(7, "Dimanche");
+
+
     }
 
     public TextWatcher watcher = new TextWatcher() {

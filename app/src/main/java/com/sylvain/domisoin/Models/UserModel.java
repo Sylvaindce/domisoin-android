@@ -19,8 +19,13 @@ public class UserModel {
     public Boolean is_pro = null;
     public String events = null;
     public JSONArray json_event = null;
+    public JSONArray working_day = null;
     public String lat = null;
     public String lng = null;
+    public String start_working_hour = null;
+    public String end_working_hour = null;
+    public String speciality = null;
+    public String adeli = null;
 
     public void setId(String id) {
         this.id = id;
@@ -127,4 +132,43 @@ public class UserModel {
         this.lng = lng;
     }
 
+    public JSONArray getWorking_day() {
+        return working_day;
+    }
+
+    public void setWorking_day(JSONArray wk) {
+        this.working_day = wk;
+    }
+
+    public String getEnd_working_hour() {
+        return end_working_hour;
+    }
+
+    public String getStart_working_hour() {
+        return start_working_hour;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setEnd_working_hour(String end_working_hour) {
+        this.end_working_hour = end_working_hour;
+    }
+
+    public void setStart_working_hour(String start_working_hour) {
+        this.start_working_hour = start_working_hour;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getAdeli() {
+        return adeli;
+    }
+
+    public void setAdeli(String adeli) {
+        this.adeli = adeli;
+    }
 }

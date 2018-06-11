@@ -83,6 +83,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
     private String mToken = null;
     private LinearLayout pro_buttons = null;
 
+
     public ProMore(){}
 
     @SuppressLint("ValidFragment")
@@ -124,6 +125,9 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
         close.setOnClickListener(this);
 
         datas = new LinkedHashMap<String, String>();
+
+        Log.d("Working Day", _user.getWorking_day().toString());
+        String[] test = _user.getWorking_day().toString().split("\",\"|\\[\"|\"\\]");
 
         return dialogFragment;
     }

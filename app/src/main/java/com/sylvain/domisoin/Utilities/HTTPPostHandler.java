@@ -57,8 +57,8 @@ public class HTTPPostHandler {
             //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(50000);
+            conn.setConnectTimeout(50000);
             //conn.setDoInput(true);
             conn.connect();
 
