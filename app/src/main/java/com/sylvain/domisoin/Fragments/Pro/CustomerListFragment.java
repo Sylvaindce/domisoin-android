@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     private CustomPatientListAdapter adapter = null;
     private ImageButton search_button = null;
     private EditText search_text = null;
+    private SwipeRefreshLayout swipeRefreshContainer = null;
 
     public CustomerListFragment() {
         // Required empty public constructor
@@ -89,8 +91,14 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
         myClientsListId = new LinkedList<String>();
         myClientsList = new LinkedList<UserModel>();
 
-        getClientsListId();
-        getClientsListFromAPI();
+        swipeRefreshContainer = (SwipeRefreshLayout) ourView.findViewById(R.id.swipeContainerClients);
+        swipeRefreshContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getClientsListId();
+                getClientsListFromAPI();
+            }
+        });
 
         //Log.d("CustomerList Frag", ourActivity.UserInfo.events.get());
 
@@ -101,12 +109,25 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(receiver, new IntentFilter(ACTION_FOR_INTENT_CALLBACK));
+        // Dismiss bug
+        if (progress != null) {
+            progress.dismiss();
+        }
+        getClientsListId();
+        getClientsListFromAPI();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+        }
     }
 
     private void getClientsListId() {
@@ -132,7 +153,6 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
 
     public void getClientsListFromAPI() {
         HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + "?is_pro=false", ourActivity.UserInfo.token.get());
-        //HTTPGetRequest task = new HTTPGetRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_base_url) + "patients/", ourActivity.UserInfo.token.get());
         task.execute();
         progress = ProgressDialog.show
                 (getActivity(), "Actualisation", "Mise à jour de la liste des clients en cours, merci de patienter...", true);
@@ -167,7 +187,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
             user.setJob_title(obj.getString("job_title"));
             user.setAddress(obj.getString("adresse"));
             user.setWorkphone(obj.getString("workphone"));
-            user.setProfile_img(obj.getString("profile_img"));
+            //user.setProfile_img(obj.getString("profile_img"));
             user.setIs_pro(obj.getBoolean("is_pro"));
             user.setEvents(obj.getString("events"));
         } catch (JSONException e) {
@@ -211,6 +231,7 @@ public class CustomerListFragment extends Fragment implements AdapterView.OnItem
             if (progress != null) {
                 progress.dismiss();
             }
+            swipeRefreshContainer.setRefreshing(false);
             String response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
             if (response == null) {
                 response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);

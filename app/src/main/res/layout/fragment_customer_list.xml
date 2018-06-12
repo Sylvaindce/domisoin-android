@@ -47,12 +47,19 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listView_Customer"
-            android:layout_weight="4"
-            android:background="#FFFFFF"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainerClients"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listView_Customer"
+                android:layout_weight="4"
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </FrameLayout>

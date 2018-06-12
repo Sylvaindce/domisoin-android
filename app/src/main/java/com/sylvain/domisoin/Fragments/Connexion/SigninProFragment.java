@@ -33,7 +33,7 @@ public class SigninProFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signinpro, container, false);
 
-        final TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
+        /*final TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
         SeekBar rdv_dur_sb = (SeekBar) view.findViewById(R.id.rdv_dur_sb);
 
         rdv_dur_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -129,7 +129,7 @@ public class SigninProFragment extends Fragment {
 
                 Log.d("Calcul", String.valueOf(minValue.intValue()%60));
                 Log.d("Calcul", String.valueOf(minValue.intValue()/60));
-                Log.d("Values ", minValue.toString() +" " + maxValue.toString());
+                Log.d("Values ", minValue.toString() +" " + maxValue.toString());*/
 
 
                 /*if (minValue.intValue() == 1425) {
@@ -145,7 +145,7 @@ public class SigninProFragment extends Fragment {
                     min_minutes_str = String.valueOf(min_minutes);
                     if (min_minutes <= 0)
                         min_minutes_str = "0"+String.valueOf(min_minutes);
-                }*/
+                }
 
                 begin_hour.setText(String.valueOf(min_hours)+":"+min_minutes_str);
                 end_hour.setText(String.valueOf(max_hours)+":"+max_minutes_str);
@@ -158,7 +158,7 @@ public class SigninProFragment extends Fragment {
             public void finalValue(Number minValue, Number maxValue) {
                 Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
             }
-        });
+        });*/
 
 
         return view;

@@ -47,11 +47,11 @@
                     android:src="@drawable/domisoin_font_n" />
 
                 <android.support.v7.widget.AppCompatImageButton
-                    android:layout_height="match_parent"
+                    android:id="@+id/deconnexion_button_customer"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:background="#FFFFFF"
-                    android:id="@+id/deconnexion_button_customer"
                     android:src="@drawable/ic_power_settings_new_black_24dp" />
 
             </android.support.v7.widget.LinearLayoutCompat>
@@ -83,9 +83,10 @@
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <FrameLayout
+            android:id="@+id/bottom_sheet_chat_settings_customer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bottom_sheet_chat_settings_customer">
+            android:layout_height="wrap_content">
+
         </FrameLayout>
 
     </RelativeLayout>
@@ -96,10 +97,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:visibility="invisible"
         android:src="@drawable/ic_settings_white_24dp"
+        android:visibility="invisible"
         app:layout_anchor="@id/bottom_sheet_customer"
-        app:layout_anchorGravity="top|end"/>
+        app:layout_anchorGravity="top|end" />
 
 </android.support.design.widget.CoordinatorLayout>
 

@@ -390,13 +390,13 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 Log.d(TAG, String.valueOf(day_offs));
 
                 //OPEN HOURS
-                begin_working_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
+                /*begin_working_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
                 end_working_hour = (TextView) view.findViewById(R.id.end_hour_pro);
-                Log.d(TAG, begin_working_hour.getText().toString() + " " + end_working_hour.getText().toString());
+                Log.d(TAG, begin_working_hour.getText().toString() + " " + end_working_hour.getText().toString());*/
 
                 //Duration
-                rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
-                Log.d(TAG, rdv_dur_txt.getText().toString());
+                /*rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
+                Log.d(TAG, rdv_dur_txt.getText().toString());*/
             default:
                 break;
         }

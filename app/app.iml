@@ -131,12 +131,14 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-impl-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-appinvite-10.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-solver:1.1.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-fitness-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-messaging-10.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-wearable-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-24.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-crash-10.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.databinding:baseLibrary:3.0.1@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:runner-0.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation-1.0.2" level="project" />

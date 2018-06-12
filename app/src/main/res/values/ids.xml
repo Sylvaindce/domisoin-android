@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="workhour_title_lundi" type="id"/>
+    <item name="workhour_title_mardi" type="id"/>
+    <item name="workhour_title_mercredi" type="id"/>
+    <item name="workhour_title_jeudi" type="id"/>
+    <item name="workhour_title_vendredi" type="id"/>
+    <item name="workhour_title_samedi" type="id"/>
+    <item name="workhour_title_dimanche" type="id"/>
+</resources>
