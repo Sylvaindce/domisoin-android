@@ -14,14 +14,39 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="X"
+                android:textStyle="bold"
+                android:textColor="@color/whitegray"
+                android:gravity="center|end"
+                android:paddingRight="26dp"
+                android:paddingEnd="26dp"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/close_showWD"
+                style="?android:attr/borderlessButtonStyle"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Lundi"
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_lundi"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_lundi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -30,7 +55,19 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_mardi"
                 />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_mardi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -39,7 +76,19 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_mercredi"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_mercredi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -48,7 +97,19 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_jeudi"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_jeudi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +117,19 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_vendredi"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_vendredi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +137,18 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_samedi"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_samedi"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,7 +157,18 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
+                android:id="@+id/show_title_dimanche"
                 />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/show_desc_dimanche"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:text="Je ne travaille pas"
+                android:textAlignment="center"
+                android:textColor="@color/grey42"/>
 
         </LinearLayout>
 

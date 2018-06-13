@@ -78,6 +78,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     private LinearLayout not_validate_container = null;
     private Integer number_validate_rdv = 0;
     private Button showWD = null;
+    private RelativeLayout containerShowWD = null;
 
     public PlanningProFragment() {
         // Required empty public constructor
@@ -118,8 +119,11 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         not_validate_container = (LinearLayout)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_container_pro);
         not_validate_number = (TextView)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_number_pro);
 
+        containerShowWD = (RelativeLayout)fragmentPlanningProBinding.getRoot().findViewById(R.id.button_wd_container);
+
         showWD = (Button) fragmentPlanningProBinding.getRoot().findViewById(R.id.showmywkh);
         showWD.setOnClickListener(this);
+        //showWD.setStateListAnimator(null);
 
         setPlanningMap();
 
@@ -178,9 +182,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
         number_validate_rdv = 0;
         not_validate_container.setVisibility(View.GONE);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) showWD.getLayoutParams();
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) containerShowWD.getLayoutParams();
         lp.setMargins(0,10,14,0);
-        showWD.setLayoutParams(lp);
+        containerShowWD.setLayoutParams(lp);
 
 
         try {
@@ -232,9 +236,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         if (number_validate_rdv > 0) {
             not_validate_number.setText(String.valueOf(number_validate_rdv));
             not_validate_container.setVisibility(View.VISIBLE);
-            lp = (RelativeLayout.LayoutParams) showWD.getLayoutParams();
+            lp = (RelativeLayout.LayoutParams) containerShowWD.getLayoutParams();
             lp.setMargins(0,44,14,0);
-            showWD.setLayoutParams(lp);
+            containerShowWD.setLayoutParams(lp);
         }
 
     }

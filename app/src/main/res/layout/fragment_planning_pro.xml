@@ -61,23 +61,35 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/showmywkh"
-                android:layout_marginTop="44dp"
-                android:layout_marginRight="14dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mes horaires"
-                android:textAlignment="textEnd"
-                android:gravity="end"
-                android:background="@color/whitegray"
-                />
+                android:layout_marginTop="44dp"
+                android:layout_marginRight="14dp"
+                android:id="@+id/button_wd_container"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/showmywkh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="Mes horaires"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@color/whitegray"
+                    style="?android:attr/borderlessButtonStyle"
+                    />
+
+
+            </RelativeLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipeContainerPro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/not_validate_container_pro">
+                android:layout_below="@id/button_wd_container">
 
                 <ExpandableListView
                     android:id="@+id/planning_pro"

@@ -21,9 +21,9 @@ public class ShowWorkingHourFragment extends DialogFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_working_hour, container, false);
 
-        Button close = (Button)view.findViewById(R.id.close_about);
+        Button close = (Button)view.findViewById(R.id.close_showWD);
         close.setOnClickListener(this);
 
         return view;
@@ -36,6 +36,8 @@ public class ShowWorkingHourFragment extends DialogFragment implements View.OnCl
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams windowParams = window.getAttributes();
         windowParams.dimAmount = 0.50f;
+        windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        windowParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         windowParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(windowParams);
     }
@@ -44,7 +46,7 @@ public class ShowWorkingHourFragment extends DialogFragment implements View.OnCl
     public void onClick(View view) {
 
         switch (view.getId()){
-            case R.id.close_about:
+            case R.id.close_showWD:
                 getDialog().dismiss();
                 break;
         }
