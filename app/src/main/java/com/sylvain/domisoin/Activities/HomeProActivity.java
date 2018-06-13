@@ -399,6 +399,16 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if (requestCode == 2)
+        {
+            UserInfo.calendar.set(data.getStringExtra("CalendarPro"));
+        }
+    }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -433,9 +443,12 @@ public class HomeProActivity extends AppCompatActivity implements View.OnClickLi
                 else if (Integer.decode(response_code) == 200) {
                     if (response.equals("{}\n")) {
                         Intent pro_config = new Intent(getBaseContext(), SetupProActivity.class);
-                        startActivity(pro_config);
+                        pro_config.putExtra("tokenPro", UserInfo.token.get());
+                        pro_config.putExtra("idPro", UserInfo.id.get());
+                        startActivityForResult(pro_config, 2);
+                    } else {
+                        UserInfo.calendar.set(response);
                     }
-                        Log.d("HomeProAct", response);
                 }
                 else if (Integer.decode(response_code) > 226 ) {
                     try {

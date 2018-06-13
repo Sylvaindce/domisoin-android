@@ -195,7 +195,7 @@
                             android:layout_margin="12dp"
                             android:background="@drawable/signin_rounded_button"
                             android:padding="6dp"
-                            android:text="Suivant"
+                            android:text="Valider"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
                             android:textStyle="bold" />

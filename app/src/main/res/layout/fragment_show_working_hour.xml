@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ourWhite"
+    tools:context="com.sylvain.domisoin.Dialogs.ShowWorkingHourFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lundi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mardi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mercredi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jeudi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vendredi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Samedi"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dimanche"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

@@ -1,7 +1,13 @@
 package com.sylvain.domisoin.Activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -19,10 +25,18 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsCares;
 import com.sylvain.domisoin.Fragments.Pro.Workday.WorkHourFragment;
 import com.sylvain.domisoin.R;
+import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
+import com.sylvain.domisoin.Utilities.HTTPGetRequest;
+import com.sylvain.domisoin.Utilities.HTTPPostRequest;
+import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
+import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,19 +44,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetupProActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
+public class SetupProActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+    private static final String TAG = SetupProActivity.class.getSimpleName();
+    private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_SETUP_PRO";
     private TabLayout tabLayout;
     public ViewPager viewPager;
     public SetupProActivity.ViewPagerAdapter adapter;
+    private ProgressDialog progress;
+    private String token = "";
+    private String pro_id = "";
 
-    private CheckBox lundi = null;
-    private CheckBox mardi = null;
-    private CheckBox mercredi = null;
-    private CheckBox jeudi = null;
-    private CheckBox vendredi = null;
-    private CheckBox samedi = null;
-    private CheckBox dimanche = null;
     private JSONObject hours_json = null;
 
     @Override
@@ -63,6 +76,14 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
         tabLayout = (TabLayout) findViewById(R.id.tabs_pro_hours);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        CheckBox lundi = null;
+        CheckBox mardi = null;
+        CheckBox mercredi = null;
+        CheckBox jeudi = null;
+        CheckBox vendredi = null;
+        CheckBox samedi = null;
+        CheckBox dimanche = null;
         lundi = (CheckBox)findViewById(R.id.wd0);
         lundi.setOnCheckedChangeListener(this);
         mardi = (CheckBox)findViewById(R.id.wd1);
@@ -84,6 +105,9 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
         }
         Button suivant = (Button) findViewById(R.id.next_pro_hour_button);
         suivant.setOnClickListener(this);
+
+        pro_id = getIntent().getStringExtra("idPro");
+        token = getIntent().getStringExtra("tokenPro");
     }
 
     @Override
@@ -143,6 +167,18 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
         TextView tabSeven = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabSeven.setText("D");
         tabLayout.getTabAt(6).setCustomView(tabSeven);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(receiver, new IntentFilter(ACTION_FOR_INTENT_CALLBACK));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @Override
@@ -228,9 +264,10 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
             case R.id.next_pro_hour_button:
                 if (doValidation()) {
                     Log.d("ProActivity + WD", hours_json.toString());
+                    HTTPPostRequest task = new HTTPPostRequest(this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + pro_id + "/calendar/", hours_json, token);
+                    task.execute();
+                    progress = ProgressDialog.show(this, "Validation", "Validation en cours, merci de patienter...", true);
                 }
-
-                //finish();
                 break;
         }
     }
@@ -325,7 +362,7 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
             else
                 mercredi.put("is_work", 0);
             mercredi.put("afternoon", mercredi_afternoon);
-            hours_json.put("wenesday", mercredi);
+            hours_json.put("wednesday", mercredi);
 
             // Jeudi
             wd = (CheckBox) findViewById(R.id.wd3);
@@ -354,7 +391,7 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
             else
                 jeudi.put("is_work", 0);
             jeudi.put("afternoon", jeudi_afternoon);
-            hours_json.put("thursay", jeudi);
+            hours_json.put("thursday", jeudi);
 
             // Vendredi
             wd = (CheckBox) findViewById(R.id.wd4);
@@ -451,7 +488,7 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
                         .setMessage("Il semblerait que vos horaires ne soient pas correctement renseignées. Veuillez-effectuer les modifications nécessaires.")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
+                                dialog.dismiss();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -505,4 +542,53 @@ public class SetupProActivity extends AppCompatActivity implements CompoundButto
             return mFragmentTitleList.get(position);
         }
     }
+
+    public void setIntentCallback(String response) {
+        Intent resIntent = new Intent();
+        resIntent.putExtra("CalendarPro", response);
+        setResult(2, resIntent);
+
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (progress != null) {
+                progress.dismiss();
+            }
+            String response = intent.getStringExtra(HTTPPostRequest.HTTP_RESPONSE);
+            if (response == null) {
+                response = intent.getStringExtra(HTTPGetRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPPutRequest.HTTP_RESPONSE);
+            } if (response == null) {
+                response = intent.getStringExtra(HTTPDeleteRequest.HTTP_RESPONSE);
+            }
+            Log.i(TAG, "RESPONSE = " + response);
+
+            if (response != null) {
+                String response_code = "400";
+                if (response.contains(" - ")) {
+                    response_code = response.split(" - ")[0];
+                    try {
+                        response = response.split(" - ")[1];
+                    } catch(ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, response);
+                    }
+                }
+                if (response.equals("0")) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Erreur de connexion au serveur, veuillez verifier votre connexion internet et essayer plus tard.", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else if (Integer.decode(response_code) > 226 ) {
+                    Toast toast = Toast.makeText(getBaseContext(), "Une erreur s'est produite, veuillez essayer de nouveau. (" + ManageErrorText.manage_my_error(response) + ")", Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    setIntentCallback(response);
+                    finish();
+                }
+            }
+        }
+    };
+
 }

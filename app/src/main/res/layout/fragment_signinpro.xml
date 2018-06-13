@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Quelles est sont vos dispo ?"
+                android:text="Plus que quelques détails"
                 android:textColor="#000000"
                 android:textSize="22sp" />
 
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Prenez une petite pause"
+                android:text="Un chouïa..."
                 android:textColor="#000000"
                 android:textSize="16sp" />
 

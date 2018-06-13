@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 
-public class PlanningProFragment extends Fragment implements ExpandableListView.OnChildClickListener {
+public class PlanningProFragment extends Fragment implements ExpandableListView.OnChildClickListener, View.OnClickListener {
 
     private static final String TAG = PlanningProFragment.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_PLANNING_PRO";
@@ -74,6 +74,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     private TextView not_validate_number = null;
     private LinearLayout not_validate_container = null;
     private Integer number_validate_rdv = 0;
+    private TextView showWD = null;
 
     public PlanningProFragment() {
         // Required empty public constructor
@@ -113,6 +114,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
         not_validate_container = (LinearLayout)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_container_pro);
         not_validate_number = (TextView)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_number_pro);
+
+        showWD = (TextView) fragmentPlanningProBinding.getRoot().findViewById(R.id.showmywkh);
+        showWD.setOnClickListener(this);
 
         setPlanningMap();
 
@@ -171,6 +175,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
         number_validate_rdv = 0;
         not_validate_container.setVisibility(View.GONE);
+
 
         try {
 
@@ -329,5 +334,14 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         dialog.set_apt(sapt);
         dialog.show(getFragmentManager(), "more");
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.showmywkh:
+                
+                break;
+        }
     }
 }

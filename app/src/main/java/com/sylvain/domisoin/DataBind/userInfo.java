@@ -7,6 +7,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 public class userInfo {
@@ -40,6 +41,7 @@ public class userInfo {
     public ObservableField<Integer> rayon = new ObservableField<Integer>();
     public ObservableField<String> lat = new ObservableField<String>();
     public ObservableField<String> lng = new ObservableField<String>();
+    public ObservableField<String> calendar = new ObservableField<String>();
 
     public ObservableField<String> pro_spec = new ObservableField<>();
 
@@ -86,6 +88,8 @@ public class userInfo {
         weeks.put(5, "Vendredi");
         weeks.put(6, "Samedi");
         weeks.put(7, "Dimanche");
+
+        calendar.set("{}\n");
 
 
     }

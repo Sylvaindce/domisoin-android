@@ -26,6 +26,7 @@ import com.google.firebase.auth.UserInfo;
 import com.sylvain.domisoin.Activities.ConnexionActivity;
 import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
+import com.sylvain.domisoin.Activities.SetupProActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.AboutFragment;
 import com.sylvain.domisoin.Dialogs.ModifyPwdDialog;
@@ -119,8 +120,12 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
                 dialog.show(getFragmentManager(), "about");
                 break;
             case R.id.modify_working_data:
-                ModifyWorkingData modifyWData = new ModifyWorkingData(UserInfo);
-                modifyWData.show(getFragmentManager(), "modifywd");
+                /*ModifyWorkingData modifyWData = new ModifyWorkingData(UserInfo);
+                modifyWData.show(getFragmentManager(), "modifywd");*/
+                Intent pro_config = new Intent(getContext(), SetupProActivity.class);
+                pro_config.putExtra("tokenPro", UserInfo.token.get());
+                pro_config.putExtra("idPro", UserInfo.id.get());
+                startActivityForResult(pro_config, 2);
                 break;
         }
     }
@@ -135,6 +140,17 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if (requestCode == 2)
+        {
+            UserInfo.calendar.set(data.getStringExtra("CalendarPro"));
+        }
     }
 
     public void setUserInfo(userInfo _User) {
