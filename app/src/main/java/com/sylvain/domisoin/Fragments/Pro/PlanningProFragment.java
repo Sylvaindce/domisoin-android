@@ -353,7 +353,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.showmywkh:
-                ShowWorkingHourFragment dialog = new ShowWorkingHourFragment();
+                ShowWorkingHourFragment dialog = new ShowWorkingHourFragment(UserInfo.calendar.get());
                 dialog.show(getFragmentManager(), "ShowWK");
                 break;
         }
