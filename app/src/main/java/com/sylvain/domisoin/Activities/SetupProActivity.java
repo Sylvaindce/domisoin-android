@@ -1,5 +1,7 @@
 package com.sylvain.domisoin.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,10 +24,13 @@ import com.sylvain.domisoin.Fragments.Customer.MoreProDetailsCares;
 import com.sylvain.domisoin.Fragments.Pro.Workday.WorkHourFragment;
 import com.sylvain.domisoin.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetupProActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class SetupProActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     private TabLayout tabLayout;
     public ViewPager viewPager;
@@ -38,6 +43,7 @@ public class SetupProActivity extends AppCompatActivity implements ViewPager.OnP
     private CheckBox vendredi = null;
     private CheckBox samedi = null;
     private CheckBox dimanche = null;
+    private JSONObject hours_json = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +111,6 @@ public class SetupProActivity extends AppCompatActivity implements ViewPager.OnP
         adapter.addFrag(t7, "WKD6");
 
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(this);
     }
 
     private void setupTabIcons() {
@@ -138,21 +143,6 @@ public class SetupProActivity extends AppCompatActivity implements ViewPager.OnP
         TextView tabSeven = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab_icon_text, null);
         tabSeven.setText("D");
         tabLayout.getTabAt(6).setCustomView(tabSeven);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 
     @Override
@@ -236,11 +226,254 @@ public class SetupProActivity extends AppCompatActivity implements ViewPager.OnP
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next_pro_hour_button:
-                TextView text = (TextView) findViewById(R.id.workhour_title_mardi);
-                Log.d("test", text.getText().toString());
-                finish();
+                if (doValidation()) {
+                    Log.d("ProActivity + WD", hours_json.toString());
+                }
+
+                //finish();
                 break;
         }
+    }
+
+    private Boolean doValidation() {
+        int errors = 0;
+        try {
+            hours_json = new JSONObject();
+
+            // Lundi
+            CheckBox wd = (CheckBox) findViewById(R.id.wd0);
+            TextView morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_lundi);
+            TextView morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_lundi);
+            TextView aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_lundi);
+            TextView aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_lundi);
+
+            JSONObject lundi = new JSONObject();
+            JSONObject lundi_morning = new JSONObject();
+            int start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            int end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            lundi_morning.put("start", start_morn);
+            lundi_morning.put("end", end_morn);
+            lundi.put("morning", lundi_morning);
+            JSONObject lundi_afternoon = new JSONObject();
+            int start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            int end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            lundi_afternoon.put("start", start_aft);
+            lundi_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                lundi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                lundi.put("is_work", 0);
+            lundi.put("afternoon", lundi_afternoon);
+            hours_json.put("monday", lundi);
+
+            // Mardi
+            wd = (CheckBox) findViewById(R.id.wd1);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_mardi);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_mardi);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_mardi);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_mardi);
+
+            JSONObject mardi = new JSONObject();
+            JSONObject mardi_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            mardi_morning.put("start", start_morn);
+            mardi_morning.put("end", end_morn);
+            mardi.put("morning", mardi_morning);
+            JSONObject mardi_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            mardi_afternoon.put("start",start_aft);
+            mardi_afternoon.put("end", end_aft);
+            mardi.put("afternoon", mardi_afternoon);
+            if (wd.isChecked()) {
+                mardi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                mardi.put("is_work", 0);
+            hours_json.put("tuesday", mardi);
+
+            // Mercredi
+            wd = (CheckBox) findViewById(R.id.wd2);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_mercredi);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_mercredi);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_mercredi);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_mercredi);
+
+            JSONObject mercredi = new JSONObject();
+            JSONObject mercredi_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            mercredi_morning.put("start", start_morn);
+            mercredi_morning.put("end", end_morn);
+            mercredi.put("morning", mercredi_morning);
+            JSONObject mercredi_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            mercredi_afternoon.put("start", start_aft);
+            mercredi_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                mercredi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                mercredi.put("is_work", 0);
+            mercredi.put("afternoon", mercredi_afternoon);
+            hours_json.put("wenesday", mercredi);
+
+            // Jeudi
+            wd = (CheckBox) findViewById(R.id.wd3);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_jeudi);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_jeudi);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_jeudi);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_jeudi);
+
+            JSONObject jeudi = new JSONObject();
+            JSONObject jeudi_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            jeudi_morning.put("start", start_morn);
+            jeudi_morning.put("end", end_morn);
+            jeudi.put("morning", jeudi_morning);
+            JSONObject jeudi_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            jeudi_afternoon.put("start", start_aft);
+            jeudi_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                jeudi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                jeudi.put("is_work", 0);
+            jeudi.put("afternoon", jeudi_afternoon);
+            hours_json.put("thursay", jeudi);
+
+            // Vendredi
+            wd = (CheckBox) findViewById(R.id.wd4);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_vendredi);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_vendredi);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_vendredi);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_vendredi);
+
+            JSONObject vendredi = new JSONObject();
+            JSONObject vendredi_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            vendredi_morning.put("start",start_morn);
+            vendredi_morning.put("end", end_morn);
+            vendredi.put("morning", vendredi_morning);
+            JSONObject vendredi_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            vendredi_afternoon.put("start", start_aft);
+            vendredi_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                vendredi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                vendredi.put("is_work", 0);
+            vendredi.put("afternoon", vendredi_afternoon);
+            hours_json.put("friday", vendredi);
+
+            // Samedi
+            wd = (CheckBox) findViewById(R.id.wd5);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_samedi);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_samedi);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_samedi);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_samedi);
+
+            JSONObject samedi = new JSONObject();
+
+            JSONObject samedi_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            samedi_morning.put("start", start_morn);
+            samedi_morning.put("end", end_morn);
+            samedi.put("morning", samedi_morning);
+            JSONObject samedi_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            samedi_afternoon.put("start", start_aft);
+            samedi_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                samedi.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                samedi.put("is_work", 0);
+            samedi.put("afternoon", samedi_afternoon);
+            hours_json.put("saturday", samedi);
+
+            // Dimanche
+            wd = (CheckBox) findViewById(R.id.wd6);
+            morning_st = (TextView) findViewById(R.id.workhour_hour_matin_begin_dimanche);
+            morning_end = (TextView) findViewById(R.id.workhour_hour_matin_end_dimanche);
+            aft_st = (TextView) findViewById(R.id.workhour_hour_midi_begin_dimanche);
+            aft_end = (TextView) findViewById(R.id.workhour_hour_midi_end_dimanche);
+
+            JSONObject dimanche = new JSONObject();
+            JSONObject dimanche_morning = new JSONObject();
+            start_morn = hourToMinute(morning_st.getText().toString().split(":")[0], morning_st.getText().toString().split(":")[1]);
+            end_morn = hourToMinute(morning_end.getText().toString().split(":")[0], morning_end.getText().toString().split(":")[1]);
+            dimanche_morning.put("start", start_morn);
+            dimanche_morning.put("end", end_morn);
+            dimanche.put("morning", dimanche_morning);
+            JSONObject dimanche_afternoon = new JSONObject();
+            start_aft = hourToMinute(aft_st.getText().toString().split(":")[0], aft_st.getText().toString().split(":")[1]);
+            end_aft = hourToMinute(aft_end.getText().toString().split(":")[0], aft_end.getText().toString().split(":")[1]);
+            dimanche_afternoon.put("start", start_aft);
+            dimanche_afternoon.put("end", end_aft);
+            if (wd.isChecked()) {
+                dimanche.put("is_work", 1);
+                if (start_aft < end_morn)
+                    ++errors;
+            }
+            else
+                dimanche.put("is_work", 0);
+            dimanche.put("afternoon", dimanche_afternoon);
+            hours_json.put("sunday", dimanche);
+
+            if (errors > 0) {
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("Oups")
+                        .setMessage("Il semblerait que vos horaires ne soient pas correctement renseignées. Veuillez-effectuer les modifications nécessaires.")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            } else {
+                return true;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private int hourToMinute(String hour, String minute) {
+        int houri = Integer.decode(hour);
+        int mini = Integer.decode(minute);
+
+        //int result = (int)Math.floor(houri * 60);
+        int result = houri * 60;
+        result = result + mini;
+        return result;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

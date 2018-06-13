@@ -31,10 +31,10 @@ public class HTTPPostRequest extends AsyncTask<String, Void, String> {
     private Context mContext = null;
     private String mAction = null;
     private String mURL = null;
-    private Map mData = null;
+    private JSONObject mData = null;
     private String mToken = null;
 
-    public HTTPPostRequest(Context context, String action, String url, Map data, String token) {
+    public HTTPPostRequest(Context context, String action, String url, JSONObject data, String token) {
         super();
         mContext = context;
         mAction = action;

@@ -22,6 +22,8 @@ public class ManageErrorText {
         error = error.replace("enter a valid email address", "Entrez une adresse mail valide");
         error = error.replace("Not found", "Non trouvé");
         error = error.replace("User Is Not Confirmed", "Compte utilisateur en attente de validation");
+        error = error.replace("Unable to login with provided credentials.", "Impossible de se connecter avec les informations d'identification fournies.");
+        error = error.replace("non_field_errors", "erreurs non liées au champ");
         error = error.replace("message", "");
         return error;
     }

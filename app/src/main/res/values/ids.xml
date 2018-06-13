@@ -7,4 +7,53 @@
     <item name="workhour_title_vendredi" type="id"/>
     <item name="workhour_title_samedi" type="id"/>
     <item name="workhour_title_dimanche" type="id"/>
+
+    <item name="workhour_seekbar_begin_lundi" type="id"/>
+    <item name="workhour_seekbar_begin_mardi" type="id"/>
+    <item name="workhour_seekbar_begin_mercredi" type="id"/>
+    <item name="workhour_seekbar_begin_jeudi" type="id"/>
+    <item name="workhour_seekbar_begin_vendredi" type="id"/>
+    <item name="workhour_seekbar_begin_samedi" type="id"/>
+    <item name="workhour_seekbar_begin_dimanche" type="id"/>
+
+    <item name="workhour_seekbar_end_lundi" type="id"/>
+    <item name="workhour_seekbar_end_mardi" type="id"/>
+    <item name="workhour_seekbar_end_mercredi" type="id"/>
+    <item name="workhour_seekbar_end_jeudi" type="id"/>
+    <item name="workhour_seekbar_end_vendredi" type="id"/>
+    <item name="workhour_seekbar_end_samedi" type="id"/>
+    <item name="workhour_seekbar_end_dimanche" type="id"/>
+
+    <item name="workhour_hour_matin_end_lundi" type="id"/>
+    <item name="workhour_hour_matin_end_mardi" type="id"/>
+    <item name="workhour_hour_matin_end_mercredi" type="id"/>
+    <item name="workhour_hour_matin_end_jeudi" type="id"/>
+    <item name="workhour_hour_matin_end_vendredi" type="id"/>
+    <item name="workhour_hour_matin_end_samedi" type="id"/>
+    <item name="workhour_hour_matin_end_dimanche" type="id"/>
+
+    <item name="workhour_hour_matin_begin_lundi" type="id"/>
+    <item name="workhour_hour_matin_begin_mardi" type="id"/>
+    <item name="workhour_hour_matin_begin_mercredi" type="id"/>
+    <item name="workhour_hour_matin_begin_jeudi" type="id"/>
+    <item name="workhour_hour_matin_begin_vendredi" type="id"/>
+    <item name="workhour_hour_matin_begin_samedi" type="id"/>
+    <item name="workhour_hour_matin_begin_dimanche" type="id"/>
+
+    <item name="workhour_hour_midi_end_lundi" type="id"/>
+    <item name="workhour_hour_midi_end_mardi" type="id"/>
+    <item name="workhour_hour_midi_end_mercredi" type="id"/>
+    <item name="workhour_hour_midi_end_jeudi" type="id"/>
+    <item name="workhour_hour_midi_end_vendredi" type="id"/>
+    <item name="workhour_hour_midi_end_samedi" type="id"/>
+    <item name="workhour_hour_midi_end_dimanche" type="id"/>
+
+    <item name="workhour_hour_midi_begin_lundi" type="id"/>
+    <item name="workhour_hour_midi_begin_mardi" type="id"/>
+    <item name="workhour_hour_midi_begin_mercredi" type="id"/>
+    <item name="workhour_hour_midi_begin_jeudi" type="id"/>
+    <item name="workhour_hour_midi_begin_vendredi" type="id"/>
+    <item name="workhour_hour_midi_begin_samedi" type="id"/>
+    <item name="workhour_hour_midi_begin_dimanche" type="id"/>
+
 </resources>

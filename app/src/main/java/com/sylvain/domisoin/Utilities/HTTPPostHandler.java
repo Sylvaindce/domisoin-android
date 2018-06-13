@@ -31,7 +31,7 @@ public class HTTPPostHandler {
     public HTTPPostHandler() {
     }
 
-    public String makeServiceCall(String reqUrl, Map data, String token) {
+    public String makeServiceCall(String reqUrl, JSONObject data, String token) {
         HttpURLConnection conn = null;
         String return_value = "0";
         try {
@@ -42,24 +42,77 @@ public class HTTPPostHandler {
 
             conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
             conn.setRequestProperty( "Content-Type", "application/json");
-            //conn.addRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
-            //conn.addRequestProperty( "Content-Type", "application/json");
             conn.setRequestProperty( "charset", "utf-8");
-            /*if (!token.isEmpty() || !token.equals("")) {
-                conn.setRequestProperty("Authorization", "JWT " + token);
-            }*/
+
 
             if (!token.isEmpty() || !token.equals("")) {
                 String headtok = "JWT" + '\u0020' + token;
                 conn.setRequestProperty("Authorization", headtok);
                 Log.d(TAG, headtok);
             }
-            //conn.addRequestProperty("Authorization", "JWT " + token);
 
             conn.setDoOutput(true);
             conn.setReadTimeout(50000);
             conn.setConnectTimeout(50000);
-            //conn.setDoInput(true);
+            conn.connect();
+
+            //Write
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(data.toString());
+            writer.close();
+            os.close();
+
+            return_value = String.valueOf(conn.getResponseCode());
+            if (Integer.decode(return_value) > 226) {
+                InputStream err = new BufferedInputStream(conn.getErrorStream());
+                return_value += " - " + convertStreamToString(err);
+            } else {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                return_value += " - " + convertStreamToString(in);
+            }
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (java.net.SocketTimeoutException e) {
+            Log.d(TAG, "TIMEOUT");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(conn != null)
+                conn.disconnect();
+        }
+        Log.d(TAG, return_value);
+        return return_value;
+    }
+
+    /*public String makeServiceCall(String reqUrl, Map data, String token) {
+        HttpURLConnection conn = null;
+        String return_value = "0";
+        try {
+            URL url = new URL(reqUrl);
+            conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+
+            conn.setRequestProperty("Accept", "application/vnd.domisoin.fr.api+json; version=1.0");
+            conn.setRequestProperty( "Content-Type", "application/json");
+            conn.setRequestProperty( "charset", "utf-8");
+
+
+            if (!token.isEmpty() || !token.equals("")) {
+                String headtok = "JWT" + '\u0020' + token;
+                conn.setRequestProperty("Authorization", headtok);
+                Log.d(TAG, headtok);
+            }
+
+            conn.setDoOutput(true);
+            conn.setReadTimeout(50000);
+            conn.setConnectTimeout(50000);
             conn.connect();
 
             JSONObject json = JsonUtils.mapToJson(data);
@@ -98,15 +151,6 @@ public class HTTPPostHandler {
                 return_value += " - " + convertStreamToString(in);
             }
 
-            /*BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
-            String line = null;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-            br.close();
-            //String result = sb.toString();
-            return_value = sb.toString();*/
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
@@ -123,7 +167,7 @@ public class HTTPPostHandler {
         }
         Log.d(TAG, return_value);
         return return_value;
-    }
+    }*/
 
     private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));

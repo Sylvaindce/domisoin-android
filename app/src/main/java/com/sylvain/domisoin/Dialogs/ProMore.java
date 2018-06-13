@@ -40,6 +40,7 @@ import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
@@ -221,7 +222,7 @@ public class ProMore extends DialogFragment implements View.OnClickListener, Vie
                         datas.put("end_date", ourEndDate); //modify
                         datas.put("location", "Paris, France"); //modify
 
-                        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), datas, mToken);
+                        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_events_url), JsonUtils.mapToJson(datas), mToken);
                         task.execute();
                         progress = ProgressDialog.show(getActivity(), "Reservation", "Reservation en cours, merci de patienter...", true);
                     }

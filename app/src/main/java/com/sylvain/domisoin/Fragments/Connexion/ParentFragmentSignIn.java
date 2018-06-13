@@ -35,6 +35,7 @@ import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import java.util.ArrayList;
@@ -272,7 +273,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
         }*/
 
-        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), datas, "");
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), JsonUtils.mapToJson(datas), "");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Création de l'utilisateur", "Création en cours, merci de patienter...", true);
     }

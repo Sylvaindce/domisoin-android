@@ -30,6 +30,7 @@ import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONException;
@@ -75,7 +76,7 @@ public class ConnexionActivity extends AppCompatActivity {
             datas.put("email", email);
             datas.put("password", password);
 
-            HTTPPostRequest task = new HTTPPostRequest(this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_login_url), datas, "");
+            HTTPPostRequest task = new HTTPPostRequest(this, ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_login_url), JsonUtils.mapToJson(datas), "");
             task.execute();
             progress = ProgressDialog.show(this, "Authentification", "Vérification en cours, merci de patienter...", true);
         } else {

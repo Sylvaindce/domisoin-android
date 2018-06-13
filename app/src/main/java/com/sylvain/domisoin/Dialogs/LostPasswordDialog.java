@@ -27,6 +27,7 @@ import com.sylvain.domisoin.Utilities.HTTPDeleteRequest;
 import com.sylvain.domisoin.Utilities.HTTPGetRequest;
 import com.sylvain.domisoin.Utilities.HTTPPostRequest;
 import com.sylvain.domisoin.Utilities.HTTPPutRequest;
+import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
 import org.json.JSONArray;
@@ -107,7 +108,7 @@ public class LostPasswordDialog extends DialogFragment implements View.OnClickLi
     private void do_http(){
         datas.put("email", String.valueOf(email.getText()));
 
-        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_lost_password_url), datas, "");
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_lost_password_url), JsonUtils.mapToJson(datas), "");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Réinitialisation de votre mot de passe", "Réinitialisation de votre mot de passe, merci de patienter...", true);
     }
