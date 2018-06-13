@@ -61,15 +61,16 @@
 
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/showmywkh"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="44dp"
                 android:layout_marginRight="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mes horaires"
                 android:textAlignment="textEnd"
                 android:gravity="end"
+                android:background="@color/whitegray"
                 />
 
             <android.support.v4.widget.SwipeRefreshLayout

@@ -18,9 +18,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.sylvain.domisoin.Activities.HomeCustomerActivity;
 import com.sylvain.domisoin.Activities.HomeProActivity;
 import com.sylvain.domisoin.DataBind.userInfo;
 import com.sylvain.domisoin.Dialogs.AppointmentMore;
+import com.sylvain.domisoin.Dialogs.ShowWorkingHourFragment;
 import com.sylvain.domisoin.Fragments.Customer.PlanningFragment;
 import com.sylvain.domisoin.Models.AppointmentModel;
 import com.sylvain.domisoin.R;
@@ -74,7 +77,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     private TextView not_validate_number = null;
     private LinearLayout not_validate_container = null;
     private Integer number_validate_rdv = 0;
-    private TextView showWD = null;
+    private Button showWD = null;
 
     public PlanningProFragment() {
         // Required empty public constructor
@@ -115,7 +118,7 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         not_validate_container = (LinearLayout)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_container_pro);
         not_validate_number = (TextView)fragmentPlanningProBinding.getRoot().findViewById(R.id.not_validate_number_pro);
 
-        showWD = (TextView) fragmentPlanningProBinding.getRoot().findViewById(R.id.showmywkh);
+        showWD = (Button) fragmentPlanningProBinding.getRoot().findViewById(R.id.showmywkh);
         showWD.setOnClickListener(this);
 
         setPlanningMap();
@@ -175,6 +178,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
 
         number_validate_rdv = 0;
         not_validate_container.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) showWD.getLayoutParams();
+        lp.setMargins(0,10,14,0);
+        showWD.setLayoutParams(lp);
 
 
         try {
@@ -226,6 +232,9 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
         if (number_validate_rdv > 0) {
             not_validate_number.setText(String.valueOf(number_validate_rdv));
             not_validate_container.setVisibility(View.VISIBLE);
+            lp = (RelativeLayout.LayoutParams) showWD.getLayoutParams();
+            lp.setMargins(0,44,14,0);
+            showWD.setLayoutParams(lp);
         }
 
     }
@@ -340,7 +349,8 @@ public class PlanningProFragment extends Fragment implements ExpandableListView.
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.showmywkh:
-                
+                ShowWorkingHourFragment dialog = new ShowWorkingHourFragment();
+                dialog.show(getFragmentManager(), "ShowWK");
                 break;
         }
     }
