@@ -253,15 +253,20 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
         //add pro data if pro
         if (!pro_patient) {
-            datas.put("job_title", String.valueOf(String.valueOf(job_pro.getSelectedItem())));
 
-            datas.put("day_offs", String.valueOf(day_offs));
-            datas.put("event_duration", rdv_dur_txt.getText().toString());
+            datas.put("job_title", String.valueOf(String.valueOf(job_pro.getSelectedItem())));
+            /*day_offs = new LinkedList<Integer>();
+            day_offs.add(1);
+            day_offs.add(2);
+            Log.d("TOTO day_off", day_offs.toString());
+            datas.put("day_offs", day_offs.toString());*/
+
+            datas.put("event_duration", "15");
             datas.put("adeli", adeli.getText().toString());
-            datas.put("start_working_hour", begin_working_hour.getText().toString().split(":")[0]);
-            datas.put("start_working_minutes", begin_working_hour.getText().toString().split(":")[1]);
-            datas.put("end_working_hour", end_working_hour.getText().toString().split(":")[0]);
-            datas.put("end_working_minutes", end_working_hour.getText().toString().split(":")[1]);
+            datas.put("start_working_hour", "8");
+            //datas.put("start_working_minutes", );
+            datas.put("end_working_hour", "18");
+            //datas.put("end_working_minutes", end_working_hour.getText().toString().split(":")[1]);
             datas.put("is_pro", "1");
         } else {
             datas.put("job_title", String.valueOf(job.getText()));
@@ -348,7 +353,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 Log.d(TAG, adeli.getText().toString());
 
                 //WORKING DAY BEGIN
-                wd0 = (CheckBox)view.findViewById(R.id.wd0);
+                /*wd0 = (CheckBox)view.findViewById(R.id.wd0);
                 wd1 = (CheckBox)view.findViewById(R.id.wd1);
                 wd2 = (CheckBox)view.findViewById(R.id.wd2);
                 wd3 = (CheckBox)view.findViewById(R.id.wd3);
@@ -388,7 +393,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 /*if (!day_offs.endsWith(","))
                     day_offs = day_offs.substring(0, day_offs.length() - 1);
                 day_offs += "]";*/
-                Log.d(TAG, String.valueOf(day_offs));
+                //Log.d(TAG, String.valueOf(day_offs));
 
                 //OPEN HOURS
                 /*begin_working_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
