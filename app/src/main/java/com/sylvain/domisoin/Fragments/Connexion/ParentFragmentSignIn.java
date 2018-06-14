@@ -38,6 +38,8 @@ import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -199,7 +201,11 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 }else if (pos == vAdapter.getCount()-1) {
                     //add verif
                     if (editTextVerification(pager.getCurrentItem())) {
-                        getAlldata();
+                        try {
+                            getAlldata();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 break;
@@ -246,7 +252,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
     }
 
-    private void getAlldata() {
+    private void getAlldata() throws JSONException {
         datas.put("email", String.valueOf(email.getText()));
         datas.put("first_name", String.valueOf(first_name.getText()));
         datas.put("last_name", String.valueOf(last_name.getText()));
@@ -277,14 +283,116 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             datas.put("day_offs", "[]");
         }
 
+        JSONObject res = JsonUtils.mapToJson(datas);
+
+        if (!pro_patient) {
+            JSONArray json_array_cares = new JSONArray();
+            String pro_job = job_pro.getSelectedItem().toString();
+            switch (pro_job) {
+                case "Infirmier":
+                    TextView duration_prisedesang = (TextView) view.findViewById(R.id.duration_prisedesang);
+                    String dur_1 = duration_prisedesang.getText().toString();
+                    TextView duration_toilettes = (TextView) view.findViewById(R.id.duration_toilettes);
+                    String dur_2 = duration_toilettes.getText().toString();
+                    TextView duration_pansements = (TextView) view.findViewById(R.id.duration_pansement);
+                    String dur_3 = duration_pansements.getText().toString();
+                    TextView duration_injection = (TextView) view.findViewById(R.id.duration_injection);
+                    String dur_4 = duration_injection.getText().toString();
+
+                    String[] ids = getResources().getStringArray(R.array.care_id_infirmier);
+                    if (!dur_1.equals("0 min")){
+                        JSONObject dur1 = new JSONObject();
+                        dur1.put("id", ids[0]);
+                        dur1.put("duration", Integer.valueOf(dur_1.replace(" min", "")));
+                        json_array_cares.put(dur1);
+                    }
+                    if (!dur_2.equals("0 min")) {
+                        JSONObject dur2 = new JSONObject();
+                        dur2.put("id", ids[1]);
+                        dur2.put("duration", Integer.valueOf(dur_2.replace(" min", "")));
+                        json_array_cares.put(dur2);
+                    }
+                    if (!dur_3.equals("0 min")) {
+                        JSONObject dur3 = new JSONObject();
+                        dur3.put("id", ids[2]);
+                        dur3.put("duration", Integer.valueOf(dur_3.replace(" min", "")));
+                        json_array_cares.put(dur3);
+                    }
+                    if (!dur_4.equals("0 min")) {
+                        JSONObject dur4 = new JSONObject();
+                        dur4.put("id", ids[3]);
+                        dur4.put("duration", Integer.valueOf(dur_4.replace(" min", "")));
+                        json_array_cares.put(dur4);
+                    }
+
+                    break;
+                case "Pédiatre":
+                    TextView duration_bilandesante = (TextView) view.findViewById(R.id.duration_bilandesante);
+                    dur_1 = duration_bilandesante.getText().toString();
+                    TextView duration_desencombrement = (TextView) view.findViewById(R.id.duration_desencombrement);
+                    dur_2 = duration_desencombrement.getText().toString();
+                    TextView duration_medecinegenerale = (TextView) view.findViewById(R.id.duration_medecinegenerale);
+                    dur_3 = duration_medecinegenerale.getText().toString();
+
+                    ids = getResources().getStringArray(R.array.care_id_pediatre);
+                    if (!dur_1.equals("0 min")){
+                        JSONObject dur1 = new JSONObject();
+                        dur1.put("id", ids[0]);
+                        dur1.put("duration", Integer.valueOf(dur_1.replace(" min", "")));
+                        json_array_cares.put(dur1);
+                    }
+                    if (!dur_2.equals("0 min")) {
+                        JSONObject dur2 = new JSONObject();
+                        dur2.put("id", ids[1]);
+                        dur2.put("duration", Integer.valueOf(dur_2.replace(" min", "")));
+                        json_array_cares.put(dur2);
+                    }
+                    if (!dur_3.equals("0 min")) {
+                        JSONObject dur3 = new JSONObject();
+                        dur3.put("id", ids[2]);
+                        dur3.put("duration", Integer.valueOf(dur_3.replace(" min", "")));
+                        json_array_cares.put(dur3);
+                    }
+
+                    break;
+                case "Kinésithérapeute":
+                    TextView duration_reeducation = (TextView) view.findViewById(R.id.duration_reeducation);
+                    dur_1 = duration_reeducation.getText().toString();
+
+                    TextView duration_medecinedusport = (TextView) view.findViewById(R.id.duration_medecinedusport);
+                    dur_2 = duration_medecinedusport.getText().toString();
+
+                    TextView duration_mobilisation = (TextView) view.findViewById(R.id.duration_mobilisation);
+                    dur_3 = duration_mobilisation.getText().toString();
+                    ids = getResources().getStringArray(R.array.care_id_kinésithérapeuthe);
+                    if (!dur_1.equals("0 min")){
+                        JSONObject dur1 = new JSONObject();
+                        dur1.put("id", ids[0]);
+                        dur1.put("duration", Integer.valueOf(dur_1.replace(" min", "")));
+                        json_array_cares.put(dur1);
+                    }
+                    if (!dur_2.equals("0 min")) {
+                        JSONObject dur2 = new JSONObject();
+                        dur2.put("id", ids[1]);
+                        dur2.put("duration", Integer.valueOf(dur_2.replace(" min", "")));
+                        json_array_cares.put(dur2);
+                    }
+                    if (!dur_3.equals("0 min")) {
+                        JSONObject dur3 = new JSONObject();
+                        dur3.put("id", ids[2]);
+                        dur3.put("duration", Integer.valueOf(dur_3.replace(" min", "")));
+                        json_array_cares.put(dur3);
+                    }
+                    break;
+            }
+            res.put("cares", json_array_cares);
+            Log.d("JSON_RESUME", res.toString());
+        }
         /*for(int i = 0; i < datas.size(); ++i) {
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
         }*/
 
-        JSONObject res = JsonUtils.mapToJson(datas);
-
-
-        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), JsonUtils.mapToJson(datas), "");
+        HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), res, "");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Création de l'utilisateur", "Création en cours, merci de patienter...", true);
     }
@@ -355,6 +463,85 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                     adeli.setError("Mauvais numéro ADELI");
                     versul = false;
                 }
+                String pro_job = job_pro.getSelectedItem().toString();
+                EditText care_title = (EditText) view.findViewById(R.id.cares_title_signin);
+                switch (pro_job) {
+                    case "Infirmier":
+                        TextView duration_prisedesang = (TextView)view.findViewById(R.id.duration_prisedesang);
+                        String dur_1 = duration_prisedesang.getText().toString();
+                        TextView duration_toilettes = (TextView)view.findViewById(R.id.duration_toilettes);
+                        String dur_2 = duration_toilettes.getText().toString();
+                        TextView duration_pansements = (TextView)view.findViewById(R.id.duration_pansement);
+                        String dur_3 = duration_pansements.getText().toString();
+                        TextView duration_injection = (TextView)view.findViewById(R.id.duration_injection);
+                        String dur_4 = duration_injection.getText().toString();
+                        int res = 0;
+                        if (dur_1.equals("0 min")){
+                            ++res;
+                        }
+                        if (dur_2.equals("0 min")) {
+                            ++res;
+                        }
+                        if (dur_3.equals("0 min")) {
+                            ++res;
+                        }
+                        if (dur_4.equals("0 min")) {
+                            ++res;
+                        }
+                        if (res == 4) {
+                            versul = false;
+                            care_title.setError("Veuillez choisir un type de soin au minimum.");
+                        }
+                        break;
+                    case "Pédiatre":
+                        TextView duration_bilandesante = (TextView)view.findViewById(R.id.duration_bilandesante);
+                        dur_1 = duration_bilandesante.getText().toString();
+                        TextView duration_desencombrement = (TextView)view.findViewById(R.id.duration_desencombrement);
+                        dur_2 = duration_desencombrement.getText().toString();
+                        TextView duration_medecinegenerale = (TextView)view.findViewById(R.id.duration_medecinegenerale);
+                        dur_3 = duration_medecinegenerale.getText().toString();
+
+                        res = 0;
+                        if (dur_1.equals("0 min")){
+                            ++res;
+                        }
+                        if (dur_2.equals("0 min")) {
+                            ++res;
+                        }
+                        if (dur_3.equals("0 min")) {
+                            ++res;
+                        }
+                        if (res == 3) {
+                            versul = false;
+                            care_title.setError("Veuillez choisir un type de soin au minimum.");
+                        }
+                        break;
+                    case "Kinésithérapeute":
+                        TextView duration_reeducation = (TextView)view.findViewById(R.id.duration_reeducation);
+                        dur_1 = duration_reeducation.getText().toString();
+
+                        TextView duration_medecinedusport = (TextView)view.findViewById(R.id.duration_medecinedusport);
+                        dur_2 = duration_medecinedusport.getText().toString();
+
+                        TextView duration_mobilisation = (TextView)view.findViewById(R.id.duration_mobilisation);
+                        dur_3 = duration_mobilisation.getText().toString();
+                        res = 0;
+                        if (dur_1.equals("0 min")){
+                            ++res;
+                        }
+                        if (dur_2.equals("0 min")) {
+                            ++res;
+                        }
+                        if (dur_3.equals("0 min")) {
+                            ++res;
+                        }
+                        if (res == 3) {
+                            versul = false;
+                            care_title.setError("Veuillez choisir un type de soin au minimum.");
+                        }
+                        break;
+                }
+
                 Log.d(TAG, adeli.getText().toString());
 
             default:

@@ -66,26 +66,28 @@ public class SigninProFragment extends Fragment implements SeekBar.OnSeekBarChan
     }
 
     private void manageView(String message) {
-        LinearLayout infirmier_container = (LinearLayout)view.findViewById(R.id.infirmier_care_container);
-        LinearLayout pediatre_container = (LinearLayout) view.findViewById(R.id.pediatre_care_container);
-        LinearLayout kine_container = (LinearLayout) view.findViewById(R.id.kine_care_container);
+        if (view != null) {
+            LinearLayout infirmier_container = (LinearLayout) view.findViewById(R.id.infirmier_care_container);
+            LinearLayout pediatre_container = (LinearLayout) view.findViewById(R.id.pediatre_care_container);
+            LinearLayout kine_container = (LinearLayout) view.findViewById(R.id.kine_care_container);
 
-        switch (message) {
-            case "Infirmier":
-                infirmier_container.setVisibility(View.VISIBLE);
-                pediatre_container.setVisibility(View.GONE);
-                kine_container.setVisibility(View.GONE);
-                break;
-            case "Pédiatre":
-                infirmier_container.setVisibility(View.GONE);
-                pediatre_container.setVisibility(View.VISIBLE);
-                kine_container.setVisibility(View.GONE);
-                break;
-            case "Kinésithérapeute":
-                infirmier_container.setVisibility(View.GONE);
-                pediatre_container.setVisibility(View.GONE);
-                kine_container.setVisibility(View.VISIBLE);
-                break;
+            switch (message) {
+                case "Infirmier":
+                    infirmier_container.setVisibility(View.VISIBLE);
+                    pediatre_container.setVisibility(View.GONE);
+                    kine_container.setVisibility(View.GONE);
+                    break;
+                case "Pédiatre":
+                    infirmier_container.setVisibility(View.GONE);
+                    pediatre_container.setVisibility(View.VISIBLE);
+                    kine_container.setVisibility(View.GONE);
+                    break;
+                case "Kinésithérapeute":
+                    infirmier_container.setVisibility(View.GONE);
+                    pediatre_container.setVisibility(View.GONE);
+                    kine_container.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 
