@@ -264,12 +264,15 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         if (!pro_patient) {
 
             datas.put("job_title", String.valueOf(String.valueOf(job_pro.getSelectedItem())));
+            EditText spec = (EditText)view.findViewById(R.id.job_spec_pro);
             /*day_offs = new LinkedList<Integer>();
             day_offs.add(1);
             day_offs.add(2);
             Log.d("TOTO day_off", day_offs.toString());
             datas.put("day_offs", day_offs.toString());*/
 
+            if (!spec.getText().toString().equals(""))
+                datas.put("speciality", spec.getText().toString());
             datas.put("event_duration", "15");
             datas.put("adeli", adeli.getText().toString());
             datas.put("start_working_hour", "8");

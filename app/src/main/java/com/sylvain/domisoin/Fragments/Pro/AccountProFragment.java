@@ -57,6 +57,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
     private EditText account_workphone = null;
     private EditText account_email = null;
     private EditText account_address = null;
+    private EditText account_spec = null;
 
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
@@ -91,6 +92,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
         account_jobtitle = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_jobtitle_pro);
         account_workphone = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_workphone_pro);
         account_email = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_email_pro);
+        account_spec = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_jobspec_pro);
         //account_address = (EditText) fragmentProAccountBinding.getRoot().findViewById(R.id.account_address_pro);
 
         //UserInfo.jsonAnswer.set(getArguments().getString("infofrag"));
@@ -116,10 +118,11 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.account_modify_button_pro:
                 Log.d(TAG, "account modify info");
-                if (account_jobtitle.isEnabled()) {
+                if (account_spec.isEnabled()) {
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_create_black_24dp));
                     //account_jobtitle.setEnabled(false);
                     account_workphone.setEnabled(false);
+                    account_spec.setEnabled(false);
                     //account_email.setEnabled(false);
                     mAutocompleteTextView.setEnabled(false);
                     doUpdate();
@@ -127,6 +130,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
                     editInfo.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_black_24dp));
                     //account_jobtitle.setEnabled(true);
                     account_workphone.setEnabled(true);
+                    account_spec.setEnabled(true);
                     //account_email.setEnabled(true);
                     mAutocompleteTextView.setEnabled(true);
                 }
@@ -145,6 +149,7 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
                 newjson.put("workphone", account_workphone.getText());
                 //newjson.put("email", account_email.getText());
                 newjson.put("adresse", mAutocompleteTextView.getText());
+                newjson.put("speciality", account_spec.getText());
 
                 HTTPPutRequest task = new HTTPPutRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url) + newjson.get("id") + "/", newjson, UserInfo.token.get());
                 task.execute();
@@ -166,8 +171,12 @@ public class AccountProFragment extends Fragment implements View.OnClickListener
             account_workphone.setError("Un Numéro valide est requis");
             result = true;
         }
-        if( account_jobtitle.getText().toString().length() == 0 ) {
+        /*if( account_jobtitle.getText().toString().length() == 0 ) {
             account_jobtitle.setError("Une Profession valide est requise");
+            result = true;
+        }*/
+        if ( account_spec.getText().toString().length() < 2 ) {
+            account_spec.setError("Une spécialité est requise");
             result = true;
         }
         /*if (TextUtils.isEmpty(account_email.getText()) || !Patterns.EMAIL_ADDRESS.matcher(account_email.getText()).matches()) {
