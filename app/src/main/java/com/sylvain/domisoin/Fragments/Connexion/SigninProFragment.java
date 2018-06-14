@@ -33,6 +33,9 @@ public class SigninProFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signinpro, container, false);
 
+        //ParentFragmentSignIn our = (ParentFragmentSignIn) getParentFragment();
+
+
         /*final TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
         SeekBar rdv_dur_sb = (SeekBar) view.findViewById(R.id.rdv_dur_sb);
 
@@ -60,11 +63,11 @@ public class SigninProFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        });
+        });*/
 
 
 
-        com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar rangeSeekbar = (com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar);
+        /*com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar rangeSeekbar = (com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar);
         rangeSeekbar.setCornerRadius(10);
         rangeSeekbar.setMinValue(0);
         rangeSeekbar.setMaxValue(1439);
@@ -163,4 +166,10 @@ public class SigninProFragment extends Fragment {
 
         return view;
     }
+
+    protected void displayReceivedData(String message)
+    {
+        Log.d("SignInProFrag_Receive", message);
+    }
+
 }

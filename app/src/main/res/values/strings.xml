@@ -57,6 +57,44 @@
         <item>Intervention diverse</item>
     </string-array>
 
+    <string-array name="care_name_infirmier">
+        <item>Prise de sang</item>
+        <item>Toilettes</item>
+        <item>Pansement</item>
+        <item>Injection</item>
+    </string-array>
+
+    <string-array name="care_id_infirmier">
+        <item>220012b8-b677-4d98-b461-6e4fdbcf68e6</item>
+        <item>722d9ddf-285b-4d54-a1c8-e7ab6cca3372</item>
+        <item>dc57e014-8386-4feb-8b9e-1f0dbf3392b9</item>
+        <item>468cb9ea-a56b-4c4f-9974-dbfa3a62b62b</item>
+    </string-array>
+
+    <string-array name="care_name_pediatre">
+        <item>Bilan de santé</item>
+        <item>Désencombrement</item>
+        <item>Médecine générale</item>
+    </string-array>
+
+    <string-array name="care_id_pediatre">
+        <item>a25d1893-59df-44c9-b185-69c673253bcd</item>
+        <item>0eca7e31-f7b4-4b25-a084-a5a283dbfa14</item>
+        <item>8c89866e-8489-4d2a-8fff-70b3ff89cb49</item>
+    </string-array>
+
+    <string-array name="care_name_kinésithérapeuthe">
+        <item>Rééducation</item>
+        <item>Medecine du sport</item>
+        <item>Mobilisation des articulations</item>
+    </string-array>
+
+    <string-array name="care_id_kinésithérapeuthe">
+        <item>c1a86081-7bd4-44c6-9d42-aa6fb44750f7</item>
+        <item>392e2af5-593f-436b-9edd-96873c50979d</item>
+        <item>27202af7-4e0e-4987-bd90-bad5ce72ca24</item>
+    </string-array>
+
     <string-array name="care_duration">
         <item>10 min</item>
         <item>25 min</item>

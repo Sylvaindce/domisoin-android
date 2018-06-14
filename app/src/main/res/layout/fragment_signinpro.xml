@@ -59,6 +59,339 @@
                     android:singleLine="true"
                     android:textColor="#212121" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:text="Quels soins prodigues-tu ?" />
+
+                <!--Infirmier-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/infirmier_care_container"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Prise de sang"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_prisedesang"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_prisedesang"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Toilettes"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_toilettes"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_toilettes"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pansement"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_pansement"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_pansement"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Injection"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_injection"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_injection"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <!--Pediatre-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pediatre_care_container"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bilan de santé"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_bilandesante"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_bilandesante"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Désencombrement"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_desencombrement"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_desencombrement"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Médecine générale"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_medecinegenerale"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_medecinegenerale"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- kiné -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/kine_care_container"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rééducation"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_reeducation"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_reeducation"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Médecine du sport"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_medecinedusport"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_medecinedusport"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mobilisation des articulations"
+                        android:textColor="#b0bec5"
+                        android:paddingBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <android.support.v7.widget.AppCompatSeekBar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:max="120"
+                            android:id="@+id/seekbar_mobilisation"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 min"
+                            android:id="@+id/duration_mobilisation"
+                            android:layout_weight="0.8"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
                 <!--TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -328,7 +328,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, View
                 pro.setAdeli(tmp.getString("adeli"));
                 list_pro.add(pro);
                 mMap.addMarker(new MarkerOptions()
-                        .title(pro.first_name + pro.last_name)
+                        .title(pro.first_name + " " + pro.last_name)
                         .snippet(pro.job_title)
                         .position(new LatLng(Double.valueOf(pro.getLat()), Double.valueOf(pro.getLng())))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))

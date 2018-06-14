@@ -38,6 +38,8 @@ import com.sylvain.domisoin.Utilities.HTTPPutRequest;
 import com.sylvain.domisoin.Utilities.JsonUtils;
 import com.sylvain.domisoin.Utilities.ManageErrorText;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -48,7 +50,7 @@ import java.util.Map;
  * Created by Sylvain on 23/02/2017.
  */
 
-public class ParentFragmentSignIn extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class ParentFragmentSignIn extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener, NameSigninProFragment.SendMessage {
     private static final String TAG = ParentFragmentSignIn.class.getSimpleName();
     private static final String ACTION_FOR_INTENT_CALLBACK = "THIS_IS_A_UNIQUE_KEY_WE_USE_TO_SIGNIN";
 
@@ -179,6 +181,7 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
         viewPager.setAdapter(vAdapter);
         viewPager.setOffscreenPageLimit(vAdapter.getCount());
         viewPager.addOnPageChangeListener(this);
+
     }
 
     @Override
@@ -278,6 +281,9 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
             Log.d("ParentFragm ALL DATA", datas.keySet().toArray()[i] + " " + datas.values().toArray()[i]);
         }*/
 
+        JSONObject res = JsonUtils.mapToJson(datas);
+
+
         HTTPPostRequest task = new HTTPPostRequest(getActivity(), ACTION_FOR_INTENT_CALLBACK, getString(R.string.api_users_url), JsonUtils.mapToJson(datas), "");
         task.execute();
         progress = ProgressDialog.show(getActivity(), "Création de l'utilisateur", "Création en cours, merci de patienter...", true);
@@ -343,7 +349,6 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
 
             case 3:
                 versul = true;
-                Log.d(TAG, "JE SUIS ICI");
                 //ADELI
                 adeli = (EditText)view.findViewById(R.id.adeli);
                 if (adeli.getText().length() < 6) {
@@ -352,57 +357,6 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
                 }
                 Log.d(TAG, adeli.getText().toString());
 
-                //WORKING DAY BEGIN
-                /*wd0 = (CheckBox)view.findViewById(R.id.wd0);
-                wd1 = (CheckBox)view.findViewById(R.id.wd1);
-                wd2 = (CheckBox)view.findViewById(R.id.wd2);
-                wd3 = (CheckBox)view.findViewById(R.id.wd3);
-                wd4 = (CheckBox)view.findViewById(R.id.wd4);
-                wd5 = (CheckBox)view.findViewById(R.id.wd5);
-                wd6 = (CheckBox)view.findViewById(R.id.wd6);
-                day_offs = new LinkedList<Integer>();
-                //day_offs = "[";
-                if (!wd0.isChecked()) {
-                    //day_offs+="\"Lundi\",";
-                    day_offs.add(1);
-                }
-                if (!wd1.isChecked()) {
-                    //day_offs += "\"Mardi\",";
-                    day_offs.add(2);
-                }
-                if (!wd2.isChecked()) {
-                    //day_offs += "\"Mercredi\",";
-                    day_offs.add(3);
-                }
-                if (!wd3.isChecked()) {
-                    //day_offs += "\"Jeudi\",";
-                    day_offs.add(4);
-                }
-                if (!wd4.isChecked()) {
-                    //day_offs += "\"Vendredi\",";
-                    day_offs.add(5);
-                }
-                if (!wd5.isChecked()) {
-                    //day_offs += "\"Samedi\",";
-                    day_offs.add(6);
-                }
-                if (!wd6.isChecked()) {
-                    //day_offs += "\"Dimanche\"";
-                    day_offs.add(7);
-                }
-                /*if (!day_offs.endsWith(","))
-                    day_offs = day_offs.substring(0, day_offs.length() - 1);
-                day_offs += "]";*/
-                //Log.d(TAG, String.valueOf(day_offs));
-
-                //OPEN HOURS
-                /*begin_working_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
-                end_working_hour = (TextView) view.findViewById(R.id.end_hour_pro);
-                Log.d(TAG, begin_working_hour.getText().toString() + " " + end_working_hour.getText().toString());*/
-
-                //Duration
-                /*rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
-                Log.d(TAG, rdv_dur_txt.getText().toString());*/
             default:
                 break;
         }
@@ -413,6 +367,13 @@ public class ParentFragmentSignIn extends Fragment implements View.OnClickListen
     public void setPro_Patient(Boolean q) {
         pro_patient = q;
         Log.d("In Parent SignIn", String.valueOf(pro_patient));
+    }
+
+    @Override
+    public void sendData(String message) {
+        SigninProFragment f = (SigninProFragment) getActivity().getSupportFragmentManager().findFragmentByTag("pro");
+        f = (SigninProFragment) vAdapter.mFragmentList.get(3);
+        f.displayReceivedData(message);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

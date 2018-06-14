@@ -1,7 +1,9 @@
 package com.sylvain.domisoin.Fragments.Connexion;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.sylvain.domisoin.R;
 
 public class NameSigninProFragment extends Fragment {
 
+    private SendMessage SM;
     private View view = null;
 
     public NameSigninProFragment() {
@@ -38,4 +41,33 @@ public class NameSigninProFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            Log.d("NameSIgnInProFrag", "isVisible()");
+        }
+        else {
+            Log.d("NameSIgnInProFrag", "isNotVisible()");
+            if (SM != null)
+                SM.sendData("toto");
+        }
+    }
+
+    interface SendMessage {
+        void sendData(String message);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            SM = (SendMessage) getParentFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Error in retrieving data. Please try again");
+        }
+    }
+
 }
