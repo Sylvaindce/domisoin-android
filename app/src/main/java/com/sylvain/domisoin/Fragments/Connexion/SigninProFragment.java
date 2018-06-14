@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -16,7 +17,9 @@ import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListen
 import com.sylvain.domisoin.R;
 
 
-public class SigninProFragment extends Fragment {
+public class SigninProFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
+
+    private View view = null;
 
     public SigninProFragment() {
         // Required empty public constructor
@@ -31,145 +34,131 @@ public class SigninProFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_signinpro, container, false);
+        view = inflater.inflate(R.layout.fragment_signinpro, container, false);
 
-        //ParentFragmentSignIn our = (ParentFragmentSignIn) getParentFragment();
+        //Infirmier
+        SeekBar seekBar_prisedesang = (SeekBar) view.findViewById(R.id.seekbar_prisedesang);
+        seekBar_prisedesang.setOnSeekBarChangeListener(this);
+        SeekBar seekBar_toilettes = (SeekBar) view.findViewById(R.id.seekbar_toilettes);
+        seekBar_toilettes.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_pansement = (SeekBar) view.findViewById(R.id.seekbar_pansement);
+        seekbar_pansement.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_injection = (SeekBar) view.findViewById(R.id.seekbar_injection);
+        seekbar_injection.setOnSeekBarChangeListener(this);
 
+        //Pediatre
+        SeekBar seekbar_bilandesante = (SeekBar) view.findViewById(R.id.seekbar_bilandesante);
+        seekbar_bilandesante.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_desencombrement = (SeekBar) view.findViewById(R.id.seekbar_desencombrement);
+        seekbar_desencombrement.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_medecinegenerale = (SeekBar) view.findViewById(R.id.seekbar_medecinegenerale);
+        seekbar_medecinegenerale.setOnSeekBarChangeListener(this);
 
-        /*final TextView rdv_dur_txt = (TextView) view.findViewById(R.id.rdv_dur);
-        SeekBar rdv_dur_sb = (SeekBar) view.findViewById(R.id.rdv_dur_sb);
-
-        rdv_dur_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
-                int min = 15;
-                int ourv = value%15;
-                if (value<15)
-                    value = 15;
-                else if (ourv != 0) {
-                    int res = min - ourv;
-                    value = value+res;
-                }
-                Log.d("SeekBar", String.valueOf(value));
-                rdv_dur_txt.setText(String.valueOf(value));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });*/
-
-
-
-        /*com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar rangeSeekbar = (com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar) view.findViewById(R.id.rangeSeekbar);
-        rangeSeekbar.setCornerRadius(10);
-        rangeSeekbar.setMinValue(0);
-        rangeSeekbar.setMaxValue(1439);
-        rangeSeekbar.setGap(1);
-        // get min and max text view
-        final TextView begin_hour = (TextView) view.findViewById(R.id.begin_hour_pro);
-        final TextView end_hour = (TextView) view.findViewById(R.id.end_hour_pro);
-
-        rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
-            @Override
-            public void valueChanged(Number minValue, Number maxValue) {
-                final Integer pas_rdv = Integer.decode(String.valueOf(rdv_dur_txt.getText()));
-
-                int minv = minValue.intValue() % pas_rdv;
-                int min_result = minValue.intValue();
-                if(minValue.intValue()>= 1350 && minValue.intValue() <= 1425) {
-                    switch (pas_rdv) {
-                        case 30:
-                            if (minValue.intValue() >= 1410) {
-                                min_result = minValue.intValue() - 15;
-                                minv = min_result % pas_rdv;
-                            }
-                            break;
-                        case 45:
-                            if (minValue.intValue() >= 1395) {
-                                min_result = minValue.intValue() - 30;
-                                minv = min_result % pas_rdv;
-                            }
-                            break;
-                        case 60:
-                            if (minValue.intValue() >= 1380) {
-                                min_result = minValue.intValue() - 45;
-                                minv = min_result % pas_rdv;
-                            }
-                            break;
-                    }
-                }
-
-                Log.d("Pa sgn pro", String.valueOf(pas_rdv));
-                if(minv != 0) {
-                    int res = pas_rdv - minv;
-                    min_result = minValue.intValue() + res;
-                }
-                int min_hours = min_result / 60;
-                int min_minutes = (int) min_result % 60;
-                String min_minutes_str = String.valueOf(min_minutes);
-                if (min_minutes <= 0)
-                    min_minutes_str = "0"+String.valueOf(min_minutes);
-
-
-                int maxv = maxValue.intValue() % pas_rdv;
-                int max_result = maxValue.intValue();
-                if(maxv != 0) {
-                    int res2 = pas_rdv - maxv;
-                    max_result = maxValue.intValue() + res2;
-                }
-                int max_hours = max_result / 60;
-                int max_minutes = (int) max_result % 60;
-                String max_minutes_str = String.valueOf(max_minutes);
-                if (max_minutes <= 0)
-                    max_minutes_str = "0"+String.valueOf(max_minutes);
-
-                Log.d("Calcul", String.valueOf(minValue.intValue()%60));
-                Log.d("Calcul", String.valueOf(minValue.intValue()/60));
-                Log.d("Values ", minValue.toString() +" " + maxValue.toString());*/
-
-
-                /*if (minValue.intValue() == 1425) {
-                    Log.d("ICI", "equal");
-                    minv = (minValue.intValue()-pas_rdv) % pas_rdv;
-                    min_result = minValue.intValue()-pas_rdv;
-                    if(minv != 0) {
-                        int res = pas_rdv - minv;
-                        min_result = minValue.intValue() + res;
-                    }
-                    min_hours = min_result / 60;
-                    min_minutes = (int) min_result % 60;
-                    min_minutes_str = String.valueOf(min_minutes);
-                    if (min_minutes <= 0)
-                        min_minutes_str = "0"+String.valueOf(min_minutes);
-                }
-
-                begin_hour.setText(String.valueOf(min_hours)+":"+min_minutes_str);
-                end_hour.setText(String.valueOf(max_hours)+":"+max_minutes_str);
-            }
-        });
-
-
-        rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
-            @Override
-            public void finalValue(Number minValue, Number maxValue) {
-                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
-            }
-        });*/
-
+        //Kine
+        SeekBar seekbar_reeducation = (SeekBar) view.findViewById(R.id.seekbar_reeducation);
+        seekbar_reeducation.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_medecinedusport = (SeekBar) view.findViewById(R.id.seekbar_medecinedusport);
+        seekbar_medecinedusport.setOnSeekBarChangeListener(this);
+        SeekBar seekbar_mobilisation = (SeekBar) view.findViewById(R.id.seekbar_mobilisation);
+        seekbar_mobilisation.setOnSeekBarChangeListener(this);
 
         return view;
+    }
+
+    private void manageView(String message) {
+        LinearLayout infirmier_container = (LinearLayout)view.findViewById(R.id.infirmier_care_container);
+        LinearLayout pediatre_container = (LinearLayout) view.findViewById(R.id.pediatre_care_container);
+        LinearLayout kine_container = (LinearLayout) view.findViewById(R.id.kine_care_container);
+
+        switch (message) {
+            case "Infirmier":
+                infirmier_container.setVisibility(View.VISIBLE);
+                pediatre_container.setVisibility(View.GONE);
+                kine_container.setVisibility(View.GONE);
+                break;
+            case "Pédiatre":
+                infirmier_container.setVisibility(View.GONE);
+                pediatre_container.setVisibility(View.VISIBLE);
+                kine_container.setVisibility(View.GONE);
+                break;
+            case "Kinésithérapeute":
+                infirmier_container.setVisibility(View.GONE);
+                pediatre_container.setVisibility(View.GONE);
+                kine_container.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     protected void displayReceivedData(String message)
     {
         Log.d("SignInProFrag_Receive", message);
+        manageView(message);
     }
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
+        int min = 15;
+        int ourv = value % 15;
+        /*if (value < 15)
+            value = 15;*/
+        if (ourv != 0) {
+            int res = min - ourv;
+            value = value+res;
+        }
+        Log.d("SeekBar", String.valueOf(value));
+
+        switch (seekBar.getId()) {
+            case R.id.seekbar_prisedesang:
+                TextView duration_prisedesang = (TextView)view.findViewById(R.id.duration_prisedesang);
+                duration_prisedesang.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_toilettes:
+                TextView duration_toilettes = (TextView)view.findViewById(R.id.duration_toilettes);
+                duration_toilettes.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_pansement:
+                TextView duration_pansements = (TextView)view.findViewById(R.id.duration_pansement);
+                duration_pansements.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_injection:
+                TextView duration_injection = (TextView)view.findViewById(R.id.duration_injection);
+                duration_injection.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_bilandesante:
+                TextView duration_bilandesante = (TextView)view.findViewById(R.id.duration_bilandesante);
+                duration_bilandesante.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_desencombrement:
+                TextView duration_desencombrement = (TextView)view.findViewById(R.id.duration_desencombrement);
+                duration_desencombrement.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_medecinegenerale:
+                TextView duration_medecinegenerale = (TextView)view.findViewById(R.id.duration_medecinegenerale);
+                duration_medecinegenerale.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_reeducation:
+                TextView duration_reeducation = (TextView)view.findViewById(R.id.duration_reeducation);
+                duration_reeducation.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_medecinedusport:
+                TextView duration_medecinedusport = (TextView)view.findViewById(R.id.duration_medecinedusport);
+                duration_medecinedusport.setText(String.valueOf(value) + " min");
+                break;
+            case R.id.seekbar_mobilisation:
+                TextView duration_mobilisation = (TextView)view.findViewById(R.id.duration_mobilisation);
+                duration_mobilisation.setText(String.valueOf(value) + " min");
+                break;
+
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }

@@ -17,6 +17,7 @@ public class NameSigninProFragment extends Fragment {
 
     private SendMessage SM;
     private View view = null;
+    private Spinner spinner= null;
 
     public NameSigninProFragment() {
     }
@@ -33,7 +34,7 @@ public class NameSigninProFragment extends Fragment {
 
         EditText lastname = (EditText)view.findViewById(R.id.lastname_pro);
         lastname.requestFocus();
-        Spinner spinner = (Spinner) view.findViewById(R.id.job_pro);
+        spinner = (Spinner) view.findViewById(R.id.job_pro);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.jobs_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -50,8 +51,9 @@ public class NameSigninProFragment extends Fragment {
         }
         else {
             Log.d("NameSIgnInProFrag", "isNotVisible()");
-            if (SM != null)
-                SM.sendData("toto");
+            if (SM != null) {
+                SM.sendData(spinner.getSelectedItem().toString());
+            }
         }
     }
 
